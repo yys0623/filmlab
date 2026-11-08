@@ -38,23 +38,23 @@ STD는 **기종별 Panasonic Standard → V-Log/V-Gamut 변환 → 기존 V-Log 
 ## 개발 실행
 
 ```sh
-npm install
-npm run dev -- --port 4418
-npm test
-npm run build
-npm run verify:assets
+yarn install --frozen-lockfile
+yarn dev --port 4418
+yarn test
+yarn build
+yarn verify:assets
 ```
 
-Node.js 22.12 이상이 필요합니다. `scripts/run-web.mjs`는 지원되는 로컬 Node를 선택합니다. 개발 서버는 127.0.0.1에만 바인딩됩니다.
+Node.js 22.12 이상과 Yarn 1이 필요합니다. `scripts/run-web.mjs`는 지원되는 로컬 Node를 선택합니다. 개발 서버는 127.0.0.1에만 바인딩됩니다.
 
 Python 엔진은 spektrafilm 0.3.4, commit `3bb2c2d2801ff68b92019cf1dbcbb133d60832bc`에 고정됩니다. `pipeline/requirements.lock`은 검증한 macOS 의존성을 기록합니다. 기존 `.venv`를 사용하거나 `python3 scripts/bootstrap.py`로 준비합니다. 현행 카메라 STD 생성 명령과 구조는 [카메라 STD 문서](docs/camera-std.md)에 기록합니다. `pipeline/precurve.py`, `generate_precurve.py`, `jpg.py`, 이전 감사 스크립트는 과거 연구 기록이며 현행 서비스 생성 명령으로 사용하지 않습니다.
 
 ## 배포
 
 ```sh
-npm run build:cloudflare
-npm run preview:cloudflare -- --port 4419
-npm run deploy:cloudflare
+yarn build:cloudflare
+yarn preview:cloudflare --port 4419
+yarn deploy:cloudflare
 ```
 
 기본 배포 대상은 `wrangler.jsonc`의 `sosang` Worker이며 공개 주소는 **https://sosang.film-lab-jc.workers.dev/**입니다. 기존 `https://film-lab.film-lab-jc.workers.dev/`의 홈페이지 접속은 새 주소로 이동합니다. 기존 탭과 직접 연결한 파일 링크가 계속 동작하도록 구주소의 정적 자산과 `/api/locale`은 유지합니다. 구주소 운영은 `wrangler.legacy.jsonc`로 분리하며, 새 주소 검증 후 별도로 배포합니다. [주소 이전과 배포 순서](docs/cloudflare.md#주소-이전과-구주소-유지)

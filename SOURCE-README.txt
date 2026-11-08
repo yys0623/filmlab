@@ -12,10 +12,10 @@ FUJIFILM's original LUT data.
 
 Build the browser JavaScript and CSS
 -----------------------------------
-Install Node.js 22.12 or newer and npm. Extract this archive, enter the
+Install Node.js 22.12 or newer and Yarn 1. Extract this archive, enter the
 film-lab-source directory, and run:
 
-  npm ci
+  yarn install --frozen-lockfile
   node node_modules/typescript/bin/tsc -b
   node node_modules/vite/bin/vite.js build
 
@@ -44,11 +44,11 @@ copy that ZIP once and retain the catalog's encoding and transfer hash fields.
 Do not treat the ZIP as a raw .cube file or run pack-static.mjs on an already
 packed deployment. The public source download is /source/film-lab-source.tar.gz.
 
-The usual npm run build command additionally runs scripts/pack-static.mjs.
+The usual yarn build command additionally runs scripts/pack-static.mjs.
 That full authoring workflow expects the generated, unpacked public/ tree,
 including raw .cube files. Use the two build commands above when using the
-already packed runtime assets supplied by the public site. npm run dev and
-npm run preview can serve the application locally once the appropriate public/
+already packed runtime assets supplied by the public site. yarn dev and
+yarn preview can serve the application locally once the appropriate public/
 or dist/ runtime files have been supplied. See README.md for the full workflow.
 
 In this checkout, the Vite development server proxies runtime assets from the

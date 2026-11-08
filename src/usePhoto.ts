@@ -6,7 +6,7 @@ import type { Cube } from './lut'
 export type LookSource = Asset | { key: string; cube: Cube }
 const sourceKey = (source: LookSource) => 'cube' in source ? source.key : source.sha256
 
-export interface Photo { sample: Sample; pixels: Uint8ClampedArray<ArrayBuffer>; originalWidth: number; originalHeight: number }
+export interface Photo { sample: Sample; pixels: Uint8ClampedArray<ArrayBuffer>; originalWidth: number; originalHeight: number; file?: File }
 export const PHOTO_ACCEPT = 'image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp'
 const MAX_BYTES = 30 * 1024 * 1024
 const MAX_EDGE = 2048
@@ -52,7 +52,7 @@ export function usePhotoUpload(onSelected: () => void) {
       if (request !== sequence.current) return
       const path = URL.createObjectURL(blob)
       URL.revokeObjectURL(liveUrl.current); liveUrl.current = path
-      setPhoto({ sample: { id: `upload-${request}`, name: file.name, category: '내 사진 · STD 미리보기', credit: '내 기기에서 처리한 사진 · 서버 전송 없음', source: null, path, width: canvas.width, height: canvas.height, inputKind: 'uploaded-srgb', previewLut: 'std' }, pixels, originalWidth, originalHeight })
+      setPhoto({ sample: { id: `upload-${request}`, name: file.name, category: '내 사진 · STD 미리보기', credit: '내 기기에서 처리한 사진 · 서버 전송 없음', source: null, path, width: canvas.width, height: canvas.height, inputKind: 'uploaded-srgb', previewLut: 'std' }, pixels, originalWidth, originalHeight, file })
       onSelected()
     } catch (e) { if (request === sequence.current) setError(e instanceof Error ? e.message : '사진을 불러오지 못했습니다.') }
     finally { bitmap?.close(); if (request === sequence.current) setLoading(false) }
@@ -156,4 +156,37 @@ export function usePhotoLook(photo: Photo | null, asset: LookSource | undefined)
     }
   }, [photo, asset, request])
   return { path: key && state.request === request ? state.path : undefined, error: key && state.request === request ? state.error : undefined, retry: () => setAttempt(n => n + 1) }
+}
+
+/** Render an uploaded original at its decoded dimensions using the preview LUT. */
+export async function exportOriginalPhoto(photo: Photo | File, source: LookSource): Promise<Blob> {
+  const file = photo instanceof File ? photo : photo.file
+  if (!file) throw new Error('원본 사진을 찾을 수 없습니다.')
+  if (!/\.(jpe?g|png|webp)$/i.test(file.name) || (file.type && !['image/jpeg', 'image/png', 'image/webp'].includes(file.type))) throw new Error('JPG, PNG, WebP 사진을 선택해 주세요. HEIC·RAW는 JPG로 변환한 뒤 사용할 수 있습니다.')
+  if (!file.size || file.size > MAX_BYTES) throw new Error('사진 한 장은 30 MB까지 선택할 수 있습니다.')
+  const bitmap = await createImageBitmap(file, { imageOrientation: 'from-image' })
+  try {
+    if (bitmap.width * bitmap.height > 80_000_000) throw new Error('8,000만 화소 이하의 사진을 선택해 주세요.')
+    const canvas = document.createElement('canvas')
+    canvas.width = bitmap.width; canvas.height = bitmap.height
+    const context = canvas.getContext('2d', { colorSpace: 'srgb', willReadFrequently: true })
+    if (!context) throw new Error('이 브라우저에서 원본 사진을 처리하지 못했습니다.')
+    context.drawImage(bitmap, 0, 0)
+    const pixels = context.getImageData(0, 0, canvas.width, canvas.height).data
+    const worker = new Worker(new URL('./lut.worker.ts', import.meta.url), { type: 'module' })
+    try {
+      const result = await new Promise<Uint8ClampedArray<ArrayBuffer>>((resolve, reject) => {
+        worker.onmessage = (event: MessageEvent<{ pixels?: Uint8ClampedArray<ArrayBuffer>; error?: string }>) => {
+          if (event.data.error || !event.data.pixels) reject(new Error(event.data.error || '사진에 LUT를 적용하지 못했습니다.'))
+          else resolve(event.data.pixels)
+        }
+        worker.onerror = () => reject(new Error('LUT 처리 중 문제가 생겼습니다. 다시 시도해 주세요.'))
+        worker.postMessage('cube' in source ? { id: 1, pixels, cube: source.cube } : { id: 1, pixels, asset: source }, [pixels.buffer])
+      })
+      context.putImageData(new ImageData(result, canvas.width, canvas.height), 0, 0)
+      context.globalCompositeOperation = 'destination-over'
+      context.fillStyle = '#fff'; context.fillRect(0, 0, canvas.width, canvas.height)
+      return await new Promise<Blob>((resolve, reject) => canvas.toBlob(blob => blob ? resolve(blob) : reject(new Error('사진을 다운로드하지 못했습니다.')), 'image/jpeg', 1))
+    } finally { worker.terminate() }
+  } finally { bitmap.close() }
 }

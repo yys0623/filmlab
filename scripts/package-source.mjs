@@ -11,7 +11,7 @@ import { gzipSync } from 'node:zlib';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const destination = path.resolve(root, process.argv[2] || 'dist-cloudflare');
 const directories = ['src', 'server', 'tests', 'scripts', 'pipeline', 'licenses', 'docs', 'public/camera-adapters'];
-const requiredFiles = ['index.html', 'tsconfig.json', 'package.json', 'package-lock.json', 'vite.config.mjs', 'playwright.config.mjs', 'LICENSE', 'README.md'];
+const requiredFiles = ['index.html', 'tsconfig.json', 'package.json', 'yarn.lock', 'vite.config.mjs', 'playwright.config.mjs', 'LICENSE', 'README.md'];
 const optionalFiles = ['wrangler.jsonc', 'wrangler.legacy.jsonc'];
 const extensions = new Set(['.ts', '.tsx', '.js', '.jsx', '.mjs', '.cjs', '.css', '.scss', '.py', '.json', '.jsonc', '.md', '.txt', '.lock', '.html']);
 const excludedDirectories = new Set(['vendor', 'vendors', 'cache', 'caches', '__pycache__', 'node_modules', 'public', 'dist', 'dist-cloudflare', 'assets', 'samples', 'originals', 'artifacts', 'coverage', 'credentials', 'secrets']);
@@ -87,10 +87,10 @@ FUJIFILM's original LUT data.
 
 Build the browser JavaScript and CSS
 -----------------------------------
-Install Node.js 22.12 or newer and npm. Extract this archive, enter the
+Install Node.js 22.12 or newer and Yarn 1. Extract this archive, enter the
 film-lab-source directory, and run:
 
-  npm ci
+  yarn install --frozen-lockfile
   node node_modules/typescript/bin/tsc -b
   node node_modules/vite/bin/vite.js build
 
@@ -119,17 +119,17 @@ copy that ZIP once and retain the catalog's encoding and transfer hash fields.
 Do not treat the ZIP as a raw .cube file or run pack-static.mjs on an already
 packed deployment. The public source download is /source/film-lab-source.tar.gz.
 
-The usual npm run build command additionally runs scripts/pack-static.mjs.
+The usual yarn build command additionally runs scripts/pack-static.mjs.
 That full authoring workflow expects the generated, unpacked public/ tree,
 including raw .cube files. Use the two build commands above when using the
-already packed runtime assets supplied by the public site. npm run dev and
-npm run preview can serve the application locally once the appropriate public/
+already packed runtime assets supplied by the public site. yarn dev and
+yarn preview can serve the application locally once the appropriate public/
 or dist/ runtime files have been supplied. See README.md for the full workflow.
 
 When public/catalog.json is absent, the Vite development server proxies runtime
 assets from the public deployment. This requires an internet connection.
-For browser regression tests, run npm ci, npx playwright install chromium, then
-npm run test:e2e. The tests start their own local development server.
+For browser regression tests, run yarn install --frozen-lockfile, yarn playwright install chromium, then
+yarn test:e2e. The tests start their own local development server.
 
 The JS tests include runtime-asset integrity and interpolation fixtures; some
 tests require the corresponding generated public/ assets. SOURCE-MANIFEST.json

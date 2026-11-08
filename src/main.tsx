@@ -1,10 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { createRoot } from 'react-dom/client'
+import { zip } from 'fflate'
+import { addJpegDescription } from './jpegMetadata'
 import type { Asset, Catalog, Combination, NegativeProcessMode, Sample } from './types'
 import { fetchVerifiedAsset } from './assets'
 import { paperLabel } from './lutNames'
 import { renameZipEntries } from './downloadZip'
-import { PHOTO_ACCEPT, usePhotoLook, usePhotoUpload, useSamplePhoto } from './usePhoto'
+import { PHOTO_ACCEPT, usePhotoLook, usePhotoUpload, exportOriginalPhoto, useSamplePhoto } from './usePhoto'
 import { CAMERA_STORAGE_KEY, DEFAULT_CAMERA, UNSUPPORTED_L10, cameraForSample, sampleForCamera, downloadFilename, findLook, findFilmCast, processModeFor, selectStdAsset, selectDownloadAsset, selectStdQa, suppliedCombination, previewCameraFor } from './lookSelection'
 import { runtimeMessage, sampleText, useLocale, type Locale, type Translate } from './i18n'
 import { FilmGallery, type GalleryPhoto } from './FilmGallery'
@@ -88,6 +90,12 @@ function App() {
   const [mode, setMode] = useState<'original' | 'compare' | 'look'>('compare')
   const [format, setFormat] = useState<'vlog' | 'std' | 'zip'>('std')
   const [downloading, setDownloading] = useState(false)
+  const [photoDownloading, setPhotoDownloading] = useState(false)
+  const [photoNotice, setPhotoNotice] = useState('')
+  const [batchProgress, setBatchProgress] = useState<{ done: number; total: number } | null>(null)
+  const [batchNotice, setBatchNotice] = useState('')
+  const photoExportBusy = useRef(false)
+  const batchInput = useRef<HTMLInputElement>(null)
   const [notice, setNotice] = useState('')
   const dialog = useRef<HTMLDialogElement>(null)
   const fileInput = useRef<HTMLInputElement>(null)
@@ -139,6 +147,8 @@ function App() {
   const previewCamera = catalog?.cameraAdapters?.models.find(model => model.id === previewCameraId)
   const stdAsset = selectStdAsset(activeCombo, previewCameraId)
   const timing = usePrintTiming(catalog, baseCombo, timingM, timingY, previewCameraId, !!activeCombo && activeCombo.processMode === 'negative_print', onCastPreset || onNeutral)
+  const batchTiming = usePrintTiming(catalog, baseCombo, timingM, timingY, exportCameraId, !!activeCombo && activeCombo.processMode === 'negative_print', onCastPreset || onNeutral)
+  const batchSource = batchTiming.active ? batchTiming.preview : selectStdAsset(activeCombo, exportCameraId)
   const blockedReason = previewCameraId === UNSUPPORTED_L10 ? t("DMC-L10용 STD 변환은 없습니다. DC-L10과 다른 카메라이므로 미리보기를 적용하지 않습니다.")
     : activeCombo && !stdAsset ? t("이 카메라용 STD LUT가 준비되지 않았습니다.") : undefined
   const samplePhoto = useSamplePhoto(view === 'studio' && !activePhoto ? builtinSample : null)
@@ -204,6 +214,59 @@ function App() {
     try { window.localStorage.setItem(CAMERA_STORAGE_KEY, photo.cameraId) } catch { /* Keep selection without storage. */ }
     navigate('studio')
     window.requestAnimationFrame(() => previewPanel.current?.focus({ preventScroll: true }))
+  }
+
+  async function downloadPhoto() {
+    const source = timing.active ? timing.preview : stdAsset
+    if (!activePhoto || !source || photoExportBusy.current) return
+    photoExportBusy.current = true
+    const description = `Film: ${film.name}; Paper: ${isDigital ? 'None' : paper.name}`
+    setPhotoDownloading(true); setPhotoNotice('')
+    try {
+      const blob = await addJpegDescription(await exportOriginalPhoto(activePhoto, source), activePhoto.file!, description)
+      const url = URL.createObjectURL(blob)
+      const a = document.createElement('a'); a.href = url; a.download = `${activePhoto.sample.name.replace(/\.[^.]+$/, '')}-filmlab.jpg`; document.body.append(a); a.click(); a.remove()
+      setTimeout(() => URL.revokeObjectURL(url), 60_000)
+      setPhotoNotice('원본 크기의 사진을 다운로드했습니다.')
+    } catch (e) { setPhotoNotice(e instanceof Error ? e.message : '사진을 다운로드하지 못했습니다.') }
+    finally { photoExportBusy.current = false; setPhotoDownloading(false) }
+  }
+
+  async function downloadBatch(files: File[]) {
+    const source = batchSource
+    if (!files.length || !source || exportCameraId === UNSUPPORTED_L10 || activeCombo?.status !== 'ready') return
+    if (photoExportBusy.current) { setBatchNotice(t('사진 처리가 끝난 뒤 다시 선택해 주세요.')); return }
+    if (files.length > 20 || files.reduce((sum, file) => sum + file.size, 0) > 200 * 1024 * 1024) { setBatchNotice(t('한 번에 최대 20장, 총 200 MB까지 선택할 수 있습니다.')); return }
+    photoExportBusy.current = true
+    const description = `Film: ${film.name}; Paper: ${isDigital ? 'None' : paper.name}`
+    setBatchProgress({ done: 0, total: files.length }); setBatchNotice('')
+    const entries: Record<string, Uint8Array> = Object.create(null)
+    const used = new Set<string>()
+    const failures: string[] = []
+    let outputBytes = 0
+    try {
+      for (const [index, file] of files.entries()) {
+        try {
+          const blob = await addJpegDescription(await exportOriginalPhoto(file, source), file, description)
+          outputBytes += blob.size
+          if (outputBytes > 256 * 1024 * 1024) throw new Error('batch-size-limit')
+          const base = file.name.replace(/\.[^.]+$/, '').replace(/[\/\\\x00-\x1f]/g, '_') || 'photo'
+          let name = `${base}-filmlab.jpg`, suffix = 2
+          while (used.has(name.toLowerCase())) name = `${base}-filmlab-${suffix++}.jpg`
+          used.add(name.toLowerCase())
+          entries[name] = new Uint8Array(await blob.arrayBuffer())
+        } catch (e) { if (e instanceof Error && e.message === 'batch-size-limit') throw e; failures.push(file.name) }
+        setBatchProgress({ done: index + 1, total: files.length })
+      }
+      if (Object.keys(entries).length) {
+        const archive = await new Promise<Uint8Array>((resolve, reject) => zip(entries, { level: 0 }, (err, data) => err ? reject(err) : resolve(data)))
+        const url = URL.createObjectURL(new Blob([archive as Uint8Array<ArrayBuffer>], { type: 'application/zip' }))
+        const a = document.createElement('a'); a.href = url; a.download = 'filmlab-photos.zip'; document.body.append(a); a.click(); a.remove()
+        setTimeout(() => URL.revokeObjectURL(url), 60_000)
+      }
+      setBatchNotice(failures.length ? `${t("변환 실패")}: ${failures.join(', ')}` : t("사진을 ZIP으로 다운로드했습니다."))
+    } catch (e) { setBatchNotice(e instanceof Error && e.message === 'batch-size-limit' ? t('변환된 사진의 총 크기가 256 MB를 넘었습니다. 사진을 나누어 다시 선택해 주세요.') : t("사진을 다운로드하지 못했습니다.")) }
+    finally { photoExportBusy.current = false; setBatchProgress(null) }
   }
 
   async function downloadTiming(filename: string) {
@@ -294,7 +357,7 @@ function App() {
         </aside>
 
         <section className="preview-panel" ref={previewPanel} tabIndex={-1} aria-label={t("룩 미리보기")}>
-          <div className="preview-heading"><div><span className="eyebrow">{isSupplied ? t("FUJIFILM 시뮬레이션") : film.brand.toUpperCase()}</span><div className="film-title-row"><h2>{shortName(film.name)}</h2><WhiteBalanceGuide locale={locale} t={t}/></div><p className="selected-paper">{isDigital ? (isSupplied ? t("STD LUT · 인화지 없음") : isSlide ? t("슬라이드 직접 스캔") : t("디지털 스캔 · 실험")) : `+ ${paperLabel(paper, true)}`}</p>{onCastPreset && <p className="film-cast-badge">{castLabel}</p>}{timing.active && <p className="film-cast-badge">{t("인화 필터 조정 · {0}", [timingLabel])}</p>}</div><button className="upload-button" disabled={upload.loading} onClick={() => fileInput.current?.click()}><Icon name="upload" size={16}/><span>{upload.loading ? t("읽는 중…") : upload.photo ? t("사진 바꾸기") : t("사진 업로드")}</span></button></div>
+          <div className="preview-heading"><div><span className="eyebrow">{isSupplied ? t("FUJIFILM 시뮬레이션") : film.brand.toUpperCase()}</span><div className="film-title-row"><h2>{shortName(film.name)}</h2><WhiteBalanceGuide locale={locale} t={t}/></div><p className="selected-paper">{isDigital ? (isSupplied ? t("STD LUT · 인화지 없음") : isSlide ? t("슬라이드 직접 스캔") : t("디지털 스캔 · 실험")) : `+ ${paperLabel(paper, true)}`}</p>{onCastPreset && <p className="film-cast-badge">{castLabel}</p>}{timing.active && <p className="film-cast-badge">{t("인화 필터 조정 · {0}", [timingLabel])}</p>}</div><div className="preview-actions"><button className="upload-button" disabled={upload.loading} onClick={() => fileInput.current?.click()}><Icon name="upload" size={16}/><span>{upload.loading ? t("읽는 중…") : t("사진 업로드")}</span></button>{activePhoto && <button className="upload-button" disabled={photoDownloading || !!batchProgress || !photoLook.path || !!blockedReason || !!processingError || activeCombo?.status !== 'ready'} onClick={() => void downloadPhoto()}><Icon name="download" size={16}/><span>{photoDownloading ? t("원본 크기로 처리 중…") : t("원본 크기 사진 다운로드")}</span></button>}{<><button className="upload-button" disabled={!!batchProgress || !!photoDownloading || !batchSource || exportCameraId === UNSUPPORTED_L10 || activeCombo?.status !== 'ready'} onClick={() => batchInput.current?.click()}><Icon name="upload" size={16}/><span>{batchProgress ? t("일괄 변환 중 {0}/{1}", [batchProgress.done, batchProgress.total]) : t("벌크 업로드")}</span></button><input ref={batchInput} className="file-input" type="file" accept={PHOTO_ACCEPT} multiple onChange={e => { const files = Array.from(e.currentTarget.files || []); e.currentTarget.value = ''; void downloadBatch(files) }}/></>}</div></div>
           <div className="camera-input-panel"><Icon name="camera" size={19}/><p>{activePhoto ? t("업로드 사진에는 LUT 내보내기에서 선택한 카메라의 STD LUT를 적용합니다.") : sample.inputKind === 'synthetic-srgb' ? t("sRGB 테스트 패턴 · S1II STD 기준") : t("해당 STD 촬영본은 S1II에서 촬영되었습니다.")}</p></div>
           <div className="preview-toolbar"><button className="film-jump" aria-controls="film-library" aria-label={t("필름 선택")} onClick={() => { filmLibrary.current?.focus({ preventScroll: true }); filmLibrary.current?.scrollIntoView({ block: 'start' }) }}>{t("필름 고르기")}<Icon name="chevron" size={13}/></button><span className="preview-status"><i className={combo.status === 'ready' && !blockedReason ? 'live-dot' : 'muted-dot'}/>{combo.status === 'ready' && !blockedReason ? previewStdLabel : t("미지원 / 미생성")}</span><div className="view-switch"><button title={t("원본 보기")} aria-label={t("원본 보기")} aria-pressed={mode === 'original'} className={mode === 'original' ? 'active' : ''} onClick={() => setMode('original')}>{t("원본")}</button><button title={t("비교 보기")} aria-label={t("비교 보기")} aria-pressed={mode === 'compare'} className={mode === 'compare' ? 'active' : ''} onClick={() => setMode('compare')}><Icon name="compare" size={16}/>{t("비교")}</button><button title={t("적용 결과만 보기")} aria-label={t("적용 결과만 보기")} aria-pressed={mode === 'look'} className={mode === 'look' ? 'active' : ''} onClick={() => setMode('look')}>{t("적용")}</button></div></div>
           <Preview locale={locale} t={t} key={`${combo.id}-${previewCameraId}-${timing.active ? timing.preview?.key ?? 'timing' : stdAsset?.sha256}-${sample.id}-${resultPath || processingError || 'pending'}`} sample={sample} combo={combo} blockedReason={blockedReason} mode={mode} resultPath={resultPath} processingError={processingError} retry={retryPreview} lookLabel={`${film.name} · ${processLabel} · ${previewStdLabel}`}/>
@@ -308,6 +371,7 @@ function App() {
           </div>
           <div className="samples-heading"><span className="section-label">{t("샘플로 둘러보기")}</span><span>{t("직접 촬영 · Standard / LUT OFF")}</span></div>
           <div className="sample-grid">{catalog.samples.map(s => <button key={s.id} className={`sample-option ${sample.id === s.id ? 'selected' : ''}`} aria-pressed={sample.id === s.id} onClick={() => chooseSample(s.id)}><div><img src={s.thumbnailPath || s.path} alt="" loading="lazy"/>{sample.id === s.id && <span><Icon name="check" size={12}/></span>}</div><strong>{sampleText(s, 'name', locale)}</strong></button>)}</div>
+          <div className="photo-export">{activePhoto && <span>{t("{0} × {1} · JPG", [activePhoto.originalWidth, activePhoto.originalHeight])}</span>}<p role="status" aria-live="polite">{message(photoNotice)}</p><p role="status" aria-live="polite">{batchProgress ? t("일괄 변환 중 {0}/{1}", [batchProgress.done, batchProgress.total]) : batchNotice}</p>{batchTiming.error && <div role="alert"><p>{t("일괄 변환용 인화 필터를 불러오지 못했습니다.")} {message(batchTiming.error)}</p><button className="retry-button" onClick={batchTiming.retry}>{t("다시 시도")}</button></div>}</div>
           <div className="preview-note"><Icon name="info" size={15}/><p>{blockedReason ? t("카메라 입력을 확인하기 전에는 LUT를 적용하지 않습니다. 현재 사진은 원본입니다.") : activePhoto ? t("선택한 카메라의 STD LUT를 100% 적용합니다. 미리보기는 최대 2,048px입니다.") : sample.inputKind === 'synthetic-srgb' ? t("sRGB 테스트 패턴 · S1II STD 기준") : sample.inputKind === 'review-jpeg' ? t("리뷰 JPG에 선택한 다운로드용 STD LUT를 100% 적용합니다.") : t("Standard 샘플에는 S1II STD LUT를 100% 적용합니다.")} <button onClick={() => dialog.current?.showModal()}>{t("생성 방식")}</button></p></div>
           {sample.inputKind !== 'review-jpeg' && <div className="sample-credit">{sampleText(sample, 'credit', locale)}{sample.source && <a href={sample.source} target="_blank" rel="noreferrer">{t("출처")} <Icon name="external" size={10}/></a>}</div>}
         </section>
