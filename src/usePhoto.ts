@@ -106,19 +106,25 @@ export function useSamplePhoto(sample: Sample | null) {
 export function usePhotoLook(photo: Photo | null, asset: LookSource | undefined) {
   const [attempt, setAttempt] = useState(0)
   const [state, setState] = useState<{ request: object | null; path?: string; error?: string }>({ request: null })
+  const lastUrl = useRef('')
+  const workerRef = useRef<Worker | null>(null)
+  const busyWorker = useRef<Worker | null>(null)
+  const sequence = useRef(0)
+  useEffect(() => () => { workerRef.current?.terminate(); workerRef.current = null; URL.revokeObjectURL(lastUrl.current) }, [])
   const key = photo && asset ? `${photo.sample.id}-${sourceKey(asset)}-${attempt}` : ''
-  // A → B → A must start a new request: the first A's object URL was revoked
-  // when B started, even if A's photo/LUT key is identical on the return trip.
+  // A → B → A must start a new request even if its key matches the first A.
   const request = useMemo(() => ({ key }), [photo, asset, key])
   useEffect(() => {
     if (!photo || !asset) return
-    let active = true, resultUrl = ''
-    let worker: Worker | undefined
+    let active = true
+    const id = ++sequence.current
     const fail = (message: string) => { if (active) setState({ request, error: message }) }
     try {
-      worker = new Worker(new URL('./lut.worker.ts', import.meta.url), { type: 'module' })
-      worker.onmessage = async (event: MessageEvent<{ pixels?: Uint8ClampedArray<ArrayBuffer>; error?: string }>) => {
-        if (!active) return
+      const worker = workerRef.current ?? new Worker(new URL('./lut.worker.ts', import.meta.url), { type: 'module' })
+      workerRef.current = worker
+      worker.onmessage = async (event: MessageEvent<{ id: number; pixels?: Uint8ClampedArray<ArrayBuffer>; error?: string }>) => {
+        if (!active || event.data.id !== id) return
+        if (busyWorker.current === worker) busyWorker.current = null
         if (event.data.error) { fail(event.data.error); return }
         try {
           if (!event.data.pixels) throw new Error('LUT 처리 결과를 읽지 못했습니다.')
@@ -127,14 +133,27 @@ export function usePhotoLook(photo: Photo | null, asset: LookSource | undefined)
           if (!context) throw new Error('미리보기를 만들지 못했습니다.')
           context.putImageData(new ImageData(event.data.pixels, canvas.width, canvas.height), 0, 0)
           const blob = await canvasBlob(canvas)
-          if (active) { resultUrl = URL.createObjectURL(blob); setState({ request, path: resultUrl }) }
+          if (active) {
+            const resultUrl = URL.createObjectURL(blob)
+            URL.revokeObjectURL(lastUrl.current)
+            lastUrl.current = resultUrl
+            setState({ request, path: resultUrl })
+          }
         } catch (e) { fail(e instanceof Error ? e.message : '미리보기를 만들지 못했습니다.') }
       }
-      worker.onerror = () => fail('LUT 처리 중 문제가 생겼습니다. 다시 시도해 주세요.')
+      worker.onerror = () => { worker.terminate(); if (workerRef.current === worker) workerRef.current = null; if (busyWorker.current === worker) busyWorker.current = null; fail('LUT 처리 중 문제가 생겼습니다. 다시 시도해 주세요.') }
       const pixels = photo.pixels.slice()
-      worker.postMessage('cube' in asset ? { pixels, cube: asset.cube } : { pixels, asset }, [pixels.buffer])
-    } catch { fail('이 브라우저에서 LUT 처리를 시작하지 못했습니다.') }
-    return () => { active = false; worker?.terminate(); URL.revokeObjectURL(resultUrl) }
+      busyWorker.current = worker
+      worker.postMessage('cube' in asset ? { id, pixels, cube: asset.cube } : { id, pixels, asset }, [pixels.buffer])
+    } catch { workerRef.current?.terminate(); workerRef.current = null; busyWorker.current = null; fail('이 브라우저에서 LUT 처리를 시작하지 못했습니다.') }
+    return () => {
+      active = false
+      if (busyWorker.current) {
+        busyWorker.current.terminate()
+        if (workerRef.current === busyWorker.current) workerRef.current = null
+        busyWorker.current = null
+      }
+    }
   }, [photo, asset, request])
   return { path: key && state.request === request ? state.path : undefined, error: key && state.request === request ? state.error : undefined, retry: () => setAttempt(n => n + 1) }
 }

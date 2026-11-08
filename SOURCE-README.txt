@@ -56,6 +56,13 @@ public deployment when public/catalog.json is absent. This requires an internet
 connection. Supplying a local public/catalog.json disables the proxy; restart
 the development server after adding it.
 
+Browser regression tests
+------------------------
+Install the Playwright browser once with `yarn playwright install chromium`,
+then run `yarn test:e2e`. The tests start their own development server and
+exercise the print-filter retry and mobile mini-preview in Chromium. In this
+source archive they require internet access to the public runtime assets.
+
 The JS tests include runtime-asset integrity and interpolation fixtures; some
 tests require the corresponding generated public/ assets. SOURCE-MANIFEST.json
 records every selected source file's SHA-256 and size, plus this README. It does

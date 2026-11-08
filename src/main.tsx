@@ -151,7 +151,7 @@ function App() {
     return () => observer.disconnect()
   }, [view, photoLook.path, catalog])
   const processingError = timing.error || (!activePhoto ? samplePhoto.error : undefined) || photoLook.error
-  const retryPreview = () => { if (!activePhoto && samplePhoto.error) samplePhoto.retry(); else photoLook.retry() }
+  const retryPreview = () => { if (timing.error) timing.retry(); else if (!activePhoto && samplePhoto.error) samplePhoto.retry(); else photoLook.retry() }
 
   useEffect(() => {
     const controller = new AbortController()

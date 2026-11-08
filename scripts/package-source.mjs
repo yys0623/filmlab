@@ -11,7 +11,7 @@ import { gzipSync } from 'node:zlib';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const destination = path.resolve(root, process.argv[2] || 'dist-cloudflare');
 const directories = ['src', 'server', 'tests', 'scripts', 'pipeline', 'licenses', 'docs', 'public/camera-adapters'];
-const requiredFiles = ['index.html', 'tsconfig.json', 'package.json', 'package-lock.json', 'LICENSE', 'README.md'];
+const requiredFiles = ['index.html', 'tsconfig.json', 'package.json', 'package-lock.json', 'vite.config.mjs', 'playwright.config.mjs', 'LICENSE', 'README.md'];
 const optionalFiles = ['wrangler.jsonc', 'wrangler.legacy.jsonc'];
 const extensions = new Set(['.ts', '.tsx', '.js', '.jsx', '.mjs', '.cjs', '.css', '.scss', '.py', '.json', '.jsonc', '.md', '.txt', '.lock', '.html']);
 const excludedDirectories = new Set(['vendor', 'vendors', 'cache', 'caches', '__pycache__', 'node_modules', 'public', 'dist', 'dist-cloudflare', 'assets', 'samples', 'originals', 'artifacts', 'coverage', 'credentials', 'secrets']);
@@ -126,6 +126,11 @@ already packed runtime assets supplied by the public site. npm run dev and
 npm run preview can serve the application locally once the appropriate public/
 or dist/ runtime files have been supplied. See README.md for the full workflow.
 
+When public/catalog.json is absent, the Vite development server proxies runtime
+assets from the public deployment. This requires an internet connection.
+For browser regression tests, run npm ci, npx playwright install chromium, then
+npm run test:e2e. The tests start their own local development server.
+
 The JS tests include runtime-asset integrity and interpolation fixtures; some
 tests require the corresponding generated public/ assets. SOURCE-MANIFEST.json
 records every selected source file's SHA-256 and size, plus this README. It does
@@ -201,7 +206,7 @@ try {
   try {
     await fs.writeFile(stagedArchive, archive, { flag: 'wx', mode: 0o644 });
     catalog.sourceCode = { path: `/source/${archiveName}`, bytes: archive.length, sha256: sha256(archive) };
-    await fs.writeFile(stagedCatalog, JSON.stringify(catalog, null, 2) + '\n', { flag: 'wx', mode: 0o644 });
+    await fs.writeFile(stagedCatalog, JSON.stringify(catalog) + '\n', { flag: 'wx', mode: 0o644 });
     await fs.rename(stagedArchive, path.join(sourceDirectory, archiveName));
     await fs.rename(stagedCatalog, catalogPath);
   } finally {

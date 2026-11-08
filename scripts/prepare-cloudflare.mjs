@@ -68,7 +68,7 @@ export async function prepareCloudflare(sourceDir = 'dist', outputDir = 'dist-cl
   const externalManifest = path.join(output, EXTERNAL_SAMPLE_MANIFEST);
   await fs.mkdir(path.dirname(externalManifest), { recursive: true });
   await fs.writeFile(externalManifest, JSON.stringify(EMPTY_EXTERNAL_SAMPLES, null, 2) + '\n');
-  await fs.writeFile(path.join(output, 'catalog.json'), JSON.stringify(catalog, null, 2) + '\n');
+  await fs.writeFile(path.join(output, 'catalog.json'), JSON.stringify(catalog) + '\n');
   return { output, combinations: catalog.combinations.length, excluded: removedIds.size, counts: catalog.counts };
 }
 

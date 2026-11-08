@@ -4,17 +4,22 @@ import type { Cube } from './lut'
 import { bakeTimingCube, clampShift, parseAdapterCube, parseTimingPack, serializeCube, type TimingPack } from './printTiming'
 import type { Asset, Catalog, Combination } from './types'
 
-// Packs and camera adapters are verified once and kept for the session.
+// Limit retained packs: each decoded pack occupies roughly 4 MiB.
 const packs = new Map<string, Promise<TimingPack>>()
 const adapters = new Map<string, Promise<Cube>>()
+const MAX_PACKS = 4
 
 function loadPack(id: string, asset: Asset) {
-  if (!packs.has(asset.sha256)) {
+  const key = `${id}:${asset.sha256}`
+  const cached = packs.get(key)
+  if (cached) { packs.delete(key); packs.set(key, cached); return cached }
+  {
     const promise = fetchVerifiedAsset(asset).then(buffer => parseTimingPack(buffer, id))
-    promise.catch(() => packs.delete(asset.sha256))
-    packs.set(asset.sha256, promise)
+    promise.catch(() => { if (packs.get(key) === promise) packs.delete(key) })
+    packs.set(key, promise)
+    while (packs.size > MAX_PACKS) packs.delete(packs.keys().next().value!)
+    return promise
   }
-  return packs.get(asset.sha256)!
 }
 
 function loadAdapter(asset: Asset) {
@@ -32,6 +37,7 @@ export interface PrintTiming {
   total: { m: number; y: number }
   preview?: { key: string; cube: Cube }
   loading: boolean; error?: string
+  retry(): void
   bake(format: 'std' | 'vlog', cameraId: string): Promise<string>
 }
 
@@ -54,6 +60,7 @@ export function usePrintTiming(catalog: Catalog | null, base: Combination | unde
   // The preview object must keep its identity between renders, or the photo
   // worker restarts on every render and never finishes.
   const [state, setState] = useState<{ key: string; preview?: { key: string; cube: Cube }; error?: string }>({ key: '' })
+  const [attempt, setAttempt] = useState(0)
   const key = active && entry && adapterAsset ? `${base!.id}:${previewCameraId}:${total.m.toFixed(2)}:${total.y.toFixed(2)}` : ''
 
   useEffect(() => {
@@ -66,7 +73,7 @@ export function usePrintTiming(catalog: Catalog | null, base: Combination | unde
         .catch(e => { if (live) setState({ key, error: e instanceof Error ? e.message : '인화 필터 데이터를 불러오지 못했습니다.' }) })
     }, 120)
     return () => { live = false; window.clearTimeout(timer) }
-  }, [key])
+  }, [key, attempt])
 
   async function bake(format: 'std' | 'vlog', cameraId: string) {
     if (!active || !entry || !catalog?.cameraAdapters) throw new Error('인화 필터 조정값이 없습니다.')
@@ -81,5 +88,6 @@ export function usePrintTiming(catalog: Catalog | null, base: Combination | unde
 
   const ready = state.key === key && key !== ''
   return { available, active, span, total, preview: ready ? state.preview : undefined,
-    loading: active && !ready, error: ready ? state.error : undefined, bake }
+    loading: active && !ready, error: ready ? state.error : undefined, bake,
+    retry: () => { setState({ key: '' }); setAttempt(n => n + 1) } }
 }

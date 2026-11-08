@@ -77,7 +77,7 @@ export async function packStatic(rootDir = 'dist') {
     combo.previewMode = 'runtime-std';
     await fs.writeFile(path.join(root, 'luts', combo.id, 'metadata.json'), JSON.stringify(combo, null, 2) + '\n');
   }
-  await fs.writeFile(path.join(root, 'catalog.json'), JSON.stringify(catalog, null, 2) + '\n');
+  await fs.writeFile(path.join(root, 'catalog.json'), JSON.stringify(catalog) + '\n');
   console.log(`Lossless camera ZIP transport: ${count} raw LUT copies removed (${(removedTotal / 1048576).toFixed(1)} MiB)`);
   return { luts: count, removedBytes: removedTotal };
 }

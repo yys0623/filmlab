@@ -9,6 +9,7 @@
     "preview": "node scripts/run-web.mjs preview",
     "verify:assets": "node scripts/run-web.mjs verify:assets",
     "test": "node scripts/run-web.mjs test",
+    "test:e2e": "playwright test",
     "build:cloudflare": "node scripts/run-web.mjs build:cloudflare",
     "preview:cloudflare": "node scripts/run-web.mjs preview:cloudflare",
     "deploy:cloudflare": "node scripts/run-web.mjs deploy:cloudflare",
@@ -19,6 +20,7 @@
     "react-dom": "19.2.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.65.0",
     "@types/react": "19.2.2",
     "@types/react-dom": "19.2.2",
     "typescript": "5.9.3",
