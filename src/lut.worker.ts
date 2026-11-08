@@ -19,12 +19,12 @@ function loadCube(asset: Asset): Promise<Cube> {
   return promise
 }
 
-self.onmessage = async (event: MessageEvent<{ id: number; asset?: Asset; cube?: Cube; pixels: Uint8ClampedArray }>) => {
+self.onmessage = async (event: MessageEvent<{ id: number; asset?: Asset; cube?: Cube; pixels: Uint8ClampedArray; inPlace?: boolean }>) => {
   latestId = event.data.id
   try {
     const cube = event.data.cube ?? await loadCube(event.data.asset!)
     if (event.data.id !== latestId) return
-    const result = applyStdLut(event.data.pixels, cube)
+    const result = applyStdLut(event.data.pixels, cube, event.data.inPlace)
     self.postMessage({ id: event.data.id, pixels: result }, { transfer: [result.buffer] })
   } catch (error) {
     self.postMessage({ id: event.data.id, error: error instanceof Error ? error.message : '사진에 LUT를 적용하지 못했습니다.' })

@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
+import { checkWorker, monitorWorker, WorkerFailure } from './workerStatus'
 import type { Asset, Sample } from './types'
 import type { Cube } from './lut'
 
@@ -159,7 +160,7 @@ export function usePhotoLook(photo: Photo | null, asset: LookSource | undefined)
 }
 
 /** Render an uploaded original at its decoded dimensions using the preview LUT. */
-export async function exportOriginalPhoto(photo: Photo | File, source: LookSource): Promise<Blob> {
+export async function exportOriginalPhoto(photo: Photo | File, source: LookSource, sharedWorker?: Worker): Promise<Blob> {
   const file = photo instanceof File ? photo : photo.file
   if (!file) throw new Error('원본 사진을 찾을 수 없습니다.')
   if (!/\.(jpe?g|png|webp)$/i.test(file.name) || (file.type && !['image/jpeg', 'image/png', 'image/webp'].includes(file.type))) throw new Error('JPG, PNG, WebP 사진을 선택해 주세요. HEIC·RAW는 JPG로 변환한 뒤 사용할 수 있습니다.')
@@ -173,20 +174,21 @@ export async function exportOriginalPhoto(photo: Photo | File, source: LookSourc
     if (!context) throw new Error('이 브라우저에서 원본 사진을 처리하지 못했습니다.')
     context.drawImage(bitmap, 0, 0)
     const pixels = context.getImageData(0, 0, canvas.width, canvas.height).data
-    const worker = new Worker(new URL('./lut.worker.ts', import.meta.url), { type: 'module' })
+    const worker = sharedWorker ?? monitorWorker(new Worker(new URL('./lut.worker.ts', import.meta.url), { type: 'module' }))
     try {
       const result = await new Promise<Uint8ClampedArray<ArrayBuffer>>((resolve, reject) => {
+        checkWorker(worker)
         worker.onmessage = (event: MessageEvent<{ pixels?: Uint8ClampedArray<ArrayBuffer>; error?: string }>) => {
           if (event.data.error || !event.data.pixels) reject(new Error(event.data.error || '사진에 LUT를 적용하지 못했습니다.'))
           else resolve(event.data.pixels)
         }
-        worker.onerror = () => reject(new Error('LUT 처리 중 문제가 생겼습니다. 다시 시도해 주세요.'))
-        worker.postMessage('cube' in source ? { id: 1, pixels, cube: source.cube } : { id: 1, pixels, asset: source }, [pixels.buffer])
+        worker.onerror = worker.onmessageerror = () => reject(new WorkerFailure('LUT 처리 중 문제가 생겼습니다. 다시 시도해 주세요.'))
+        worker.postMessage('cube' in source ? { id: 1, pixels, cube: source.cube, inPlace: true } : { id: 1, pixels, asset: source, inPlace: true }, [pixels.buffer])
       })
       context.putImageData(new ImageData(result, canvas.width, canvas.height), 0, 0)
       context.globalCompositeOperation = 'destination-over'
       context.fillStyle = '#fff'; context.fillRect(0, 0, canvas.width, canvas.height)
       return await new Promise<Blob>((resolve, reject) => canvas.toBlob(blob => blob ? resolve(blob) : reject(new Error('사진을 다운로드하지 못했습니다.')), 'image/jpeg', 1))
-    } finally { worker.terminate() }
+    } finally { if (!sharedWorker) worker.terminate() }
   } finally { bitmap.close() }
 }

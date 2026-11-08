@@ -23,10 +23,10 @@ export function parseStdCube(text: string): Cube {
 
 // .cube rows run R fastest: table[B, G, R, channel]. Six tetrahedra
 // share 000 → 111. No additional gamma, exposure, or V-Log conversion.
-export function applyStdLut(pixels: Uint8ClampedArray, cube: Cube): Uint8ClampedArray {
+export function applyStdLut(pixels: Uint8ClampedArray, cube: Cube, inPlace = false): Uint8ClampedArray {
   if (pixels.length % 4) throw new Error('잘못된 이미지 데이터입니다.')
   const { size: n, table: t } = cube
-  const output = new Uint8ClampedArray(pixels.length)
+  const output = inPlace ? pixels : new Uint8ClampedArray(pixels.length)
   const sr = 3, sg = n * 3, sb = n * n * 3
   for (let i = 0; i < pixels.length; i += 4) {
     const r = pixels[i] / 255 * (n - 1), g = pixels[i + 1] / 255 * (n - 1), b = pixels[i + 2] / 255 * (n - 1)

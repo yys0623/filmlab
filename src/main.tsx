@@ -1,7 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { createRoot } from 'react-dom/client'
-import { zip } from 'fflate'
-import { addJpegDescription } from './jpegMetadata'
 import type { Asset, Catalog, Combination, NegativeProcessMode, Sample } from './types'
 import { fetchVerifiedAsset } from './assets'
 import { paperLabel } from './lutNames'
@@ -15,7 +13,17 @@ import { LutUsageGuide } from './LutUsageGuide'
 import { WhiteBalanceGuide } from './WhiteBalanceGuide'
 import { usePrintTiming } from './usePrintTiming'
 import { filmCastShift, formatShift, sameShift, shiftCode } from './printTiming'
+import { checkWorker, monitorWorker, WorkerFailure } from './workerStatus'
 import './style.css'
+
+function runPhotoExportWorker<T>(worker: Worker, message: object, transfer: Transferable[] = []): Promise<T> {
+  return new Promise((resolve, reject) => {
+    checkWorker(worker)
+    worker.onmessage = event => event.data.error ? reject(new Error(event.data.error)) : resolve(event.data as T)
+    worker.onerror = worker.onmessageerror = () => reject(new WorkerFailure('사진을 다운로드하지 못했습니다.'))
+    worker.postMessage(message, transfer)
+  })
+}
 
 const paths: Record<string, React.ReactNode> = {
   upload: <><path d="M12 16V4m-5 5 5-5 5 5"/><path d="M4 16v5h16v-5"/></>,
@@ -147,7 +155,8 @@ function App() {
   const previewCamera = catalog?.cameraAdapters?.models.find(model => model.id === previewCameraId)
   const stdAsset = selectStdAsset(activeCombo, previewCameraId)
   const timing = usePrintTiming(catalog, baseCombo, timingM, timingY, previewCameraId, !!activeCombo && activeCombo.processMode === 'negative_print', onCastPreset || onNeutral)
-  const batchTiming = usePrintTiming(catalog, baseCombo, timingM, timingY, exportCameraId, !!activeCombo && activeCombo.processMode === 'negative_print', onCastPreset || onNeutral)
+  const separateBatchTiming = usePrintTiming(catalog, baseCombo, timingM, timingY, exportCameraId, previewCameraId !== exportCameraId && !!activeCombo && activeCombo.processMode === 'negative_print', onCastPreset || onNeutral)
+  const batchTiming = previewCameraId === exportCameraId ? timing : separateBatchTiming
   const batchSource = batchTiming.active ? batchTiming.preview : selectStdAsset(activeCombo, exportCameraId)
   const blockedReason = previewCameraId === UNSUPPORTED_L10 ? t("DMC-L10용 STD 변환은 없습니다. DC-L10과 다른 카메라이므로 미리보기를 적용하지 않습니다.")
     : activeCombo && !stdAsset ? t("이 카메라용 STD LUT가 준비되지 않았습니다.") : undefined
@@ -222,14 +231,17 @@ function App() {
     photoExportBusy.current = true
     const description = `Film: ${film.name}; Paper: ${isDigital ? 'None' : paper.name}`
     setPhotoDownloading(true); setPhotoNotice('')
+    let exportWorker: Worker | undefined
     try {
-      const blob = await addJpegDescription(await exportOriginalPhoto(activePhoto, source), activePhoto.file!, description)
+      exportWorker = monitorWorker(new Worker(new URL('./photoExport.worker.ts', import.meta.url), { type: 'module' }))
+      const jpeg = await exportOriginalPhoto(activePhoto, source)
+      const { blob } = await runPhotoExportWorker<{ blob: Blob }>(exportWorker, { type: 'metadata', jpeg, original: activePhoto.file!, description })
       const url = URL.createObjectURL(blob)
       const a = document.createElement('a'); a.href = url; a.download = `${activePhoto.sample.name.replace(/\.[^.]+$/, '')}-filmlab.jpg`; document.body.append(a); a.click(); a.remove()
       setTimeout(() => URL.revokeObjectURL(url), 60_000)
       setPhotoNotice('원본 크기의 사진을 다운로드했습니다.')
     } catch (e) { setPhotoNotice(e instanceof Error ? e.message : '사진을 다운로드하지 못했습니다.') }
-    finally { photoExportBusy.current = false; setPhotoDownloading(false) }
+    finally { exportWorker?.terminate(); photoExportBusy.current = false; setPhotoDownloading(false) }
   }
 
   async function downloadBatch(files: File[]) {
@@ -244,10 +256,15 @@ function App() {
     const used = new Set<string>()
     const failures: string[] = []
     let outputBytes = 0
+    let lutWorker: Worker | undefined
+    let exportWorker: Worker | undefined
     try {
+      lutWorker = monitorWorker(new Worker(new URL('./lut.worker.ts', import.meta.url), { type: 'module' }))
+      exportWorker = monitorWorker(new Worker(new URL('./photoExport.worker.ts', import.meta.url), { type: 'module' }))
       for (const [index, file] of files.entries()) {
         try {
-          const blob = await addJpegDescription(await exportOriginalPhoto(file, source), file, description)
+          const jpeg = await exportOriginalPhoto(file, source, lutWorker)
+          const { blob } = await runPhotoExportWorker<{ blob: Blob }>(exportWorker, { type: 'metadata', jpeg, original: file, description })
           outputBytes += blob.size
           if (outputBytes > 256 * 1024 * 1024) throw new Error('batch-size-limit')
           const base = file.name.replace(/\.[^.]+$/, '').replace(/[\/\\\x00-\x1f]/g, '_') || 'photo'
@@ -255,18 +272,18 @@ function App() {
           while (used.has(name.toLowerCase())) name = `${base}-filmlab-${suffix++}.jpg`
           used.add(name.toLowerCase())
           entries[name] = new Uint8Array(await blob.arrayBuffer())
-        } catch (e) { if (e instanceof Error && e.message === 'batch-size-limit') throw e; failures.push(file.name) }
+        } catch (e) { if (e instanceof WorkerFailure || (e instanceof Error && e.message === 'batch-size-limit')) throw e; failures.push(file.name) }
         setBatchProgress({ done: index + 1, total: files.length })
       }
       if (Object.keys(entries).length) {
-        const archive = await new Promise<Uint8Array>((resolve, reject) => zip(entries, { level: 0 }, (err, data) => err ? reject(err) : resolve(data)))
+        const { archive } = await runPhotoExportWorker<{ archive: Uint8Array<ArrayBuffer> }>(exportWorker, { type: 'zip', entries }, Object.values(entries).map(entry => entry.buffer))
         const url = URL.createObjectURL(new Blob([archive as Uint8Array<ArrayBuffer>], { type: 'application/zip' }))
         const a = document.createElement('a'); a.href = url; a.download = 'filmlab-photos.zip'; document.body.append(a); a.click(); a.remove()
         setTimeout(() => URL.revokeObjectURL(url), 60_000)
       }
       setBatchNotice(failures.length ? `${t("변환 실패")}: ${failures.join(', ')}` : t("사진을 ZIP으로 다운로드했습니다."))
     } catch (e) { setBatchNotice(e instanceof Error && e.message === 'batch-size-limit' ? t('변환된 사진의 총 크기가 256 MB를 넘었습니다. 사진을 나누어 다시 선택해 주세요.') : t("사진을 다운로드하지 못했습니다.")) }
-    finally { photoExportBusy.current = false; setBatchProgress(null) }
+    finally { lutWorker?.terminate(); exportWorker?.terminate(); photoExportBusy.current = false; setBatchProgress(null) }
   }
 
   async function downloadTiming(filename: string) {
