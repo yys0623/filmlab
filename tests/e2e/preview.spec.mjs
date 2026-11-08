@@ -57,3 +57,20 @@ test('changing looks discards an in-flight result and renders the latest selecti
     await expect(page.locator('.preview .result-image img')).toBeVisible({ timeout: 45000 })
   } finally { release() }
 })
+
+test('pins a look and compares it with another look on the same photo', async ({ page }) => {
+  const controls = page.locator('.look-compare-controls')
+  await controls.getByRole('button', { name: 'Pin current look as A' }).click()
+  await expect(page.locator('.preview .image-tag.before')).toContainText('A ·', { timeout: 45000 })
+  const pinnedLabel = await page.locator('.preview .image-tag.before').textContent()
+  await page.locator('.film-option').nth(1).click()
+  await expect(page.locator('.preview .image-tag.after')).toHaveText('B · Current look', { timeout: 45000 })
+  await expect(page.locator('.preview .image-tag.before')).toHaveText(pinnedLabel)
+  await page.locator('.comparison-range').fill('25')
+  await expect(page.locator('.comparison-range')).toHaveAttribute('aria-valuetext', 'Look A 25%, look B 75%')
+  await page.locator('.sample-option').nth(1).click()
+  await expect(page.locator('.preview .image-tag.before')).toContainText('A ·', { timeout: 45000 })
+  await controls.getByRole('button', { name: 'Clear A' }).click()
+  await expect(controls.getByRole('button', { name: 'Pin current look as A' })).toBeVisible()
+  await expect(page.locator('.preview .image-tag.after')).toHaveText('LUT applied · 100%', { timeout: 45000 })
+})

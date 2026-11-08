@@ -1,5 +1,15 @@
 // Korean source strings are stable message keys; data and filenames are not translated.
 export const english: Readonly<Record<string, string>> = {
+  "룩 A/B 비교": "Compare looks A/B",
+  "룩 A {0}%, 룩 B {1}%": "Look A {0}%, look B {1}%",
+  "B · 현재 룩": "B · Current look",
+  "현재 룩으로 A 바꾸기": "Replace A with current look",
+  "현재 룩을 A로 고정": "Pin current look as A",
+  "A/B 비교 중": "Comparing A/B",
+  "A/B 비교 보기": "Compare A/B",
+  "A 지우기": "Clear A",
+  "A는 고정된 룩, B는 현재 선택한 룩입니다.": "A is the pinned look; B is the current selection.",
+  "현재 룩을 A로 고정한 뒤 다른 룩을 선택해 비교하세요.": "Pin the current look as A, then choose another look to compare.",
   "촬영 샘플은 사용자가 제공한 LUMIX S1II의 Standard · LUT OFF 사진입니다. EXIF로 포토스타일과 LUT 설정을 확인했습니다. Standard or Custom 태그만으로 공장 기본 설정을 보장하지는 않습니다. 스튜디오에서는 샘플과 업로드 사진에 선택한 STD LUT를 100% 적용합니다. 갤러리는 촬영 당시 LUT가 적용된 JPG를 추가 변환 없이 표시합니다.": "The capture samples are user-provided LUMIX S1II Standard JPEGs with LUTs off. Photo Style and LUT settings were checked in EXIF. The Standard or Custom tag alone does not guarantee factory defaults. In the studio, the selected STD LUT is applied to samples and uploads at 100%. The gallery displays JPEGs with a LUT already applied in camera, without another transform.",
   "필름 이름은 EXIF, 인화지 조합은 촬영자 확인을 근거로 표시합니다. 인화지 이름은 EXIF에 기록되지 않습니다.": "Film names come from EXIF. Print pairings are confirmed by the photographer; paper names are not recorded in EXIF.",
   "적용 강도": "Strength",
