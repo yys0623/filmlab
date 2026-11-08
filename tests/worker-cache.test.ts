@@ -41,6 +41,12 @@ test('worker reuses verified LUTs and bounds its cache', async () => {
     globalThis.fetch = async () => new Response(bytes)
     await run(11, 'failure')
     assert.ok(responses.at(-1).pixels, 'failed fetch is retried')
+    const large = worker.onmessage({ data: { id: 12, pixels: new Uint8ClampedArray(1024 * 1024), asset: { path: '/failure', name: 'failure', bytes: bytes.length, sha256 } } })
+    await new Promise(resolve => setTimeout(resolve, 0))
+    await run(13, 'failure')
+    await large
+    assert.equal(responses.some(message => message.id === 12), false, 'processing yields to newer requests')
+    assert.equal(responses.at(-1).id, 13)
   } finally {
     globalThis.fetch = originalFetch
     delete (globalThis as any).self

@@ -109,7 +109,6 @@ export function usePhotoLook(photo: Photo | null, asset: LookSource | undefined)
   const [state, setState] = useState<{ request: object | null; path?: string; error?: string }>({ request: null })
   const lastUrl = useRef('')
   const workerRef = useRef<Worker | null>(null)
-  const busyWorker = useRef<Worker | null>(null)
   const sequence = useRef(0)
   useEffect(() => () => { workerRef.current?.terminate(); workerRef.current = null; URL.revokeObjectURL(lastUrl.current) }, [])
   const key = photo && asset ? `${photo.sample.id}-${sourceKey(asset)}-${attempt}` : ''
@@ -125,7 +124,6 @@ export function usePhotoLook(photo: Photo | null, asset: LookSource | undefined)
       workerRef.current = worker
       worker.onmessage = async (event: MessageEvent<{ id: number; pixels?: Uint8ClampedArray<ArrayBuffer>; error?: string }>) => {
         if (!active || event.data.id !== id) return
-        if (busyWorker.current === worker) busyWorker.current = null
         if (event.data.error) { fail(event.data.error); return }
         try {
           if (!event.data.pixels) throw new Error('LUT 처리 결과를 읽지 못했습니다.')
@@ -142,18 +140,13 @@ export function usePhotoLook(photo: Photo | null, asset: LookSource | undefined)
           }
         } catch (e) { fail(e instanceof Error ? e.message : '미리보기를 만들지 못했습니다.') }
       }
-      worker.onerror = () => { worker.terminate(); if (workerRef.current === worker) workerRef.current = null; if (busyWorker.current === worker) busyWorker.current = null; fail('LUT 처리 중 문제가 생겼습니다. 다시 시도해 주세요.') }
+      worker.onerror = () => { worker.terminate(); if (workerRef.current === worker) workerRef.current = null; fail('LUT 처리 중 문제가 생겼습니다. 다시 시도해 주세요.') }
       const pixels = photo.pixels.slice()
-      busyWorker.current = worker
       worker.postMessage('cube' in asset ? { id, pixels, cube: asset.cube } : { id, pixels, asset }, [pixels.buffer])
-    } catch { workerRef.current?.terminate(); workerRef.current = null; busyWorker.current = null; fail('이 브라우저에서 LUT 처리를 시작하지 못했습니다.') }
+    } catch { workerRef.current?.terminate(); workerRef.current = null; fail('이 브라우저에서 LUT 처리를 시작하지 못했습니다.') }
     return () => {
       active = false
-      if (busyWorker.current) {
-        busyWorker.current.terminate()
-        if (workerRef.current === busyWorker.current) workerRef.current = null
-        busyWorker.current = null
-      }
+      workerRef.current?.postMessage({ id: ++sequence.current, cancel: true })
     }
   }, [photo, asset, request])
   return { path: key && state.request === request ? state.path : undefined, error: key && state.request === request ? state.error : undefined, retry: () => setAttempt(n => n + 1) }

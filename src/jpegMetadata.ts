@@ -6,6 +6,19 @@ function binary(bytes: Uint8Array): string {
   return parts.join('')
 }
 
+/** Find an EXIF APP1 segment without converting the compressed image to a string. */
+function jpegExif(bytes: Uint8Array): string | undefined {
+  let at = 2
+  while (at + 4 <= bytes.length && bytes[at] === 0xff) {
+    const marker = bytes[at + 1]
+    if (marker === 0xda || marker === 0xd9) break
+    const length = (bytes[at + 2] << 8) | bytes[at + 3]
+    if (length < 2 || at + 2 + length > bytes.length) throw new Error('사진의 EXIF 정보를 읽지 못했습니다.')
+    if (marker === 0xe1 && length >= 8 && binary(bytes.subarray(at + 4, at + 10)) === 'Exif\0\0') return binary(bytes.subarray(at + 4, at + 2 + length))
+    at += 2 + length
+  }
+}
+
 /** Read EXIF chunks without decoding or retaining the image data. */
 function embeddedExif(bytes: Uint8Array): string | undefined {
   const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength)
@@ -37,7 +50,7 @@ function embeddedExif(bytes: Uint8Array): string | undefined {
 export async function addJpegDescription(jpeg: Blob, original: File, description: string): Promise<Blob> {
   const originalBytes = new Uint8Array(await original.arrayBuffer())
   const isJpeg = originalBytes[0] === 0xff && originalBytes[1] === 0xd8
-  const sourceExif = isJpeg ? binary(originalBytes) : embeddedExif(originalBytes)
+  const sourceExif = isJpeg ? jpegExif(originalBytes) : embeddedExif(originalBytes)
   const exif = sourceExif ? piexif.load(sourceExif) : {}
   const image = exif['0th'] ?? (exif['0th'] = {})
   const previous = image[piexif.ImageIFD.ImageDescription]
@@ -57,8 +70,10 @@ export async function addJpegDescription(jpeg: Blob, original: File, description
   delete exif.Interop
   delete exif['1st']
   delete exif.thumbnail
-  const output = piexif.insert(piexif.dump(exif), binary(new Uint8Array(await jpeg.arrayBuffer())))
-  const bytes = new Uint8Array(output.length)
-  for (let i = 0; i < output.length; i++) bytes[i] = output.charCodeAt(i)
-  return new Blob([bytes], { type: 'image/jpeg' })
+  const data = piexif.dump(exif)
+  if (data.length + 2 > 0xffff) throw new Error('사진의 EXIF 정보가 너무 큽니다.')
+  const segment = new Uint8Array(data.length + 4)
+  segment.set([0xff, 0xe1, (data.length + 2) >> 8, (data.length + 2) & 255])
+  for (let i = 0; i < data.length; i++) segment[i + 4] = data.charCodeAt(i)
+  return new Blob([jpeg.slice(0, 2), segment, jpeg.slice(2)], { type: 'image/jpeg' })
 }

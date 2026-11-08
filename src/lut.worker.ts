@@ -19,12 +19,28 @@ function loadCube(asset: Asset): Promise<Cube> {
   return promise
 }
 
-self.onmessage = async (event: MessageEvent<{ id: number; asset?: Asset; cube?: Cube; pixels: Uint8ClampedArray; inPlace?: boolean }>) => {
+self.onmessage = async (event: MessageEvent<{ id: number; asset?: Asset; cube?: Cube; pixels?: Uint8ClampedArray; inPlace?: boolean; cancel?: boolean }>) => {
   latestId = event.data.id
+  if (event.data.cancel || !event.data.pixels) return
   try {
     const cube = event.data.cube ?? await loadCube(event.data.asset!)
     if (event.data.id !== latestId) return
-    const result = applyStdLut(event.data.pixels, cube, event.data.inPlace)
+    const pixels = event.data.pixels
+    // Export jobs use the synchronous path; previews yield between chunks so
+    // newer selections can cancel computation without discarding the LUT cache.
+    let result: Uint8ClampedArray
+    if (event.data.inPlace) result = applyStdLut(pixels, cube, true)
+    else {
+      result = pixels
+      const chunk = 256 * 1024
+      for (let offset = 0; offset < pixels.length; offset += chunk) {
+        applyStdLut(pixels.subarray(offset, Math.min(offset + chunk, pixels.length)), cube, true)
+        if (offset + chunk < pixels.length) {
+          await new Promise<void>(resolve => setTimeout(resolve, 0))
+          if (event.data.id !== latestId) return
+        }
+      }
+    }
     self.postMessage({ id: event.data.id, pixels: result }, { transfer: [result.buffer] })
   } catch (error) {
     self.postMessage({ id: event.data.id, error: error instanceof Error ? error.message : '사진에 LUT를 적용하지 못했습니다.' })

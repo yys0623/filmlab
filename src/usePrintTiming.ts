@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { fetchVerifiedAsset } from './assets'
 import type { Cube } from './lut'
-import { bakeTimingCube, clampShift, parseAdapterCube, parseTimingPack, serializeCube, type TimingPack } from './printTiming'
+import { clampShift, parseAdapterCube, parseTimingPack, type TimingPack } from './printTiming'
 import type { Asset, Catalog, Combination } from './types'
 
 // Limit retained packs: each decoded pack occupies roughly 4 MiB.
@@ -50,6 +50,38 @@ export interface PrintTiming {
  */
 export function usePrintTiming(catalog: Catalog | null, base: Combination | undefined,
   m: number, y: number, previewCameraId: string, enabled: boolean, published: boolean): PrintTiming {
+  const workerRef = useRef<Worker | null>(null)
+  const pending = useRef(new Map<number, { resolve: (value: { cube?: Cube; text?: string }) => void; reject: (error: Error) => void }>())
+  const nextId = useRef(0)
+  useEffect(() => () => {
+    workerRef.current?.terminate(); workerRef.current = null
+    for (const task of pending.current.values()) task.reject(new Error('인화 필터 처리가 중단되었습니다.'))
+    pending.current.clear()
+  }, [])
+  function runBake(pack: TimingPack, adapter: Cube | undefined, m: number, y: number, output?: { tag: 'STD' | 'VLOG'; title: string; comment: string }) {
+    return new Promise<{ cube?: Cube; text?: string }>((resolve, reject) => {
+      try {
+        const worker = workerRef.current ?? new Worker(new URL('./printTiming.worker.ts', import.meta.url), { type: 'module' })
+        if (!workerRef.current) {
+          workerRef.current = worker
+          worker.onmessage = event => {
+            const task = pending.current.get(event.data.id)
+            if (!task) return
+            pending.current.delete(event.data.id)
+            if (event.data.error) task.reject(new Error(event.data.error)); else task.resolve(event.data)
+          }
+          worker.onerror = worker.onmessageerror = () => {
+            worker.terminate(); workerRef.current = null
+            for (const task of pending.current.values()) task.reject(new Error('인화 필터 처리가 중단되었습니다.'))
+            pending.current.clear()
+          }
+        }
+        const id = ++nextId.current
+        pending.current.set(id, { resolve, reject })
+        try { worker.postMessage({ id, pack, adapter, m, y, output }) } catch (error) { pending.current.delete(id); throw error }
+      } catch (error) { reject(error instanceof Error ? error : new Error('인화 필터 처리를 시작하지 못했습니다.')) }
+    })
+  }
   const info = catalog?.printTiming
   const entry = base && base.processMode === 'negative_print' && !base.castBaseId ? info?.packs[base.id] : undefined
   const span = info?.rangeCC?.[1] ?? 30
@@ -69,7 +101,8 @@ export function usePrintTiming(catalog: Catalog | null, base: Combination | unde
     // Debounce while a slider is being dragged; the bake itself takes ~50 ms.
     const timer = window.setTimeout(() => {
       Promise.all([loadPack(base!.id, entry.asset), loadAdapter(adapterAsset)])
-        .then(([pack, adapter]) => { if (live) setState({ key, preview: { key, cube: bakeTimingCube(pack, total.m, total.y, adapter) } }) })
+        .then(([pack, adapter]) => live ? runBake(pack, adapter, total.m, total.y) : null)
+        .then(result => { if (live && result?.cube) setState({ key, preview: { key, cube: result.cube } }) })
         .catch(e => { if (live) setState({ key, error: e instanceof Error ? e.message : '인화 필터 데이터를 불러오지 못했습니다.' }) })
     }, 120)
     return () => { live = false; window.clearTimeout(timer) }
@@ -80,10 +113,12 @@ export function usePrintTiming(catalog: Catalog | null, base: Combination | unde
     const pack = await loadPack(base!.id, entry.asset)
     const model = catalog.cameraAdapters.models.find(item => item.id === cameraId)
     if (format === 'std' && !model) throw new Error('이 카메라용 STD 변환이 없습니다.')
-    const cube = bakeTimingCube(pack, total.m, total.y, format === 'std' ? await loadAdapter(model!.asset) : undefined)
+    const adapter = format === 'std' ? await loadAdapter(model!.asset) : undefined
     const label = `M ${total.m.toFixed(1)} Y ${total.y.toFixed(1)} CC`
-    return serializeCube(cube, format === 'std' ? 'STD' : 'VLOG', `${format === 'std' ? `${cameraId} Standard` : 'V-Log'} - ${base!.id} - print filter ${label}`,
-      `sosang print filter timing (experimental): spektrafilm enlarger shift ${label} from the database neutral filters, ${info!.method}.`)
+    const result = await runBake(pack, adapter, total.m, total.y, { tag: format === 'std' ? 'STD' : 'VLOG', title: `${format === 'std' ? `${cameraId} Standard` : 'V-Log'} - ${base!.id} - print filter ${label}`,
+      comment: `sosang print filter timing (experimental): spektrafilm enlarger shift ${label} from the database neutral filters, ${info!.method}.` })
+    if (result.text === undefined) throw new Error('인화 필터 파일을 만들지 못했습니다.')
+    return result.text
   }
 
   const ready = state.key === key && key !== ''

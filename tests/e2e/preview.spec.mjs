@@ -40,12 +40,7 @@ test('mobile mini preview retains its previous frame while a new LUT loads', asy
   await expect(page.locator('.preview .result-image img')).toBeAttached({ timeout: 45000 })
 })
 
-test('changing looks cancels an in-flight worker and renders the latest selection', async ({ page }) => {
-  await page.evaluate(() => {
-    window.terminatedWorkers = 0
-    const terminate = Worker.prototype.terminate
-    Worker.prototype.terminate = function () { window.terminatedWorkers++; return terminate.call(this) }
-  })
+test('changing looks discards an in-flight result and renders the latest selection', async ({ page }) => {
   let release, started
   const gate = new Promise(resolve => { release = resolve })
   const requestStarted = new Promise(resolve => { started = resolve })
@@ -58,7 +53,6 @@ test('changing looks cancels an in-flight worker and renders the latest selectio
     await page.locator('.film-option').nth(1).click()
     await requestStarted
     await page.locator('.film-option').nth(2).click()
-    await expect.poll(() => page.evaluate(() => window.terminatedWorkers)).toBeGreaterThan(0)
     await expect(page.locator('.film-option').nth(2)).toHaveClass(/selected/)
     await expect(page.locator('.preview .result-image img')).toBeVisible({ timeout: 45000 })
   } finally { release() }

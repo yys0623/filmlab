@@ -252,7 +252,6 @@ function App() {
     photoExportBusy.current = true
     const description = `Film: ${film.name}; Paper: ${isDigital ? 'None' : paper.name}`
     setBatchProgress({ done: 0, total: files.length }); setBatchNotice('')
-    const entries: Record<string, Uint8Array> = Object.create(null)
     const used = new Set<string>()
     const failures: string[] = []
     let outputBytes = 0
@@ -261,6 +260,7 @@ function App() {
     try {
       lutWorker = monitorWorker(new Worker(new URL('./lut.worker.ts', import.meta.url), { type: 'module' }))
       exportWorker = monitorWorker(new Worker(new URL('./photoExport.worker.ts', import.meta.url), { type: 'module' }))
+      await runPhotoExportWorker(exportWorker, { type: 'zip-start' })
       for (const [index, file] of files.entries()) {
         try {
           const jpeg = await exportOriginalPhoto(file, source, lutWorker)
@@ -270,14 +270,15 @@ function App() {
           const base = file.name.replace(/\.[^.]+$/, '').replace(/[\/\\\x00-\x1f]/g, '_') || 'photo'
           let name = `${base}-filmlab.jpg`, suffix = 2
           while (used.has(name.toLowerCase())) name = `${base}-filmlab-${suffix++}.jpg`
+          const bytes = new Uint8Array(await blob.arrayBuffer())
+          await runPhotoExportWorker(exportWorker, { type: 'zip-add', name, bytes }, [bytes.buffer])
           used.add(name.toLowerCase())
-          entries[name] = new Uint8Array(await blob.arrayBuffer())
         } catch (e) { if (e instanceof WorkerFailure || (e instanceof Error && e.message === 'batch-size-limit')) throw e; failures.push(file.name) }
         setBatchProgress({ done: index + 1, total: files.length })
       }
-      if (Object.keys(entries).length) {
-        const { archive } = await runPhotoExportWorker<{ archive: Uint8Array<ArrayBuffer> }>(exportWorker, { type: 'zip', entries }, Object.values(entries).map(entry => entry.buffer))
-        const url = URL.createObjectURL(new Blob([archive as Uint8Array<ArrayBuffer>], { type: 'application/zip' }))
+      if (used.size) {
+        const { archive } = await runPhotoExportWorker<{ archive: Blob }>(exportWorker, { type: 'zip-finish' })
+        const url = URL.createObjectURL(archive)
         const a = document.createElement('a'); a.href = url; a.download = 'filmlab-photos.zip'; document.body.append(a); a.click(); a.remove()
         setTimeout(() => URL.revokeObjectURL(url), 60_000)
       }
