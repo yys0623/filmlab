@@ -1,0 +1,58 @@
+{
+  "buildCommand": "node node_modules/typescript/bin/tsc -b && node node_modules/vite/bin/vite.js build",
+  "outputDirectory": "dist",
+  "rewrites": [
+    {
+      "source": "/catalog.json",
+      "destination": "https://sosang.film-lab-jc.workers.dev/catalog.json"
+    },
+    {
+      "source": "/favicon.svg",
+      "destination": "https://sosang.film-lab-jc.workers.dev/favicon.svg"
+    },
+    {
+      "source": "/api/locale",
+      "destination": "https://sosang.film-lab-jc.workers.dev/api/locale"
+    },
+    {
+      "source": "/samples/:path*",
+      "destination": "https://sosang.film-lab-jc.workers.dev/samples/:path*"
+    },
+    {
+      "source": "/luts/:path*",
+      "destination": "https://sosang.film-lab-jc.workers.dev/luts/:path*"
+    },
+    {
+      "source": "/camera-adapters/:path*",
+      "destination": "https://sosang.film-lab-jc.workers.dev/camera-adapters/:path*"
+    },
+    {
+      "source": "/supplied-fuji/:path*",
+      "destination": "https://sosang.film-lab-jc.workers.dev/supplied-fuji/:path*"
+    },
+    {
+      "source": "/print-timing/:path*",
+      "destination": "https://sosang.film-lab-jc.workers.dev/print-timing/:path*"
+    },
+    {
+      "source": "/source/:path*",
+      "destination": "https://sosang.film-lab-jc.workers.dev/source/:path*"
+    },
+    {
+      "source": "/gallery/:path*",
+      "destination": "https://sosang.film-lab-jc.workers.dev/gallery/:path*"
+    },
+    {
+      "source": "/manual/:path*",
+      "destination": "https://sosang.film-lab-jc.workers.dev/manual/:path*"
+    },
+    {
+      "source": "/fonts/:path*",
+      "destination": "https://sosang.film-lab-jc.workers.dev/fonts/:path*"
+    },
+    {
+      "source": "/licenses/:path*",
+      "destination": "https://sosang.film-lab-jc.workers.dev/licenses/:path*"
+    }
+  ]
+}
