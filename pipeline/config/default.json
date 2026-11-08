@@ -1,0 +1,15 @@
+{
+  "engine_commit": "3bb2c2d2801ff68b92019cf1dbcbb133d60832bc",
+  "engine_version": "0.3.4",
+  "resolution": 33,
+  "input": "Panasonic V-Log",
+  "output": "sRGB",
+  "topology": "1lut",
+  "target": "lumix_realtime_vlog",
+  "stops_above_midgray": null,
+  "output_gamut_compress": "cam16ucs",
+  "adapter": "camera-vlog-alchemy-v1",
+  "seed": 20261102,
+  "qa_random_samples": 4096,
+  "positive_mode": "direct_scan"
+}

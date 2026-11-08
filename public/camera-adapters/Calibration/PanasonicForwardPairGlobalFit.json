@@ -1,0 +1,390 @@
+{
+  "schema_version": 1,
+  "package_version": "1.6",
+  "method": "global regularized forward-pair regression; no pointwise Standard inverse or empirical output colour patch",
+  "endpoint": "fixed Panasonic V-Log/V-Gamut",
+  "training_camera": "DC-S1RM2 firmware 1.5",
+  "fit_parameters": {
+    "samples": 300000,
+    "validation_samples": 20000,
+    "uniform_fraction": 0.0,
+    "solve_size": 9,
+    "output_size": 33,
+    "neutral_samples": 4097,
+    "neutral_weight": 20.0,
+    "smoothness": 0.01,
+    "prior_weight": 1.0,
+    "prior_coverage_scale": 0.01,
+    "anchor_weight_scale": 100.0,
+    "cg_iterations": 1000,
+    "cg_tolerance": 1e-07,
+    "random_seed": 20260817
+  },
+  "anchor_artifact": {
+    "path": "Calibration/PanasonicForwardPairAnchors.npz",
+    "sha256": "950e498b9ddb0a206866b345dc1fbce329432a4337171ac83c8ee12d1f7deed6",
+    "metadata": {
+      "schema_version": 1,
+      "artifact": "Calibration/PanasonicForwardPairAnchors.npz",
+      "sha256": "950e498b9ddb0a206866b345dc1fbce329432a4337171ac83c8ee12d1f7deed6",
+      "camera": "DC-S1RM2",
+      "firmware": "1.5",
+      "capture": {
+        "lighting": "fixed indoor lighting",
+        "white_balance": "fixed custom white balance",
+        "iso": 800,
+        "aperture": "f/5.6",
+        "chart_exposures": [
+          "0 EV",
+          "+1 EV",
+          "+2 EV",
+          "+3 EV"
+        ],
+        "scene_exposures": [
+          "+1 EV",
+          "+2 EV"
+        ]
+      },
+      "arrays": {
+        "standard": {
+          "shape": [
+            20591,
+            3
+          ],
+          "dtype": "float64",
+          "description": "Panasonic Standard RGB input samples"
+        },
+        "target": {
+          "shape": [
+            20591,
+            3
+          ],
+          "dtype": "float64",
+          "description": "registered native V-Log RGB targets after one scalar neutral-derived code offset per exposure"
+        },
+        "weight": {
+          "shape": [
+            20591
+          ],
+          "dtype": "float64",
+          "description": "base sample weights before the release-wide anchor weight scale"
+        }
+      },
+      "chart": {
+        "colour_samples": 72,
+        "sample_weight": 10.0,
+        "patches": "18 chromatic SpyderCHECKR 24 patches at each of four exposures"
+      },
+      "scene": {
+        "samples_per_exposure": [
+          8006,
+          12513
+        ],
+        "sample_weight": 0.2,
+        "selection": "low-gradient registered pixels stratified over a 16^3 Standard RGB grid"
+      },
+      "scalar_code_offsets_removed": [
+        0.00992446416459214,
+        0.010397247624814587,
+        0.009638751346149388,
+        0.010297256242501662
+      ],
+      "total_samples": 20591,
+      "total_base_weight": 4823.799999999999,
+      "held_out_from_fit": "all four hand-scene exposure pairs"
+    }
+  },
+  "v1.3_prior_lut_sha256": {
+    "Conversion/GH6S2V.cube": "4dae40c189aca3f7e1ae6fc84f1dd04c5fca3a3152b7a7b7ead94d6373781b33",
+    "Conversion/S5IIS2V.cube": "8454aaef95233a5016ff70e9be5b595e5b425d0cc025f66ff7727392ef33f6a0",
+    "Conversion/S5IIXS2V.cube": "c2655068af12ebcb2cee3889310f85db45e0e02db1c732f53bf13d2fc8cce7ca",
+    "Conversion/G9IIS2V.cube": "d2a1d4f8bc00e1f81a1c51d6defc48dd5867802acdeb01e4f48a68e68c09a7cb",
+    "Conversion/GH7S2V.cube": "b407912c3a2f1763681f3e72b37a37c790b22340fe985aaccd0d7d2c2c321cbb",
+    "Conversion/S9S2V.cube": "68dd99e5a3051a26cd87f384c16f1fe94c4278a2e94acdb68eb93d23a1c4164f",
+    "Conversion/S1IIES2V.cube": "a2aebaff9a96b0a73dc23a14f33fa9d0523e1b1145c1c57fcb04a5d0d5529e8c",
+    "Conversion/S1RIIS2V.cube": "fe08a48f3f2df4f02761a9c47d07623f1e69be284dd5c159fab82e87544fc338",
+    "Conversion/S1IIS2V.cube": "32e0c75eb7d31b4615dc3212f79e503f135e8d0227b8fed210784861f3cef88c",
+    "Conversion/L10S2V.cube": "4679bfef42020b6753938045296a0aade77a4331041086970b694b1f02a53be2"
+  },
+  "fitted_lut_sha256": {
+    "Conversion/GH6S2V.cube": "3658debcd19832f69f9acfd98c99b78420867eb6ba6727167a163e030a63bed1",
+    "Conversion/S5IIS2V.cube": "8034e868df4be4d02de78fd62790fcef62add02e4c38c629e9b0ebec38993aa0",
+    "Conversion/S5IIXS2V.cube": "0ff627a7c7ee0743fc913f112b41d132b3271e844269886bdd84b7bc8b01a12c",
+    "Conversion/G9IIS2V.cube": "da00ed735540479c45bb8157e85abb2fb72806859aeecd17e23977edbf121b98",
+    "Conversion/GH7S2V.cube": "e5d18ad817568957cfe0b7368371569f849b6799952ed11e1dd6677a1eda9ba8",
+    "Conversion/S9S2V.cube": "7fdd3d558a375b82804d61a86b8ab149da05d47a41c6619e7fd23c4dd3d6e886",
+    "Conversion/S1IIES2V.cube": "45330f51fe7469cea6565fd570708b3cc097bf98a1cbcf499ced0c44c1213001",
+    "Conversion/S1RIIS2V.cube": "c4775591f4aa4ab48cf5ed484fae0d7762d74916b1c04ae90742691ff64db1fe",
+    "Conversion/S1IIS2V.cube": "7f1f997cb4bcf5c427e8e6ccc81acfedd3f14dae0b1e8e3f8672a8231daefa7e",
+    "Conversion/L10S2V.cube": "8fcf628d733231e0ea8a6a9f6571d1912d3b5095f4e873409243928484583237"
+  },
+  "forward_pair_validation": {
+    "GH6S2V.cube": {
+      "synthetic_rgb_error": {
+        "mean": 0.007415433979178087,
+        "rmse": 0.011248761517407346,
+        "p50": 0.004558375551898033,
+        "p95": 0.02481522765662418,
+        "p99": 0.04125211868989762,
+        "max": 0.11219070202987066
+      },
+      "correlated_rgb_error": {
+        "mean": 0.007415433979178087,
+        "rmse": 0.011248761517407346,
+        "p50": 0.004558375551898033,
+        "p95": 0.02481522765662418,
+        "p99": 0.04125211868989762,
+        "max": 0.11219070202987066
+      },
+      "camera_anchor_rgb_error": {
+        "mean": 0.005603795610491808,
+        "rmse": 0.008424965354933867,
+        "p50": 0.004041676921495459,
+        "p95": 0.014775221711159841,
+        "p99": 0.02956912902189977,
+        "max": 0.12873241684581968
+      }
+    },
+    "S5IIS2V.cube": {
+      "synthetic_rgb_error": {
+        "mean": 0.006439910558079568,
+        "rmse": 0.009910961680797269,
+        "p50": 0.0039238131309633755,
+        "p95": 0.02153189533058879,
+        "p99": 0.03745597398124134,
+        "max": 0.1059970856259425
+      },
+      "correlated_rgb_error": {
+        "mean": 0.006439910558079568,
+        "rmse": 0.009910961680797269,
+        "p50": 0.0039238131309633755,
+        "p95": 0.02153189533058879,
+        "p99": 0.03745597398124134,
+        "max": 0.1059970856259425
+      },
+      "camera_anchor_rgb_error": {
+        "mean": 0.00561979231281929,
+        "rmse": 0.008584877720208139,
+        "p50": 0.003991533124838735,
+        "p95": 0.015056983016654406,
+        "p99": 0.03077472563306794,
+        "max": 0.12929603040267465
+      }
+    },
+    "S5IIXS2V.cube": {
+      "synthetic_rgb_error": {
+        "mean": 0.006439910558079568,
+        "rmse": 0.009910961680797269,
+        "p50": 0.0039238131309633755,
+        "p95": 0.02153189533058879,
+        "p99": 0.03745597398124134,
+        "max": 0.1059970856259425
+      },
+      "correlated_rgb_error": {
+        "mean": 0.006439910558079568,
+        "rmse": 0.009910961680797269,
+        "p50": 0.0039238131309633755,
+        "p95": 0.02153189533058879,
+        "p99": 0.03745597398124134,
+        "max": 0.1059970856259425
+      },
+      "camera_anchor_rgb_error": {
+        "mean": 0.00561979231281929,
+        "rmse": 0.008584877720208139,
+        "p50": 0.003991533124838735,
+        "p95": 0.015056983016654406,
+        "p99": 0.03077472563306794,
+        "max": 0.12929603040267465
+      }
+    },
+    "G9IIS2V.cube": {
+      "synthetic_rgb_error": {
+        "mean": 0.007779941493624224,
+        "rmse": 0.011364247238443882,
+        "p50": 0.005173407427347109,
+        "p95": 0.024675064828012756,
+        "p99": 0.04140048829280748,
+        "max": 0.10208425721843531
+      },
+      "correlated_rgb_error": {
+        "mean": 0.007779941493624224,
+        "rmse": 0.011364247238443882,
+        "p50": 0.005173407427347109,
+        "p95": 0.024675064828012756,
+        "p99": 0.04140048829280748,
+        "max": 0.10208425721843531
+      },
+      "camera_anchor_rgb_error": {
+        "mean": 0.005670457967601662,
+        "rmse": 0.008573539569760898,
+        "p50": 0.004110007563335647,
+        "p95": 0.014711692196296238,
+        "p99": 0.030670615617145423,
+        "max": 0.12935197891460984
+      }
+    },
+    "GH7S2V.cube": {
+      "synthetic_rgb_error": {
+        "mean": 0.007779941493624224,
+        "rmse": 0.011364247238443882,
+        "p50": 0.005173407427347109,
+        "p95": 0.024675064828012756,
+        "p99": 0.04140048829280748,
+        "max": 0.10208425721843531
+      },
+      "correlated_rgb_error": {
+        "mean": 0.007779941493624224,
+        "rmse": 0.011364247238443882,
+        "p50": 0.005173407427347109,
+        "p95": 0.024675064828012756,
+        "p99": 0.04140048829280748,
+        "max": 0.10208425721843531
+      },
+      "camera_anchor_rgb_error": {
+        "mean": 0.005670457967601662,
+        "rmse": 0.008573539569760898,
+        "p50": 0.004110007563335647,
+        "p95": 0.014711692196296238,
+        "p99": 0.030670615617145423,
+        "max": 0.12935197891460984
+      }
+    },
+    "S9S2V.cube": {
+      "synthetic_rgb_error": {
+        "mean": 0.0064368465707156175,
+        "rmse": 0.009903123588134817,
+        "p50": 0.003921281256676071,
+        "p95": 0.021527692797307492,
+        "p99": 0.03741897947713591,
+        "max": 0.1059970952811058
+      },
+      "correlated_rgb_error": {
+        "mean": 0.0064368465707156175,
+        "rmse": 0.009903123588134817,
+        "p50": 0.003921281256676071,
+        "p95": 0.021527692797307492,
+        "p99": 0.03741897947713591,
+        "max": 0.1059970952811058
+      },
+      "camera_anchor_rgb_error": {
+        "mean": 0.005610060510330213,
+        "rmse": 0.008557813111816137,
+        "p50": 0.0039912496036307935,
+        "p95": 0.015032503806172241,
+        "p99": 0.030610970933656292,
+        "max": 0.1293053362214678
+      }
+    },
+    "S1IIES2V.cube": {
+      "synthetic_rgb_error": {
+        "mean": 0.007217526649022801,
+        "rmse": 0.01094428671968156,
+        "p50": 0.004485416541676514,
+        "p95": 0.024133024377331575,
+        "p99": 0.040690975391458065,
+        "max": 0.10877326060961676
+      },
+      "correlated_rgb_error": {
+        "mean": 0.007217526649022801,
+        "rmse": 0.01094428671968156,
+        "p50": 0.004485416541676514,
+        "p95": 0.024133024377331575,
+        "p99": 0.040690975391458065,
+        "max": 0.10877326060961676
+      },
+      "camera_anchor_rgb_error": {
+        "mean": 0.005611755527276804,
+        "rmse": 0.008532948486050823,
+        "p50": 0.003982828647637072,
+        "p95": 0.015168497582520523,
+        "p99": 0.030549797475116935,
+        "max": 0.12901530946264697
+      }
+    },
+    "S1RIIS2V.cube": {
+      "synthetic_rgb_error": {
+        "mean": 0.007533275673374547,
+        "rmse": 0.010683336157936834,
+        "p50": 0.0051199624558798985,
+        "p95": 0.022740781318258244,
+        "p99": 0.03536499602842717,
+        "max": 0.09014985518775329
+      },
+      "correlated_rgb_error": {
+        "mean": 0.007533275673374547,
+        "rmse": 0.010683336157936834,
+        "p50": 0.0051199624558798985,
+        "p95": 0.022740781318258244,
+        "p99": 0.03536499602842717,
+        "max": 0.09014985518775329
+      },
+      "camera_anchor_rgb_error": {
+        "mean": 0.005521534030240998,
+        "rmse": 0.008392070484987513,
+        "p50": 0.003946843820006016,
+        "p95": 0.014849155531524785,
+        "p99": 0.02938596879949408,
+        "max": 0.12879522420407938
+      }
+    },
+    "S1IIS2V.cube": {
+      "synthetic_rgb_error": {
+        "mean": 0.006395300292297268,
+        "rmse": 0.00979637120050682,
+        "p50": 0.0037823759954454684,
+        "p95": 0.021870376435940028,
+        "p99": 0.03607166084315102,
+        "max": 0.08477291071989722
+      },
+      "correlated_rgb_error": {
+        "mean": 0.006395300292297268,
+        "rmse": 0.00979637120050682,
+        "p50": 0.0037823759954454684,
+        "p95": 0.021870376435940028,
+        "p99": 0.03607166084315102,
+        "max": 0.08477291071989722
+      },
+      "camera_anchor_rgb_error": {
+        "mean": 0.0056216891150946855,
+        "rmse": 0.008471624011476594,
+        "p50": 0.004120258182332853,
+        "p95": 0.014476146412060225,
+        "p99": 0.030947233042362462,
+        "max": 0.12922451865085366
+      }
+    },
+    "L10S2V.cube": {
+      "synthetic_rgb_error": {
+        "mean": 0.007699774077474432,
+        "rmse": 0.01173944555301132,
+        "p50": 0.004687954646237155,
+        "p95": 0.026141800218184935,
+        "p99": 0.042861405553966024,
+        "max": 0.11455630660669597
+      },
+      "correlated_rgb_error": {
+        "mean": 0.007699774077474432,
+        "rmse": 0.01173944555301132,
+        "p50": 0.004687954646237155,
+        "p95": 0.026141800218184935,
+        "p99": 0.042861405553966024,
+        "max": 0.11455630660669597
+      },
+      "camera_anchor_rgb_error": {
+        "mean": 0.005597061108090092,
+        "rmse": 0.008541062543560853,
+        "p50": 0.003995665679816025,
+        "p95": 0.014826581779144987,
+        "p99": 0.030633957644111993,
+        "max": 0.1294233722930591
+      }
+    }
+  },
+  "controlled_validation": "Calibration/S1RIIControlledValidation.json",
+  "limitations": [
+    "Standard clipping and gamut compression are many-to-one and cannot be exactly inverted.",
+    "The fitted value in ambiguous regions depends on the source and camera-anchor distributions.",
+    "Controlled quantitative validation is currently limited to DC-S1RM2/S1RII firmware 1.5.",
+    "An output LUT cannot reproduce native V-Log acquisition gain, noise, or highlight headroom."
+  ]
+}

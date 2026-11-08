@@ -1,0 +1,880 @@
+{
+  "schema": 1,
+  "files": [
+    {
+      "path": "LICENSE",
+      "bytes": 35149,
+      "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986"
+    },
+    {
+      "path": "README.md",
+      "bytes": 8614,
+      "sha256": "6dee5c5bb2e9843f257ff13295ebabaaafef0a5a437f42c8505eef97f465b2cb"
+    },
+    {
+      "path": "docs/adapter-comparison.json",
+      "bytes": 1016,
+      "sha256": "600e741e1af259c777a4cb1622bdf7d03f6825a7b596ebadb2a89fb48a5452f7"
+    },
+    {
+      "path": "docs/camera-checklist.md",
+      "bytes": 2315,
+      "sha256": "65b8308eb508179884171b029911d4db7802c68d84f6786821b64867b7058b28"
+    },
+    {
+      "path": "docs/camera-std.md",
+      "bytes": 6934,
+      "sha256": "c16b3a41fd4e66e16a46367274fdb07b9af33ce1c98a38840a1c46fc9a0e04eb"
+    },
+    {
+      "path": "docs/cloudflare.md",
+      "bytes": 8983,
+      "sha256": "a3032ddb0624af28ea82e1ca4b534d7ff57cee970c40793d30c933d80b5cdcb9"
+    },
+    {
+      "path": "docs/digital-scan.md",
+      "bytes": 10667,
+      "sha256": "eabe2cd30968ce8b660b8038850436f26386ccda433d993aeb2625f1bffa7c71"
+    },
+    {
+      "path": "docs/external-samples.md",
+      "bytes": 9248,
+      "sha256": "623c0cd13de9cae5aca57d3749b822e1165fb542ce0baaaedfc48c4de96be34c"
+    },
+    {
+      "path": "docs/film-cast.md",
+      "bytes": 7151,
+      "sha256": "b84010d0d7ef71475bc226c125729dfa176148aedc8f653ad1571d496fe750f8"
+    },
+    {
+      "path": "docs/fonts.md",
+      "bytes": 5858,
+      "sha256": "b55b6df17a4aea2233ede2640ebfe756b81eb7ae988321673e74a8de976ce8e0"
+    },
+    {
+      "path": "docs/fujifilm-official.md",
+      "bytes": 12273,
+      "sha256": "eef326b559c92bf54970506476c0cdcd9085d3492124737c001e9444656aed4a"
+    },
+    {
+      "path": "docs/gallery-261104.md",
+      "bytes": 4373,
+      "sha256": "01b766f94b09b71d91f124285a705b3d99e4aa1fc8205342edd5b21d9a4525c3"
+    },
+    {
+      "path": "docs/gallery-recommended.md",
+      "bytes": 1537,
+      "sha256": "d57f73a11e3d4b9432a32013ce66af368b7b4f2f373b5628ca03f4f640beba09"
+    },
+    {
+      "path": "docs/legacy-v3-baseline.md",
+      "bytes": 4106,
+      "sha256": "c4e600ce222de47bac30be4a83b3e0e1e85c0d8ddab5e4aa8844f613818f763e"
+    },
+    {
+      "path": "docs/legacy-v3-local-validation.md",
+      "bytes": 5541,
+      "sha256": "9d5c3289760f1bc6d74dfe06d871ae88af3d2e26130719b4b6a1b3a9302191b2"
+    },
+    {
+      "path": "docs/lut-filenames.md",
+      "bytes": 3017,
+      "sha256": "41c4b72630c2ab8227f6233c32ddb5ba8f36114a5daa0c04ec366caa8efaa2cc"
+    },
+    {
+      "path": "docs/print-timing.md",
+      "bytes": 3347,
+      "sha256": "e0a4043340c8f1f228a7fd8b4fcba43e9a6ea24003ec36ebb92e470d9db321e6"
+    },
+    {
+      "path": "docs/reference-looks.md",
+      "bytes": 7474,
+      "sha256": "2ce0aca5fe810ff4e120f63cd1519812057248ce89b686aa93f67d3131f066a4"
+    },
+    {
+      "path": "docs/slide-support.md",
+      "bytes": 5900,
+      "sha256": "cc4655a47d8b2798e5456977acd73beb6247b1597b84913237f576595096c72c"
+    },
+    {
+      "path": "docs/std-precurve-validation.md",
+      "bytes": 17110,
+      "sha256": "2ad2a9c9034bffc7f8c4739992d44aa2a3ec765c579c34d30521d661a7be25ca"
+    },
+    {
+      "path": "docs/std-precurve.md",
+      "bytes": 8456,
+      "sha256": "bc4b9ebbd06cd0f1fe934dcec393f0aaf015b36a988fb73ceceab625b48ab0cf"
+    },
+    {
+      "path": "docs/supplied-fuji.md",
+      "bytes": 3129,
+      "sha256": "714b7a452a6bc61a7386b2c14f5c18a9d8f3f7e0f96997fa7199f7fa9b743d37"
+    },
+    {
+      "path": "docs/v3-refined-method.md",
+      "bytes": 5610,
+      "sha256": "c13f2a80ca40934b09821956d6844f17c77b46ceec6108b1adabfc8acb838bc7"
+    },
+    {
+      "path": "docs/v3-refined-validation.md",
+      "bytes": 15077,
+      "sha256": "1dbdc1d4be1d38e1844b175660d0caa8275064f9de685a4f3220f647e0aa8c77"
+    },
+    {
+      "path": "docs/validation.md",
+      "bytes": 40665,
+      "sha256": "da93de3b03aaf94e736da42d4b914ece51cdcc6afc246ba7f5ded308f5fa159f"
+    },
+    {
+      "path": "index.html",
+      "bytes": 609,
+      "sha256": "e82d68118ba512ad466f4dcd1cee72ce84b2c5b77fe81657975161397ba6d73d"
+    },
+    {
+      "path": "licenses/SPEKTRAFILM_CODE_GPL3.txt",
+      "bytes": 35149,
+      "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986"
+    },
+    {
+      "path": "licenses/SPEKTRAFILM_LICENSE.txt",
+      "bytes": 23677,
+      "sha256": "76d629501783ae52e8d63aee1e054c1e1a9713b9fe7d36fb306e25b1d14b24e9"
+    },
+    {
+      "path": "licenses/STAGESHOW_LICENSE.txt",
+      "bytes": 1069,
+      "sha256": "f9420246652580af24aa2bc48531c17f0f377b064bc7ea218afeb983923ef643"
+    },
+    {
+      "path": "package-lock.json",
+      "bytes": 118539,
+      "sha256": "d2298e55a0c18692af56c0a8238dba09965b169c7d078679307f480bb412e74f"
+    },
+    {
+      "path": "package.json",
+      "bytes": 876,
+      "sha256": "123f791344e43ca763efcc46edb53045bdb1b81402dd070d0b436df19b829c94"
+    },
+    {
+      "path": "pipeline/__init__.py",
+      "bytes": 56,
+      "sha256": "980995d8e83c71a147e19a8d31f14c463936dce4b48511573bea3bc88be56942"
+    },
+    {
+      "path": "pipeline/audit_fuji_contrast.py",
+      "bytes": 6020,
+      "sha256": "9b5afee54ecbb1a818e5f0c40cf5dadcbbcd12c7b08f01fcbeb26f27a008efe1"
+    },
+    {
+      "path": "pipeline/audit_legacy_v3.py",
+      "bytes": 15422,
+      "sha256": "9fcad28c6f7052a1a7bdea14ef47e0085cc3f296712979b072053a95338e87a5"
+    },
+    {
+      "path": "pipeline/audit_precurve.py",
+      "bytes": 31055,
+      "sha256": "b09847e02f94992b91902c23b674f67a76aa49bc3a04509732bbdc3dfcfae06c"
+    },
+    {
+      "path": "pipeline/camera_std.py",
+      "bytes": 20870,
+      "sha256": "4393f42e25f0675a7419ee02ac2bf5b9e16f63fa7e2fa0076498eabced361090"
+    },
+    {
+      "path": "pipeline/common.py",
+      "bytes": 4539,
+      "sha256": "8bc9ef9a3fdb28b8d930764c46b766e5cd74ef73b1dea06c6cc89bf9ef13d321"
+    },
+    {
+      "path": "pipeline/config/default.json",
+      "bytes": 414,
+      "sha256": "162fda5d4ff8e7f94a89cfe1a151b5a23a80034bf0f2d756cb8c055ece82b714"
+    },
+    {
+      "path": "pipeline/config/fujifilm-official.json",
+      "bytes": 6095,
+      "sha256": "ff83909b172b45eef19805013aa7daae6d2a946c64bb184ac732be298b1ca686"
+    },
+    {
+      "path": "pipeline/config/reference-looks.json",
+      "bytes": 23959,
+      "sha256": "bcde21a863330620d887de51b8d150313cd88b5ad01f59da92608e82b278cee0"
+    },
+    {
+      "path": "pipeline/digital.py",
+      "bytes": 8409,
+      "sha256": "e0e5e89f4a40aade733a01e6fc2e757517191a4f4d0942281aee541ca811ef13"
+    },
+    {
+      "path": "pipeline/fuji.py",
+      "bytes": 9970,
+      "sha256": "f6d7256f9b3bae01c1335dc95f7789e8bdc0abb56cc4e64c915c27111c7f44f8"
+    },
+    {
+      "path": "pipeline/fuji_paper.py",
+      "bytes": 10777,
+      "sha256": "ff6cd44e3cd49928e359ccfe8b6b02f75d77a052ffe7836b223cf6ef2aeaa7fa"
+    },
+    {
+      "path": "pipeline/generate.py",
+      "bytes": 15240,
+      "sha256": "704551bb58cee69e177d987f49817630ce14807058e90a994f7f705077dd8757"
+    },
+    {
+      "path": "pipeline/generate_film_cast.py",
+      "bytes": 12801,
+      "sha256": "fb48a7de8af68c1606bd256ba02c5a1473949505a33ed4061bcc7412f147482c"
+    },
+    {
+      "path": "pipeline/generate_fuji.py",
+      "bytes": 8575,
+      "sha256": "c1c507f8d0d57882d91023cfb80f22b1ee37d7940c3f4d7e21365dce8a94d7ff"
+    },
+    {
+      "path": "pipeline/generate_precurve.py",
+      "bytes": 18879,
+      "sha256": "7fe2fcf02baa19f0449986201e604701b2cf43ddb662f393d16e6a0d5a1a03e2"
+    },
+    {
+      "path": "pipeline/generate_print_timing.py",
+      "bytes": 6405,
+      "sha256": "5e5fc0c005fbbec47d3aab9bea436c563f67b0c0200509b281ad4c019d01cc4c"
+    },
+    {
+      "path": "pipeline/generate_research.py",
+      "bytes": 13785,
+      "sha256": "2688f03a054c7ff7c26176b818bff196ab8e42fbf0001250ae84bf9b5d4b079e"
+    },
+    {
+      "path": "pipeline/generate_v3_refined.py",
+      "bytes": 18050,
+      "sha256": "8cca4072352d276fa453ae2c72d1fdc07370f59c4cf56f95425c1232ef78b505"
+    },
+    {
+      "path": "pipeline/import_external_samples.py",
+      "bytes": 14687,
+      "sha256": "15b9f9fe8e56cbe2f2a48c12414e87f27640b5ad3eb4315150f9bc82951254bd"
+    },
+    {
+      "path": "pipeline/import_recommended_gallery.py",
+      "bytes": 7910,
+      "sha256": "2fdddf8222b1d6407fa549cb0d609521eb32a9b8b747c6a331bb7265c3f40614"
+    },
+    {
+      "path": "pipeline/import_supplied_fuji.py",
+      "bytes": 12799,
+      "sha256": "1681948dd4a220cc6d834733d86a350e4fdc041ce1e666d4516ddb360fa7e3a4"
+    },
+    {
+      "path": "pipeline/import_user_gallery.py",
+      "bytes": 15980,
+      "sha256": "ba701d82d88def0227d4574669041ce241077e8604c70fc8436e03257993d4df"
+    },
+    {
+      "path": "pipeline/jpg.py",
+      "bytes": 7042,
+      "sha256": "9aabfc7eca3345d6340bb0e09ebba44045362eecc780c8ee6427af8d1e24941c"
+    },
+    {
+      "path": "pipeline/jpg_refined.py",
+      "bytes": 7797,
+      "sha256": "1ae03f748709780337ad8509481988a5865c017f37a89aaa5a9c69192e775a4b"
+    },
+    {
+      "path": "pipeline/precurve.py",
+      "bytes": 9366,
+      "sha256": "3eb51355d311d73f04113a77d04b547e99136fa3f7e0821a9eaede40b85fbf04"
+    },
+    {
+      "path": "pipeline/prepare_legacy_v3.py",
+      "bytes": 11287,
+      "sha256": "97456e64ce6be02d03214af6978bab3089fe6a28de4efbdaf975b0f74e4841e8"
+    },
+    {
+      "path": "pipeline/print_blend.py",
+      "bytes": 13681,
+      "sha256": "1329a0c5f315b037060b6a250dc537218a0f01c0c17894f5fcdda57def2d4b7e"
+    },
+    {
+      "path": "pipeline/print_timing.py",
+      "bytes": 5768,
+      "sha256": "c40509a95f376080d01a935be4cf4656f1e5baf03b4711b71f84d1931a515d9f"
+    },
+    {
+      "path": "pipeline/requirements.lock",
+      "bytes": 2563,
+      "sha256": "6933833b4104faf9765f201edaaea6d139de1fb66531645debe13b2a0592858a"
+    },
+    {
+      "path": "pipeline/research.py",
+      "bytes": 7471,
+      "sha256": "cadd42341ff73da379ad6a6a48f511289319d03a38e36dc7ed196a484564f08b"
+    },
+    {
+      "path": "pipeline/samples.py",
+      "bytes": 3196,
+      "sha256": "1664820738d804b8ec02abf616655cbb182cef83a4f5504208ee3a9cde21bcd1"
+    },
+    {
+      "path": "pipeline/slide.py",
+      "bytes": 3806,
+      "sha256": "995ef39cfd683d0fa2ed5ec84cb98614f21cad1f1d1927bd1befa565b4508c5a"
+    },
+    {
+      "path": "pipeline/std.py",
+      "bytes": 4515,
+      "sha256": "97f9b28e1b408818d693d3850d76c7a71220d2b1b2ed5be9201bf9f965ee8826"
+    },
+    {
+      "path": "pipeline/tests/test_artifacts.py",
+      "bytes": 991,
+      "sha256": "4b26508aa7e9216e2137f4466676257f9ab09cf7c059eeeb90a25be9703fff53"
+    },
+    {
+      "path": "pipeline/tests/test_camera_std.py",
+      "bytes": 3757,
+      "sha256": "a490142276e3781fb8e4137fcc4767a5240df979f6966625e3b432248794389c"
+    },
+    {
+      "path": "pipeline/tests/test_color_contract.py",
+      "bytes": 4313,
+      "sha256": "d37a4b8ab71e97ec8c16ca118b2816c28cde447e516c7e2f7141f20bcfa8ea31"
+    },
+    {
+      "path": "pipeline/tests/test_digital.py",
+      "bytes": 5578,
+      "sha256": "126ae6760e3ccd12caa86ef3c6422ae6b3742e37a5d946ccb4e38164a9b57911"
+    },
+    {
+      "path": "pipeline/tests/test_digital_reference.py",
+      "bytes": 4882,
+      "sha256": "5e4a4f4a3981def7756f7ead8b158e3129ed1665e1e1493e3c939a765e4f615a"
+    },
+    {
+      "path": "pipeline/tests/test_film_cast.py",
+      "bytes": 7219,
+      "sha256": "578a5d5111147b35227b0b8ee864d09a465530a8c761d185080a508ae3cdd0dd"
+    },
+    {
+      "path": "pipeline/tests/test_fuji.py",
+      "bytes": 8373,
+      "sha256": "9b07332caf362c83e19f434dd497e1b64f67ee6d229c76e69a34d88eecbfd859"
+    },
+    {
+      "path": "pipeline/tests/test_fuji_paper.py",
+      "bytes": 8116,
+      "sha256": "15fdb26bbda3b044bf0ab873f4afb5432bda3b8477621c6a0ad69ff9253ac075"
+    },
+    {
+      "path": "pipeline/tests/test_jpg.py",
+      "bytes": 8189,
+      "sha256": "9c5a959696795069a766ec22ce6b9d195191f21a3507cd13675a2e8914d07b40"
+    },
+    {
+      "path": "pipeline/tests/test_jpg_refined.py",
+      "bytes": 4071,
+      "sha256": "b2502a4c61830315a0a57bad1e9d19e3ac8e46b9eb1a5829dcbc8ce6d257ff15"
+    },
+    {
+      "path": "pipeline/tests/test_legacy_v3.py",
+      "bytes": 8396,
+      "sha256": "76bdc62578e79ec5f455afafa7459887f207a7cbd2adc474145b320167c386fd"
+    },
+    {
+      "path": "pipeline/tests/test_precurve.py",
+      "bytes": 5521,
+      "sha256": "a13a5a27edeb65b9b5bcf5b23fbbb5274715d7aa8d97fdb414953812ac122c96"
+    },
+    {
+      "path": "pipeline/tests/test_precurve_artifacts.py",
+      "bytes": 3603,
+      "sha256": "5e06f1a847e3ffc0ca083d2ab6f65416433180d0faf0b1e132ff92c9d8fd09e1"
+    },
+    {
+      "path": "pipeline/tests/test_precurve_exports.py",
+      "bytes": 7759,
+      "sha256": "0d6b27df01da98f0183bb7fed26ccae9f9cee2b093475789153a52285be10b52"
+    },
+    {
+      "path": "pipeline/tests/test_print_timing.py",
+      "bytes": 2655,
+      "sha256": "cf5c201357d39e7ec5676ad8fb242feac2ded9997f5729b412bb1c0d0ede3756"
+    },
+    {
+      "path": "pipeline/tests/test_research.py",
+      "bytes": 5800,
+      "sha256": "b4628bfe1b288e3695b45c5d4a7edae6e3d7503bb2cfb970a4a695633129258b"
+    },
+    {
+      "path": "pipeline/tests/test_slide.py",
+      "bytes": 3295,
+      "sha256": "38d31281b8482829e6f4c84666cc33bc6b7f6ea4f5fe79d2165fb39ca0b0e3c3"
+    },
+    {
+      "path": "pipeline/tests/test_std_direct.py",
+      "bytes": 5647,
+      "sha256": "f28ce5680d1f11cd195208c0754e052ef86486427b744a23863f33082617ac16"
+    },
+    {
+      "path": "pipeline/tests/test_std_previews.py",
+      "bytes": 3924,
+      "sha256": "8bd9fb4eec19602b50e6b82de3f9e19a20ae5aceb316502c528f48045c3b714e"
+    },
+    {
+      "path": "pipeline/tests/test_v3_refined_exports.py",
+      "bytes": 8016,
+      "sha256": "a8584574cf59b6a29dd523bafd28c70aca7fc3c49a1a23856258da1de96a3e31"
+    },
+    {
+      "path": "public/camera-adapters/Calibration/PanasonicForwardPairAnchors.json",
+      "bytes": 1624,
+      "sha256": "346d56c67c4ced5480ed8d3d1b50926371caa8b29a55c0c5c422ceabf7acba8d"
+    },
+    {
+      "path": "public/camera-adapters/Calibration/PanasonicForwardPairGlobalFit.json",
+      "bytes": 13564,
+      "sha256": "99c5ea33d434d66c00e8e3c367ce55dc49dacfa47353af2ec71151c2b27f84d3"
+    },
+    {
+      "path": "public/camera-adapters/Calibration/S1RIIControlledValidation.json",
+      "bytes": 65756,
+      "sha256": "90ba7752afbaac4413bcbb7d0705818088cc544ccdd737302e7bae437df4514f"
+    },
+    {
+      "path": "public/camera-adapters/G9IIS2V.cube",
+      "bytes": 1401803,
+      "sha256": "da00ed735540479c45bb8157e85abb2fb72806859aeecd17e23977edbf121b98"
+    },
+    {
+      "path": "public/camera-adapters/GH6S2V.cube",
+      "bytes": 1401802,
+      "sha256": "3658debcd19832f69f9acfd98c99b78420867eb6ba6727167a163e030a63bed1"
+    },
+    {
+      "path": "public/camera-adapters/GH7S2V.cube",
+      "bytes": 1401802,
+      "sha256": "e5d18ad817568957cfe0b7368371569f849b6799952ed11e1dd6677a1eda9ba8"
+    },
+    {
+      "path": "public/camera-adapters/L10S2V.cube",
+      "bytes": 1401805,
+      "sha256": "8fcf628d733231e0ea8a6a9f6571d1912d3b5095f4e873409243928484583237"
+    },
+    {
+      "path": "public/camera-adapters/README.md",
+      "bytes": 7263,
+      "sha256": "c91cc86ad0f19b46a4ee2da3d9f11d4a315a1869df21c3e0d812579fdc8039cf"
+    },
+    {
+      "path": "public/camera-adapters/Reports/G9IIS2V.json",
+      "bytes": 5991,
+      "sha256": "ec3ea0ae581a5203e2b3be68b411766304562a6ab60e49d5d5fc7addb565ac19"
+    },
+    {
+      "path": "public/camera-adapters/Reports/GH6S2V.json",
+      "bytes": 6000,
+      "sha256": "23a144c2a71673110577eee51bdc5d102923a6f98d153428dac36b0c051f8164"
+    },
+    {
+      "path": "public/camera-adapters/Reports/GH7S2V.json",
+      "bytes": 5989,
+      "sha256": "2d14d7384179c7943d2aa6c1a0107dd5e6fe30f6195da0b39eab50552911c8ac"
+    },
+    {
+      "path": "public/camera-adapters/Reports/L10S2V.json",
+      "bytes": 5986,
+      "sha256": "249f2476fbc0b99e0f8a2595ddb46b3d9eea8d8fe822e0b7d967c50425e0150b"
+    },
+    {
+      "path": "public/camera-adapters/Reports/S1IIES2V.json",
+      "bytes": 5986,
+      "sha256": "5d71abab1574ee571d1e652eeaefd746b5ddc408d6e9a562135b071302e59e98"
+    },
+    {
+      "path": "public/camera-adapters/Reports/S1IIS2V.json",
+      "bytes": 5999,
+      "sha256": "0e518269e60e21adf99db122047febdf5d79bfcc5eb164400c80a5bdbac398f4"
+    },
+    {
+      "path": "public/camera-adapters/Reports/S1RIIS2V.json",
+      "bytes": 5994,
+      "sha256": "353f54cad20dfc2b31cbacf8a9a0d6a1dac8505f16490171119df412e8dca7ab"
+    },
+    {
+      "path": "public/camera-adapters/Reports/S5IIS2V.json",
+      "bytes": 5994,
+      "sha256": "f413060e2dccd8bc602bf0f3eb4ae1f4b308cda23b114018eb4ff7e83ab84362"
+    },
+    {
+      "path": "public/camera-adapters/Reports/S5IIXS2V.json",
+      "bytes": 5996,
+      "sha256": "2f94d8d38e22502d5a8affdcbfc45b60ead5bfc53880aabb206f5d0e0b4b04da"
+    },
+    {
+      "path": "public/camera-adapters/Reports/S9S2V.json",
+      "bytes": 5998,
+      "sha256": "51e7255731ed87a07e88297f40f29ac22f26cb34ff389384af9947f4f2142648"
+    },
+    {
+      "path": "public/camera-adapters/S1IIES2V.cube",
+      "bytes": 1401804,
+      "sha256": "45330f51fe7469cea6565fd570708b3cc097bf98a1cbcf499ced0c44c1213001"
+    },
+    {
+      "path": "public/camera-adapters/S1IIS2V.cube",
+      "bytes": 1401803,
+      "sha256": "7f1f997cb4bcf5c427e8e6ccc81acfedd3f14dae0b1e8e3f8672a8231daefa7e"
+    },
+    {
+      "path": "public/camera-adapters/S1RIIS2V.cube",
+      "bytes": 1401804,
+      "sha256": "c4775591f4aa4ab48cf5ed484fae0d7762d74916b1c04ae90742691ff64db1fe"
+    },
+    {
+      "path": "public/camera-adapters/S5IIS2V.cube",
+      "bytes": 1401803,
+      "sha256": "8034e868df4be4d02de78fd62790fcef62add02e4c38c629e9b0ebec38993aa0"
+    },
+    {
+      "path": "public/camera-adapters/S5IIXS2V.cube",
+      "bytes": 1401804,
+      "sha256": "0ff627a7c7ee0743fc913f112b41d132b3271e844269886bdd84b7bc8b01a12c"
+    },
+    {
+      "path": "public/camera-adapters/S9S2V.cube",
+      "bytes": 1401801,
+      "sha256": "7fdd3d558a375b82804d61a86b8ab149da05d47a41c6619e7fd23c4dd3d6e886"
+    },
+    {
+      "path": "public/camera-adapters/SHA256SUMS.txt",
+      "bytes": 898,
+      "sha256": "9bba1034bbef2b49d8e9290849026fba8abee5eab1e08f13e61ecc976f8034cb"
+    },
+    {
+      "path": "public/camera-adapters/V-Log-Alchemy-LICENSE.txt",
+      "bytes": 11357,
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+    },
+    {
+      "path": "public/camera-adapters/manifest.json",
+      "bytes": 12525,
+      "sha256": "15234398b615903e02549f63d877a128bf5643358ba73ca918b78015abf0ebff"
+    },
+    {
+      "path": "public/camera-adapters/source.json",
+      "bytes": 373,
+      "sha256": "9b40ea83bd3cae93c23923d7c8a1b43abc0bc93a2c482cabb5d624c6fc7a552b"
+    },
+    {
+      "path": "scripts/bootstrap.py",
+      "bytes": 1022,
+      "sha256": "a8f9cbd669c78bdbf653050073530932d05889543515f97faea58e7a1f150207"
+    },
+    {
+      "path": "scripts/finalize-std-b.py",
+      "bytes": 10848,
+      "sha256": "ddbc39cc667857d5db6cac4d0bb84c52ae03e98a160a2217a63ca5cb081f5c2e"
+    },
+    {
+      "path": "scripts/look-inventory.mjs",
+      "bytes": 8147,
+      "sha256": "11bf17126ac230f30c37008423c45d8738289ce0347af4d4d27393c2d211fb4d"
+    },
+    {
+      "path": "scripts/migrate-camera-std.py",
+      "bytes": 3100,
+      "sha256": "2668527d7d091a4479d3e1e988fc89cd2c94c0497771ef8ded681fa7cd2ac232"
+    },
+    {
+      "path": "scripts/pack-static.mjs",
+      "bytes": 4848,
+      "sha256": "adb029e1ea1055f8f0af4794570f0715b4472e8e0d1c2e5d0fb72705e5a6f84a"
+    },
+    {
+      "path": "scripts/package-source.mjs",
+      "bytes": 14139,
+      "sha256": "8bf835b9170766a523ac1bbab702bf853c2d96c1071f4b551279f31553728088"
+    },
+    {
+      "path": "scripts/prepare-cloudflare.mjs",
+      "bytes": 5781,
+      "sha256": "09963a39063b60928dbbfe33fdadcfbf859c352d7debfdce9c99a800ed992183"
+    },
+    {
+      "path": "scripts/refresh-colour-reference.py",
+      "bytes": 3583,
+      "sha256": "ff296cc8cc5368dc7fec194198472c9615be217ad93bbcde24da5236c6e00afb"
+    },
+    {
+      "path": "scripts/run-web.mjs",
+      "bytes": 2930,
+      "sha256": "9057e4898de96068d08dd90bca70e8dfd7d484d65d243b421a7eff8014f9a71a"
+    },
+    {
+      "path": "scripts/verify-assets.mjs",
+      "bytes": 4111,
+      "sha256": "d77f3ac89e2dfc5c92c3c2cdff578e2b540008479dd60ea1a355523c9bd84b26"
+    },
+    {
+      "path": "scripts/verify-camera-std.mjs",
+      "bytes": 16187,
+      "sha256": "48e18f1f9d589035ffcd117785fa0695951bdad8fd4fc288e0472f04c2769402"
+    },
+    {
+      "path": "scripts/verify-cloudflare.mjs",
+      "bytes": 8349,
+      "sha256": "ec86c353d1f49507210d7d1a06a78bbc4b1a93f6824f382f5411d0e0e9e0a47c"
+    },
+    {
+      "path": "scripts/verify-gallery.mjs",
+      "bytes": 15391,
+      "sha256": "59fccd866f1a13c3b6f672cc9d9b8e6b228228d4ba9caf93624ea8c0c5cc8db9"
+    },
+    {
+      "path": "scripts/verify-legacy-v3.mjs",
+      "bytes": 7140,
+      "sha256": "29ae8ce93150c299abfee51aa84405d4f547ad0850ede0ad3e623a38f13dd3c9"
+    },
+    {
+      "path": "scripts/verify-print-timing.mjs",
+      "bytes": 2482,
+      "sha256": "61ab1e7a4deccaaa6ae69395f1bc42cfd7da3c609809f162ed2edfd1fc606ce7"
+    },
+    {
+      "path": "scripts/verify-refined-v3.mjs",
+      "bytes": 6348,
+      "sha256": "693cbb1fda22a4d678fb87894f49ca41dbc57f345d81a72700621001b79093f9"
+    },
+    {
+      "path": "scripts/verify-std-b.mjs",
+      "bytes": 7713,
+      "sha256": "d744764ebbb72cb26ab081d64ccb90023874ccbf335166632fe4363aa25f1674"
+    },
+    {
+      "path": "scripts/verify-supplied-fuji.mjs",
+      "bytes": 7967,
+      "sha256": "414a5763863fe4e3413d9a163585da7dcd8a9ce22258923a034ecde0e8a7cef3"
+    },
+    {
+      "path": "server/legacy-worker.mjs",
+      "bytes": 616,
+      "sha256": "1a1f0f3dc04fac2264fb1acb092629f7e1757b5591515d266bb7e93fae932d83"
+    },
+    {
+      "path": "server/worker.mjs",
+      "bytes": 1122,
+      "sha256": "0be55e4f77e39cd78f94f843ce48732376b70999ded00b36296d1f942424629a"
+    },
+    {
+      "path": "src/FilmCanister.tsx",
+      "bytes": 1216,
+      "sha256": "4bf2f7cc67ec6cc1f8f8d0e90bc841f4fc7ef2078d2d65d22ee5963b0cb81ddf"
+    },
+    {
+      "path": "src/FilmGallery.tsx",
+      "bytes": 14264,
+      "sha256": "e29a01c4132cbfa29b3aa699b82b843d54c3d9697b074eab85e19b817ff1eef1"
+    },
+    {
+      "path": "src/LutUsageGuide.tsx",
+      "bytes": 7637,
+      "sha256": "0ab21f6f6831a6186645e9f4d874f8e3b9460f79851061193fa3a7ea712869a8"
+    },
+    {
+      "path": "src/REHEARSAL.md",
+      "bytes": 3238,
+      "sha256": "0b0df1005ec3d6bf59012bd3ab4ec0fa5a06f6f439d7534f194f2ce734421ccf"
+    },
+    {
+      "path": "src/ReviewSamples.tsx",
+      "bytes": 4981,
+      "sha256": "e523c01578f64f455077f5bf8a6c48cb939415e5cd990cfaaeb53d16fa6a9584"
+    },
+    {
+      "path": "src/WhiteBalanceGuide.tsx",
+      "bytes": 6023,
+      "sha256": "073099da498b90ba51277f808d6567edc7708c961fa463a61f67bf17dc7b67d6"
+    },
+    {
+      "path": "src/assets.ts",
+      "bytes": 8140,
+      "sha256": "512a27bbeedc8ef9ccadf5136abed2424d1c3e3d837740bf49f63961be49fb11"
+    },
+    {
+      "path": "src/downloadZip.ts",
+      "bytes": 8472,
+      "sha256": "09c083268bfbcbf9db41451000bc51056bcc961faca78fad7dca5326820d5057"
+    },
+    {
+      "path": "src/filmCanister.css",
+      "bytes": 1601,
+      "sha256": "2bdf75eb46b5434ca178619b663c44c6c93a86d8ec09e08143bd590c8b28063a"
+    },
+    {
+      "path": "src/filmGallery.css",
+      "bytes": 10463,
+      "sha256": "422c645be359241b66653ea0a6591f9f1809a55e541f2a12e164ae410cdd527f"
+    },
+    {
+      "path": "src/i18n.ts",
+      "bytes": 8353,
+      "sha256": "ddfecd38af0e253505e38e24d4e9c2506926e615a0c168562e8a87a70a8e42dd"
+    },
+    {
+      "path": "src/lookSelection.ts",
+      "bytes": 5019,
+      "sha256": "c0c8de91693693744b655a0e436b7911b763aa3840499350a0c59d2468af60b1"
+    },
+    {
+      "path": "src/lut.ts",
+      "bytes": 2834,
+      "sha256": "83e573eb9141e37add51a4e5e02ef43e8bab9f3a80dcf3b26e01474e7a4b61bf"
+    },
+    {
+      "path": "src/lut.worker.ts",
+      "bytes": 813,
+      "sha256": "4c5eb29d2e60b0cf3b238067183373ce353ce37d225314aa392ab54c4b749834"
+    },
+    {
+      "path": "src/lutNames.ts",
+      "bytes": 1945,
+      "sha256": "7356d814a0aa2c1664d96b17a3199a653669a8cf1dccf7394439fd88aa4471c1"
+    },
+    {
+      "path": "src/lutUsageGuide.css",
+      "bytes": 4812,
+      "sha256": "f7eab5ad2e36d27724ae71ca5320bd7e8bd73d6e46a3a7235e6402ac992aa248"
+    },
+    {
+      "path": "src/main.tsx",
+      "bytes": 48976,
+      "sha256": "101b4771b98f4fc6bc99e9f4f3a133df01778129467b53d8c9f7ccd564540c4f"
+    },
+    {
+      "path": "src/printTiming.ts",
+      "bytes": 8855,
+      "sha256": "8f6aec8a191ffb6838e6117b473324d6fda609187b6befdd09c9ffe5cf5a842d"
+    },
+    {
+      "path": "src/style.css",
+      "bytes": 39696,
+      "sha256": "a990c82c3d25740db71e86727a7708cb4a84410f2942bab3ecb6e5edb63e5fad"
+    },
+    {
+      "path": "src/translations/en.ts",
+      "bytes": 76140,
+      "sha256": "3a258bc240cec34690b93ae433a65e83fb8f941a162db0a07d6257ffb53b33fa"
+    },
+    {
+      "path": "src/types.ts",
+      "bytes": 5567,
+      "sha256": "8f28b61c6d3fbc51214887e52b7fac6cbc57e55a1ca07d4d032a5d428ff21ca8"
+    },
+    {
+      "path": "src/usePhoto.ts",
+      "bytes": 9316,
+      "sha256": "59e2c645d14f52ea371aaa026528cb5ca38b3471702887e1dcb18dd1f4b6fefd"
+    },
+    {
+      "path": "src/usePrintTiming.ts",
+      "bytes": 4674,
+      "sha256": "16ac4ba33585564ffba037ed50bff9c8d2f86dd603b49ef0b26b7f49eb8ba391"
+    },
+    {
+      "path": "src/whiteBalanceGuide.css",
+      "bytes": 1356,
+      "sha256": "f5028be73051ca6f7bdd1d20537b81f3d17c6700f30e9fd4a2fde53853dd2472"
+    },
+    {
+      "path": "tests/cloudflare.test.mjs",
+      "bytes": 21839,
+      "sha256": "89c01106904845e3b29c74c791490ba1e551cd3b9d9bb184df952e11887769f6"
+    },
+    {
+      "path": "tests/download-zip.test.ts",
+      "bytes": 8733,
+      "sha256": "87576017742ba3c35f64fd4733fce882a5d3f47a0e8d8d0760be16df85b1d8e9"
+    },
+    {
+      "path": "tests/fixtures/colour-reference.json",
+      "bytes": 104524,
+      "sha256": "a0e28bbab84f134a6d14f84619ee5a46a340cfd66f3b1dea83bf95d1a6aa07a4"
+    },
+    {
+      "path": "tests/fixtures/print-timing-reference.json",
+      "bytes": 30842,
+      "sha256": "e7328b31e2cc831a23dd43a017ebb67d8da48aa3e9789b2fe7c9848192e0a325"
+    },
+    {
+      "path": "tests/gallery.test.mjs",
+      "bytes": 5144,
+      "sha256": "05e14407db0925ad60f25495a92a87ff3cdeca6fb2ebaabefefc3e6ee9b9b7d9"
+    },
+    {
+      "path": "tests/geo.test.mjs",
+      "bytes": 3675,
+      "sha256": "eb99ef2e54e64cd14f27dd004602ccdc1aac4ae77e85d7307eaf0138bda71e38"
+    },
+    {
+      "path": "tests/i18n.test.ts",
+      "bytes": 6740,
+      "sha256": "c6863ca81de327c358f43241af97ff0809783616fab9c122cd4192262b54eb5f"
+    },
+    {
+      "path": "tests/legacy-redirect.test.mjs",
+      "bytes": 1551,
+      "sha256": "6aa8aa84db9c106ff21c843f098017c087790c082ee99c8e3f35ff9600c9bd27"
+    },
+    {
+      "path": "tests/look-selection.test.ts",
+      "bytes": 14362,
+      "sha256": "34b758747beb31a0a1c59c5a651f84d5fbe9d056739b8cbdd191b434f5b6c7f0"
+    },
+    {
+      "path": "tests/lut-names.test.ts",
+      "bytes": 3346,
+      "sha256": "a37306627a4ea503fec6b5135e13b6f0c11da7e7fe778a7ea7324b621483814c"
+    },
+    {
+      "path": "tests/lut.test.ts",
+      "bytes": 9661,
+      "sha256": "53f815fbe0af5ca8c43f50bdfc2c6942fc9e4e18f28b5f038f9e79f2aefa6bce"
+    },
+    {
+      "path": "tests/pack-static.test.mjs",
+      "bytes": 5575,
+      "sha256": "ea238f7bd7969d53a43548d8ad045861aa4cfbcea203eef08443e3a67d59fa58"
+    },
+    {
+      "path": "tests/print-timing.test.ts",
+      "bytes": 5019,
+      "sha256": "01e02e2dfb156016355b4546831b2b2a1d6a7b9a755f9eea428cc4f78536646c"
+    },
+    {
+      "path": "tests/supplied-fuji.test.mjs",
+      "bytes": 3511,
+      "sha256": "117cb96ce1afa94f58338e9808806cfb400d0710e3810e5a1444d84812a019ad"
+    },
+    {
+      "path": "tsconfig.json",
+      "bytes": 352,
+      "sha256": "ad8c2fce369126adfe1ea278bc05b459ee58cdab5e8bcbda47b1fd989d892174"
+    },
+    {
+      "path": "wrangler.jsonc",
+      "bytes": 330,
+      "sha256": "e4ada353bc4a0e1d0329e6a34d3037181ba441a5c242e789f5c4ab33b6568755"
+    },
+    {
+      "path": "wrangler.legacy.jsonc",
+      "bytes": 359,
+      "sha256": "155ae88a29791a543091f7ccdcc6290eb282db61d6718e787b54caeb19db63a2"
+    },
+    {
+      "path": "SOURCE-README.txt",
+      "bytes": 4721,
+      "sha256": "669fbe9abbb99e55e2c3dc28955ca6fcaf59532338969ab9fd172cf71cce68e6"
+    }
+  ]
+}

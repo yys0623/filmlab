@@ -1,0 +1,200 @@
+{
+  "method": "global regularized forward-pair regression; no pointwise Standard inverse",
+  "standard_map": "decoded/L00601.rgb16",
+  "vlog_map": "decoded/L00629.rgb16",
+  "standard_map_b": "decoded/L00602.rgb16",
+  "vlog_map_b": "decoded/L00630.rgb16",
+  "vlog_shadow_map": "decoded/L00633.rgb16",
+  "vlog_shadow_map_b": "decoded/L00634.rgb16",
+  "output_cube": "Conversion/S1IIES2V.cube",
+  "solve_size": 9,
+  "output_size": 33,
+  "samples": 300000,
+  "uniform_samples": 0,
+  "correlated_samples": 300000,
+  "uniform_fraction": 0.0,
+  "neutral_samples": 4097,
+  "neutral_weight": 20.0,
+  "smoothness": 0.01,
+  "prior_cube": "v1.3/Conversion/S1IIES2V.cube",
+  "prior_weight": 1.0,
+  "prior_coverage_scale": 0.01,
+  "standard_domain_max": 1.0,
+  "vlog_domain_max": 7.0,
+  "vlog_shadow_domain_max": 0.109375,
+  "pair_blend": 0.5,
+  "anchor_weight_scale": 100.0,
+  "cg_iterations": 1000,
+  "cg_tolerance": 1e-07,
+  "random_seed": 20260817,
+  "camera_pair_anchors": [
+    {
+      "path": "Calibration/PanasonicForwardPairAnchors.npz",
+      "sample_count": 20591,
+      "weight_sum": 482380.0,
+      "rgb_error": {
+        "mean": 0.005611755527276804,
+        "rmse": 0.008532948486050823,
+        "p50": 0.003982828647637072,
+        "p95": 0.015168497582520523,
+        "p99": 0.030549797475116935,
+        "max": 0.12901530946264697
+      }
+    }
+  ],
+  "fit": {
+    "channel_solvers": [
+      {
+        "iterations": 312,
+        "converged": true,
+        "initial_residual_norm": 2706.7679143687774,
+        "final_residual_norm": 0.000245945760106284,
+        "relative_residual_norm": 9.086326123517647e-08
+      },
+      {
+        "iterations": 330,
+        "converged": true,
+        "initial_residual_norm": 1255.9366488176813,
+        "final_residual_norm": 9.398151502238454e-05,
+        "relative_residual_norm": 7.482982132168628e-08
+      },
+      {
+        "iterations": 352,
+        "converged": true,
+        "initial_residual_norm": 1028.912638520752,
+        "final_residual_norm": 8.54941170846174e-05,
+        "relative_residual_norm": 8.309171632640324e-08
+      }
+    ],
+    "node_data_diagonal": {
+      "mean": 385.3093184215002,
+      "rmse": 1898.6250783855703,
+      "p50": 9.94096288388335,
+      "p95": 1646.9308238113972,
+      "p99": 4209.370168966954,
+      "max": 42593.29243222177
+    },
+    "node_prior_diagonal": {
+      "mean": 0.2559219798088525,
+      "rmse": 0.4960395171507803,
+      "p50": 0.0,
+      "p95": 1.0,
+      "p99": 1.0,
+      "max": 1.0
+    },
+    "node_weighted_coverage": {
+      "mean": 1185.6241426611807,
+      "rmse": 4055.977809352111,
+      "p50": 98.49475443221647,
+      "p95": 5755.096196764439,
+      "p99": 16750.454877305427,
+      "max": 69779.88851895303
+    },
+    "unsupported_node_fraction": 0.19478737997256515,
+    "training_rgb_error": {
+      "mean": 0.007343013604760935,
+      "rmse": 0.010864558813346546,
+      "p50": 0.005054028832364009,
+      "p95": 0.02304941967123047,
+      "p99": 0.041714228257654105,
+      "max": 0.12531558856446326
+    }
+  },
+  "neutral_axis_constraint": {
+    "diagonal_node_max_channel_spread_before": 0.009890119591288563,
+    "diagonal_node_max_channel_spread_after": 0.0
+  },
+  "unclipped_output_min": [
+    0.0019385324563182243,
+    0.016799909644556254,
+    0.044922889685925206
+  ],
+  "unclipped_output_max": [
+    0.9877844176072443,
+    0.7310253714297523,
+    0.7194464010985008
+  ],
+  "output_clipped_to_0_1": true,
+  "validation": {
+    "sample_count": 20000,
+    "rgb_error": {
+      "mean": 0.007217526649022801,
+      "rmse": 0.01094428671968156,
+      "p50": 0.004485416541676514,
+      "p95": 0.024133024377331575,
+      "p99": 0.040690975391458065,
+      "max": 0.10877326060961676
+    },
+    "clipped_fraction": 0.013,
+    "correlated_rgb_error": {
+      "mean": 0.007217526649022801,
+      "rmse": 0.01094428671968156,
+      "p50": 0.004485416541676514,
+      "p95": 0.024133024377331575,
+      "p99": 0.040690975391458065,
+      "max": 0.10877326060961676
+    },
+    "unclipped_rgb_error": {
+      "mean": 0.007044790022733676,
+      "rmse": 0.010536308323009964,
+      "p50": 0.004418484779719305,
+      "p95": 0.02339106428285123,
+      "p99": 0.03893898333148126,
+      "max": 0.08398506698529143
+    },
+    "clipped_rgb_error": {
+      "mean": 0.02033222281420492,
+      "rmse": 0.028020319598294038,
+      "p50": 0.012818297372039236,
+      "p95": 0.06519025232012512,
+      "p99": 0.0747120400067311,
+      "max": 0.10877326060961676
+    }
+  },
+  "prior_validation": {
+    "sample_count": 20000,
+    "rgb_error": {
+      "mean": 0.00537673708940719,
+      "rmse": 0.01678349727657848,
+      "p50": 0.0013399309025537137,
+      "p95": 0.020038071526679756,
+      "p99": 0.05168427128965935,
+      "max": 0.31268566102076945
+    },
+    "clipped_fraction": 0.013,
+    "correlated_rgb_error": {
+      "mean": 0.00537673708940719,
+      "rmse": 0.01678349727657848,
+      "p50": 0.0013399309025537137,
+      "p95": 0.020038071526679756,
+      "p99": 0.05168427128965935,
+      "max": 0.31268566102076945
+    },
+    "unclipped_rgb_error": {
+      "mean": 0.0051338765919228145,
+      "rmse": 0.016429403180120445,
+      "p50": 0.001307903541911307,
+      "p95": 0.01915417408001873,
+      "p99": 0.0458780902519053,
+      "max": 0.31268566102076945
+    },
+    "clipped_rgb_error": {
+      "mean": 0.023815453321490224,
+      "rmse": 0.03427212450270953,
+      "p50": 0.012554134689768851,
+      "p95": 0.07545347118950434,
+      "p99": 0.09734788961511247,
+      "max": 0.1650952722242108
+    }
+  },
+  "limitations": [
+    "Standard clipping is many-to-one; the fitted value is a globally regularized conditional estimate.",
+    "The source distribution controls the estimate in ambiguous regions.",
+    "An output LUT cannot reproduce native V-Log acquisition gain, noise, or highlight headroom."
+  ],
+  "release_fit": {
+    "package_version": "1.6",
+    "training_camera": "DC-S1RM2 firmware 1.5",
+    "endpoint": "fixed Panasonic V-Log/V-Gamut"
+  }
+}

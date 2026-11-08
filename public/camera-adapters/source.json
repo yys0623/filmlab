@@ -1,0 +1,9 @@
+{
+  "repository": "https://github.com/shenmintao/V-Log-Alchemy",
+  "commit": "e51ba9a23458ff5c316f630b860eb0201139d126",
+  "packageVersion": "1.6",
+  "sourcePath": "Luts/Panasonic-Standard",
+  "license": "Apache-2.0",
+  "filesUnmodified": true,
+  "note": "Conversion cubes are copied without changes; Film Lab merged creative LUTs are separately identified derivatives."
+}

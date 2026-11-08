@@ -1,0 +1,1957 @@
+{
+  "candidate": "Conversion/S1RIIS2V.cube",
+  "name": "v1.6 global forward-pair fit",
+  "method": "one scalar neutral-derived code offset per exposure; no opponent-colour alignment",
+  "variants": {
+    "v1.3_original": {
+      "scalar_offsets": [
+        0.00992446416459214,
+        0.010397247624814587,
+        0.009638751346149388,
+        0.010297256242501662
+      ],
+      "chart": {
+        "per_exposure": [
+          {
+            "exposure": "0 EV",
+            "shutter": "1/50",
+            "categories": {
+              "all_colour": {
+                "vlog_mean_rgb": 0.1003780285592297,
+                "classic_neg_mean_rgb": 0.1733562292021998
+              },
+              "skin_R1C1_R1C2": {
+                "vlog_mean_rgb": 0.06493691729886959,
+                "classic_neg_mean_rgb": 0.04400118748557237
+              },
+              "cyan_R1C6_R3C6": {
+                "vlog_mean_rgb": 0.16390022008115845,
+                "classic_neg_mean_rgb": 0.465639798914186
+              },
+              "neutrals": {
+                "vlog_mean_rgb": 0.02261428370250139,
+                "classic_neg_mean_rgb": 0.017930465807282064
+              }
+            }
+          },
+          {
+            "exposure": "+1 EV",
+            "shutter": "1/25",
+            "categories": {
+              "all_colour": {
+                "vlog_mean_rgb": 0.1225244496331327,
+                "classic_neg_mean_rgb": 0.1946354089932972
+              },
+              "skin_R1C1_R1C2": {
+                "vlog_mean_rgb": 0.016779100835744465,
+                "classic_neg_mean_rgb": 0.026764273855511035
+              },
+              "cyan_R1C6_R3C6": {
+                "vlog_mean_rgb": 0.10765031777604621,
+                "classic_neg_mean_rgb": 0.31338412038544006
+              },
+              "neutrals": {
+                "vlog_mean_rgb": 0.01187091511957731,
+                "classic_neg_mean_rgb": 0.009188402019925422
+              }
+            }
+          },
+          {
+            "exposure": "+2 EV",
+            "shutter": "1/13",
+            "categories": {
+              "all_colour": {
+                "vlog_mean_rgb": 0.087528596371438,
+                "classic_neg_mean_rgb": 0.18040353861586056
+              },
+              "skin_R1C1_R1C2": {
+                "vlog_mean_rgb": 0.015067996731014919,
+                "classic_neg_mean_rgb": 0.03103612633042146
+              },
+              "cyan_R1C6_R3C6": {
+                "vlog_mean_rgb": 0.05698205216047694,
+                "classic_neg_mean_rgb": 0.2068267664360816
+              },
+              "neutrals": {
+                "vlog_mean_rgb": 0.022071643335417206,
+                "classic_neg_mean_rgb": 0.019155906502949138
+              }
+            }
+          },
+          {
+            "exposure": "+3 EV",
+            "shutter": "1/6",
+            "categories": {
+              "all_colour": {
+                "vlog_mean_rgb": 0.05886776228911153,
+                "classic_neg_mean_rgb": 0.12743561260797406
+              },
+              "skin_R1C1_R1C2": {
+                "vlog_mean_rgb": 0.03307259348459221,
+                "classic_neg_mean_rgb": 0.03640696699417494
+              },
+              "cyan_R1C6_R3C6": {
+                "vlog_mean_rgb": 0.08793118175303508,
+                "classic_neg_mean_rgb": 0.29226992256007017
+              },
+              "neutrals": {
+                "vlog_mean_rgb": 0.015310291817292746,
+                "classic_neg_mean_rgb": 0.009057586123663485
+              }
+            }
+          }
+        ],
+        "all_exposures": {
+          "all_colour": {
+            "vlog_mean_rgb": 0.092324709213228,
+            "classic_neg_mean_rgb": 0.1689576973548329
+          },
+          "skin_R1C1_R1C2": {
+            "vlog_mean_rgb": 0.03246415208755529,
+            "classic_neg_mean_rgb": 0.03455213866641996
+          },
+          "cyan_R1C6_R3C6": {
+            "vlog_mean_rgb": 0.10411594294267917,
+            "classic_neg_mean_rgb": 0.3195301520739445
+          },
+          "neutrals": {
+            "vlog_mean_rgb": 0.017966783493697163,
+            "classic_neg_mean_rgb": 0.01383309011345503
+          }
+        },
+        "anchor_exposures_plus1_plus2": {
+          "all_colour": {
+            "vlog_mean_rgb": 0.10502652300228535,
+            "classic_neg_mean_rgb": 0.1875194738045789
+          },
+          "skin_R1C1_R1C2": {
+            "vlog_mean_rgb": 0.01592354878337969,
+            "classic_neg_mean_rgb": 0.028900200092966247
+          },
+          "cyan_R1C6_R3C6": {
+            "vlog_mean_rgb": 0.08231618496826157,
+            "classic_neg_mean_rgb": 0.2601054434107608
+          },
+          "neutrals": {
+            "vlog_mean_rgb": 0.01697127922749726,
+            "classic_neg_mean_rgb": 0.01417215426143728
+          }
+        },
+        "held_out_exposures_0_plus3": {
+          "all_colour": {
+            "vlog_mean_rgb": 0.07962289542417061,
+            "classic_neg_mean_rgb": 0.15039592090508694
+          },
+          "skin_R1C1_R1C2": {
+            "vlog_mean_rgb": 0.0490047553917309,
+            "classic_neg_mean_rgb": 0.04020407723987365
+          },
+          "cyan_R1C6_R3C6": {
+            "vlog_mean_rgb": 0.12591570091709675,
+            "classic_neg_mean_rgb": 0.3789548607371281
+          },
+          "neutrals": {
+            "vlog_mean_rgb": 0.018962287759897067,
+            "classic_neg_mean_rgb": 0.013494025965472774
+          }
+        }
+      },
+      "scene_skin": {
+        "per_exposure": [
+          {
+            "exposure": "0 EV",
+            "shutter": "1/50",
+            "warp": [
+              [
+                0.9999997019767761,
+                0.0007842070772312582,
+                5.6292290687561035
+              ],
+              [
+                -0.0007842070772312582,
+                0.9999997019767761,
+                1.3362070322036743
+              ]
+            ],
+            "rois": {
+              "doll_face": {
+                "predicted_vlog_median": [
+                  0.34332029210287796,
+                  0.31123593541611977,
+                  0.28957964406129155
+                ],
+                "native_vlog_median": [
+                  0.3598131537437439,
+                  0.3348595052957535,
+                  0.2990095019340515
+                ],
+                "vlog_median_rgb_distance": 0.0303151737330192,
+                "classic_neg_median_rgb_distance": 0.053891934821041286
+              },
+              "doll_upper_arm": {
+                "predicted_vlog_median": [
+                  0.3799391083548887,
+                  0.3574574432664675,
+                  0.34136874108615345
+                ],
+                "native_vlog_median": [
+                  0.38315436244010925,
+                  0.3615570664405823,
+                  0.33229967951774597
+                ],
+                "vlog_median_rgb_distance": 0.010459093972894204,
+                "classic_neg_median_rgb_distance": 0.01437761235116571
+              },
+              "doll_forearm": {
+                "predicted_vlog_median": [
+                  0.4338103945820696,
+                  0.411730982129322,
+                  0.4034995958743991
+                ],
+                "native_vlog_median": [
+                  0.4378088116645813,
+                  0.41846370697021484,
+                  0.39923983812332153
+                ],
+                "vlog_median_rgb_distance": 0.008914171809358513,
+                "classic_neg_median_rgb_distance": 0.020461514232899967
+              },
+              "doll_thigh": {
+                "predicted_vlog_median": [
+                  0.42853050400924547,
+                  0.4140232827701713,
+                  0.4079987373266256
+                ],
+                "native_vlog_median": [
+                  0.43061017990112305,
+                  0.4186258018016815,
+                  0.4039699286222458
+                ],
+                "vlog_median_rgb_distance": 0.0064606139667339,
+                "classic_neg_median_rgb_distance": 0.0132611093659889
+              },
+              "doll_lower_leg": {
+                "predicted_vlog_median": [
+                  0.26033288066038973,
+                  0.20885684269938604,
+                  0.18424073853599748
+                ],
+                "native_vlog_median": [
+                  0.2820112407207489,
+                  0.25612153112888336,
+                  0.23742222785949707
+                ],
+                "vlog_median_rgb_distance": 0.07437857805786242,
+                "classic_neg_median_rgb_distance": 0.06849143393689221
+              }
+            }
+          },
+          {
+            "exposure": "+1 EV",
+            "shutter": "1/25",
+            "warp": [
+              [
+                0.9999999403953552,
+                0.0004091803275514394,
+                1.6526505947113037
+              ],
+              [
+                -0.0004091803275514394,
+                0.9999999403953552,
+                1.2260301113128662
+              ]
+            ],
+            "rois": {
+              "doll_face": {
+                "predicted_vlog_median": [
+                  0.42952903967420875,
+                  0.3973929958322876,
+                  0.37744831412451385
+                ],
+                "native_vlog_median": [
+                  0.42754095792770386,
+                  0.40075764060020447,
+                  0.3609887957572937
+                ],
+                "vlog_median_rgb_distance": 0.016917122932872296,
+                "classic_neg_median_rgb_distance": 0.039396918383343395
+              },
+              "doll_upper_arm": {
+                "predicted_vlog_median": [
+                  0.45568712979195514,
+                  0.4299610642179338,
+                  0.4195628192797941
+                ],
+                "native_vlog_median": [
+                  0.4662751704454422,
+                  0.4427875578403473,
+                  0.41192442178726196
+                ],
+                "vlog_median_rgb_distance": 0.0183022036864316,
+                "classic_neg_median_rgb_distance": 0.05034316067091761
+              },
+              "doll_forearm": {
+                "predicted_vlog_median": [
+                  0.5141508817555547,
+                  0.4928065586724688,
+                  0.48334912887193815
+                ],
+                "native_vlog_median": [
+                  0.5204561352729797,
+                  0.5008124113082886,
+                  0.4804811477661133
+                ],
+                "vlog_median_rgb_distance": 0.010586558173874633,
+                "classic_neg_median_rgb_distance": 0.02246506556623484
+              },
+              "doll_thigh": {
+                "predicted_vlog_median": [
+                  0.5093682650048577,
+                  0.49475373175160997,
+                  0.48812741022095985
+                ],
+                "native_vlog_median": [
+                  0.5128872394561768,
+                  0.5006743371486664,
+                  0.4856411814689636
+                ],
+                "vlog_median_rgb_distance": 0.007322436948444333,
+                "classic_neg_median_rgb_distance": 0.015441338530260591
+              },
+              "doll_lower_leg": {
+                "predicted_vlog_median": [
+                  0.36098984254866895,
+                  0.3192921856535491,
+                  0.310951869998744
+                ],
+                "native_vlog_median": [
+                  0.3584594577550888,
+                  0.32989996671676636,
+                  0.3079441338777542
+                ],
+                "vlog_median_rgb_distance": 0.01131257454615168,
+                "classic_neg_median_rgb_distance": 0.02738622941447061
+              }
+            }
+          },
+          {
+            "exposure": "+2 EV",
+            "shutter": "1/13",
+            "warp": [
+              [
+                1.0,
+                -6.487680366262794e-07,
+                1.1996833086013794
+              ],
+              [
+                6.487680366262794e-07,
+                1.0,
+                1.5799747705459595
+              ]
+            ],
+            "rois": {
+              "doll_face": {
+                "predicted_vlog_median": [
+                  0.5205440076710373,
+                  0.48523370840241886,
+                  0.4629113780247922
+                ],
+                "native_vlog_median": [
+                  0.5130338966846466,
+                  0.48732341825962067,
+                  0.4450819492340088
+                ],
+                "vlog_median_rgb_distance": 0.0194591157384093,
+                "classic_neg_median_rgb_distance": 0.05121372761204685
+              },
+              "doll_upper_arm": {
+                "predicted_vlog_median": [
+                  0.5408921218541223,
+                  0.5123918150390794,
+                  0.5001438810416301
+                ],
+                "native_vlog_median": [
+                  0.5483761727809906,
+                  0.5238732099533081,
+                  0.493139386177063
+                ],
+                "vlog_median_rgb_distance": 0.015391439041239222,
+                "classic_neg_median_rgb_distance": 0.025077144101535713
+              },
+              "doll_forearm": {
+                "predicted_vlog_median": [
+                  0.6024439773734902,
+                  0.5781703496797783,
+                  0.567310419200554
+                ],
+                "native_vlog_median": [
+                  0.6054720878601074,
+                  0.5850539803504944,
+                  0.5639482736587524
+                ],
+                "vlog_median_rgb_distance": 0.008237587448655121,
+                "classic_neg_median_rgb_distance": 0.009423740451449432
+              },
+              "doll_thigh": {
+                "predicted_vlog_median": [
+                  0.5985739119883433,
+                  0.5808171798627589,
+                  0.5732349680535386
+                ],
+                "native_vlog_median": [
+                  0.5974019169807434,
+                  0.5846381485462189,
+                  0.5683350563049316
+                ],
+                "vlog_median_rgb_distance": 0.006323172393819174,
+                "classic_neg_median_rgb_distance": 0.008645740291772465
+              },
+              "doll_lower_leg": {
+                "predicted_vlog_median": [
+                  0.4329121207439104,
+                  0.39882433735474093,
+                  0.3890776121126661
+                ],
+                "native_vlog_median": [
+                  0.43880362808704376,
+                  0.40895557403564453,
+                  0.38559040427207947
+                ],
+                "vlog_median_rgb_distance": 0.012227527713406747,
+                "classic_neg_median_rgb_distance": 0.02999232911841024
+              }
+            }
+          },
+          {
+            "exposure": "+3 EV",
+            "shutter": "1/6",
+            "warp": [
+              [
+                1.0,
+                7.291509973583743e-05,
+                0.6527734398841858
+              ],
+              [
+                -7.291509973583743e-05,
+                1.0,
+                1.8407719135284424
+              ]
+            ],
+            "rois": {
+              "doll_face": {
+                "predicted_vlog_median": [
+                  0.6569304383077111,
+                  0.603690967526971,
+                  0.5752397998743102
+                ],
+                "native_vlog_median": [
+                  0.6186479926109314,
+                  0.5908133089542389,
+                  0.5477216243743896
+                ],
+                "vlog_median_rgb_distance": 0.04887360966500406,
+                "classic_neg_median_rgb_distance": 0.0397461839586511
+              },
+              "doll_upper_arm": {
+                "predicted_vlog_median": [
+                  0.6305583816334341,
+                  0.603877010683648,
+                  0.5935038866674996
+                ],
+                "native_vlog_median": [
+                  0.630462259054184,
+                  0.6050675511360168,
+                  0.5763081908226013
+                ],
+                "vlog_median_rgb_distance": 0.01723712800060445,
+                "classic_neg_median_rgb_distance": 0.020768486848621353
+              },
+              "doll_forearm": {
+                "predicted_vlog_median": [
+                  0.6851572557446095,
+                  0.6835908997444542,
+                  0.6694553355275458
+                ],
+                "native_vlog_median": [
+                  0.6876735687255859,
+                  0.6679020524024963,
+                  0.6471852660179138
+                ],
+                "vlog_median_rgb_distance": 0.027357407733579718,
+                "classic_neg_median_rgb_distance": 0.028494340179659686
+              },
+              "doll_thigh": {
+                "predicted_vlog_median": [
+                  0.6877460828820912,
+                  0.6870058164402507,
+                  0.6838313711864898
+                ],
+                "native_vlog_median": [
+                  0.6820327043533325,
+                  0.6698345839977264,
+                  0.6543305814266205
+                ],
+                "vlog_median_rgb_distance": 0.03460911027842368,
+                "classic_neg_median_rgb_distance": 0.0250012394286962
+              },
+              "doll_lower_leg": {
+                "predicted_vlog_median": [
+                  0.5143720136677667,
+                  0.48088970107044615,
+                  0.4680504685576352
+                ],
+                "native_vlog_median": [
+                  0.521343857049942,
+                  0.49036261439323425,
+                  0.4652557820081711
+                ],
+                "vlog_median_rgb_distance": 0.012089373841369665,
+                "classic_neg_median_rgb_distance": 0.0267216381093445
+              }
+            }
+          }
+        ],
+        "aggregate": {
+          "vlog_median_rgb_distance": 0.019838699984107692,
+          "classic_neg_median_rgb_distance": 0.029530044368670134
+        }
+      },
+      "hand_skin": {
+        "per_exposure": [
+          {
+            "exposure": "0 EV",
+            "shutter": "1/50",
+            "warp": [
+              [
+                1.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ]
+            ],
+            "rois": {
+              "hand_palm": {
+                "predicted_vlog_median": [
+                  0.39409231944841716,
+                  0.3470578978613289,
+                  0.3323585266760381
+                ],
+                "native_vlog_median": [
+                  0.39821603894233704,
+                  0.36168134212493896,
+                  0.3288734257221222
+                ],
+                "vlog_median_rgb_distance": 0.015588332600199114,
+                "classic_neg_median_rgb_distance": 0.030976163699164512
+              }
+            }
+          },
+          {
+            "exposure": "+1 EV",
+            "shutter": "1/25",
+            "warp": [
+              [
+                1.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ]
+            ],
+            "rois": {
+              "hand_palm": {
+                "predicted_vlog_median": [
+                  0.4731726765172338,
+                  0.4271123858714937,
+                  0.4139159328675578
+                ],
+                "native_vlog_median": [
+                  0.48008307814598083,
+                  0.4414100646972656,
+                  0.4074413478374481
+                ],
+                "vlog_median_rgb_distance": 0.017149271756772548,
+                "classic_neg_median_rgb_distance": 0.04204335159865988
+              }
+            }
+          },
+          {
+            "exposure": "+2 EV",
+            "shutter": "1/13",
+            "warp": [
+              [
+                0.9995124340057373,
+                -0.031222520396113396,
+                89.1187744140625
+              ],
+              [
+                0.031222520396113396,
+                0.9995124340057373,
+                9.100425720214844
+              ]
+            ],
+            "rois": {
+              "hand_palm": {
+                "predicted_vlog_median": [
+                  0.5582911950260832,
+                  0.5096315312144357,
+                  0.49569096505413973
+                ],
+                "native_vlog_median": [
+                  0.5603927373886108,
+                  0.5194017291069031,
+                  0.4836759865283966
+                ],
+                "vlog_median_rgb_distance": 0.015627954316977655,
+                "classic_neg_median_rgb_distance": 0.02776859080422681
+              }
+            }
+          },
+          {
+            "exposure": "+3 EV",
+            "shutter": "1/6",
+            "warp": [
+              [
+                0.9999962449073792,
+                -0.0027494195383042097,
+                2.1216342449188232
+              ],
+              [
+                0.0027494195383042097,
+                0.9999962449073792,
+                -3.985398769378662
+              ]
+            ],
+            "rois": {
+              "hand_palm": {
+                "predicted_vlog_median": [
+                  0.6854893565131797,
+                  0.6046115646944189,
+                  0.5834521859968094
+                ],
+                "native_vlog_median": [
+                  0.6484181880950928,
+                  0.6089029312133789,
+                  0.5726932883262634
+                ],
+                "vlog_median_rgb_distance": 0.03883865643360352,
+                "classic_neg_median_rgb_distance": 0.028350171598671824
+              }
+            }
+          }
+        ],
+        "aggregate": {
+          "vlog_median_rgb_distance": 0.021801053776888207,
+          "classic_neg_median_rgb_distance": 0.03228456942518075
+        }
+      }
+    },
+    "v1.5": {
+      "scalar_offsets": [
+        0.009924464167712477,
+        0.010397247621054151,
+        0.00963875135770692,
+        0.010297256249116593
+      ],
+      "chart": {
+        "per_exposure": [
+          {
+            "exposure": "0 EV",
+            "shutter": "1/50",
+            "categories": {
+              "all_colour": {
+                "vlog_mean_rgb": 0.07569153180476787,
+                "classic_neg_mean_rgb": 0.1034494416221693
+              },
+              "skin_R1C1_R1C2": {
+                "vlog_mean_rgb": 0.06120933920539013,
+                "classic_neg_mean_rgb": 0.06155934398779953
+              },
+              "cyan_R1C6_R3C6": {
+                "vlog_mean_rgb": 0.05665258477997798,
+                "classic_neg_mean_rgb": 0.05166688797827046
+              },
+              "neutrals": {
+                "vlog_mean_rgb": 0.02287228788400202,
+                "classic_neg_mean_rgb": 0.01931609610811484
+              }
+            }
+          },
+          {
+            "exposure": "+1 EV",
+            "shutter": "1/25",
+            "categories": {
+              "all_colour": {
+                "vlog_mean_rgb": 0.09329124326488566,
+                "classic_neg_mean_rgb": 0.16897575453039393
+              },
+              "skin_R1C1_R1C2": {
+                "vlog_mean_rgb": 0.020244788729210445,
+                "classic_neg_mean_rgb": 0.06965177948109164
+              },
+              "cyan_R1C6_R3C6": {
+                "vlog_mean_rgb": 0.03002166283193228,
+                "classic_neg_mean_rgb": 0.07369338367637815
+              },
+              "neutrals": {
+                "vlog_mean_rgb": 0.012194197359857448,
+                "classic_neg_mean_rgb": 0.01060174719999076
+              }
+            }
+          },
+          {
+            "exposure": "+2 EV",
+            "shutter": "1/13",
+            "categories": {
+              "all_colour": {
+                "vlog_mean_rgb": 0.07589134262518986,
+                "classic_neg_mean_rgb": 0.16418827069232053
+              },
+              "skin_R1C1_R1C2": {
+                "vlog_mean_rgb": 0.02052638971589643,
+                "classic_neg_mean_rgb": 0.06953960905537071
+              },
+              "cyan_R1C6_R3C6": {
+                "vlog_mean_rgb": 0.03782751453095473,
+                "classic_neg_mean_rgb": 0.10185922633973557
+              },
+              "neutrals": {
+                "vlog_mean_rgb": 0.0224438467022901,
+                "classic_neg_mean_rgb": 0.021060175289965677
+              }
+            }
+          },
+          {
+            "exposure": "+3 EV",
+            "shutter": "1/6",
+            "categories": {
+              "all_colour": {
+                "vlog_mean_rgb": 0.04684853377692598,
+                "classic_neg_mean_rgb": 0.09417501710846238
+              },
+              "skin_R1C1_R1C2": {
+                "vlog_mean_rgb": 0.02780133161845065,
+                "classic_neg_mean_rgb": 0.0586623997744744
+              },
+              "cyan_R1C6_R3C6": {
+                "vlog_mean_rgb": 0.05832231795261661,
+                "classic_neg_mean_rgb": 0.0996830198004985
+              },
+              "neutrals": {
+                "vlog_mean_rgb": 0.015605853369835878,
+                "classic_neg_mean_rgb": 0.009704088809552522
+              }
+            }
+          }
+        ],
+        "all_exposures": {
+          "all_colour": {
+            "vlog_mean_rgb": 0.07293066286794235,
+            "classic_neg_mean_rgb": 0.13269712098833653
+          },
+          "skin_R1C1_R1C2": {
+            "vlog_mean_rgb": 0.03244546231723691,
+            "classic_neg_mean_rgb": 0.06485328307468406
+          },
+          "cyan_R1C6_R3C6": {
+            "vlog_mean_rgb": 0.0457060200238704,
+            "classic_neg_mean_rgb": 0.08172562944872067
+          },
+          "neutrals": {
+            "vlog_mean_rgb": 0.01827904632899636,
+            "classic_neg_mean_rgb": 0.01517052685190595
+          }
+        },
+        "anchor_exposures_plus1_plus2": {
+          "all_colour": {
+            "vlog_mean_rgb": 0.08459129294503775,
+            "classic_neg_mean_rgb": 0.16658201261135724
+          },
+          "skin_R1C1_R1C2": {
+            "vlog_mean_rgb": 0.020385589222553437,
+            "classic_neg_mean_rgb": 0.06959569426823117
+          },
+          "cyan_R1C6_R3C6": {
+            "vlog_mean_rgb": 0.033924588681443504,
+            "classic_neg_mean_rgb": 0.08777630500805686
+          },
+          "neutrals": {
+            "vlog_mean_rgb": 0.017319022031073775,
+            "classic_neg_mean_rgb": 0.01583096124497822
+          }
+        },
+        "held_out_exposures_0_plus3": {
+          "all_colour": {
+            "vlog_mean_rgb": 0.061270032790846925,
+            "classic_neg_mean_rgb": 0.09881222936531583
+          },
+          "skin_R1C1_R1C2": {
+            "vlog_mean_rgb": 0.044505335411920394,
+            "classic_neg_mean_rgb": 0.060110871881136965
+          },
+          "cyan_R1C6_R3C6": {
+            "vlog_mean_rgb": 0.05748745136629729,
+            "classic_neg_mean_rgb": 0.07567495388938447
+          },
+          "neutrals": {
+            "vlog_mean_rgb": 0.019239070626918948,
+            "classic_neg_mean_rgb": 0.014510092458833682
+          }
+        }
+      },
+      "scene_skin": {
+        "per_exposure": [
+          {
+            "exposure": "0 EV",
+            "shutter": "1/50",
+            "warp": [
+              [
+                0.9999997019767761,
+                0.0007842070772312582,
+                5.6292290687561035
+              ],
+              [
+                -0.0007842070772312582,
+                0.9999997019767761,
+                1.3362070322036743
+              ]
+            ],
+            "rois": {
+              "doll_face": {
+                "predicted_vlog_median": [
+                  0.3336194716158448,
+                  0.3156903162147564,
+                  0.29201363879260206
+                ],
+                "native_vlog_median": [
+                  0.3598131537437439,
+                  0.3348595052957535,
+                  0.2990095019340515
+                ],
+                "vlog_median_rgb_distance": 0.03320404936953215,
+                "classic_neg_median_rgb_distance": 0.0648466449995761
+              },
+              "doll_upper_arm": {
+                "predicted_vlog_median": [
+                  0.3720071695862468,
+                  0.35641892869567304,
+                  0.33460134659468654
+                ],
+                "native_vlog_median": [
+                  0.38315436244010925,
+                  0.3615570664405823,
+                  0.33229967951774597
+                ],
+                "vlog_median_rgb_distance": 0.012488316113068857,
+                "classic_neg_median_rgb_distance": 0.038353451051660555
+              },
+              "doll_forearm": {
+                "predicted_vlog_median": [
+                  0.42691575910712504,
+                  0.4160154231142907,
+                  0.4044979827465937
+                ],
+                "native_vlog_median": [
+                  0.4378088116645813,
+                  0.41846370697021484,
+                  0.39923983812332153
+                ],
+                "vlog_median_rgb_distance": 0.01234101992292085,
+                "classic_neg_median_rgb_distance": 0.05473992445242044
+              },
+              "doll_thigh": {
+                "predicted_vlog_median": [
+                  0.4251326026159825,
+                  0.4177719593170065,
+                  0.40912757892094276
+                ],
+                "native_vlog_median": [
+                  0.43061017990112305,
+                  0.4186258018016815,
+                  0.4039699286222458
+                ],
+                "vlog_median_rgb_distance": 0.007571938754835018,
+                "classic_neg_median_rgb_distance": 0.030003366290256368
+              },
+              "doll_lower_leg": {
+                "predicted_vlog_median": [
+                  0.24529431173685978,
+                  0.21838748142590197,
+                  0.18716455808766486
+                ],
+                "native_vlog_median": [
+                  0.2820112407207489,
+                  0.25612153112888336,
+                  0.23742222785949707
+                ],
+                "vlog_median_rgb_distance": 0.0727861576942317,
+                "classic_neg_median_rgb_distance": 0.06673176702279879
+              }
+            }
+          },
+          {
+            "exposure": "+1 EV",
+            "shutter": "1/25",
+            "warp": [
+              [
+                0.9999999403953552,
+                0.0004091803275514394,
+                1.6526505947113037
+              ],
+              [
+                -0.0004091803275514394,
+                0.9999999403953552,
+                1.2260301113128662
+              ]
+            ],
+            "rois": {
+              "doll_face": {
+                "predicted_vlog_median": [
+                  0.4211779731454125,
+                  0.40360796478746336,
+                  0.37981275296465133
+                ],
+                "native_vlog_median": [
+                  0.42754095792770386,
+                  0.40075764060020447,
+                  0.3609887957572937
+                ],
+                "vlog_median_rgb_distance": 0.02007369642732937,
+                "classic_neg_median_rgb_distance": 0.06219053317114991
+              },
+              "doll_upper_arm": {
+                "predicted_vlog_median": [
+                  0.448083781217012,
+                  0.43316755838105014,
+                  0.4198834925911139
+                ],
+                "native_vlog_median": [
+                  0.4662751704454422,
+                  0.4427875578403473,
+                  0.41192442178726196
+                ],
+                "vlog_median_rgb_distance": 0.02206394886954402,
+                "classic_neg_median_rgb_distance": 0.08824953124310103
+              },
+              "doll_forearm": {
+                "predicted_vlog_median": [
+                  0.5073642317222988,
+                  0.4965132722266426,
+                  0.4843888281968977
+                ],
+                "native_vlog_median": [
+                  0.5204561352729797,
+                  0.5008124113082886,
+                  0.4804811477661133
+                ],
+                "vlog_median_rgb_distance": 0.014323075848881157,
+                "classic_neg_median_rgb_distance": 0.039208794030734545
+              },
+              "doll_thigh": {
+                "predicted_vlog_median": [
+                  0.5058839397551425,
+                  0.49816585813414016,
+                  0.4893002217629475
+                ],
+                "native_vlog_median": [
+                  0.5128872394561768,
+                  0.5006743371486664,
+                  0.4856411814689636
+                ],
+                "vlog_median_rgb_distance": 0.008290189958126614,
+                "classic_neg_median_rgb_distance": 0.020922351292427754
+              },
+              "doll_lower_leg": {
+                "predicted_vlog_median": [
+                  0.34982276439305227,
+                  0.3267567592839391,
+                  0.31284864848025706
+                ],
+                "native_vlog_median": [
+                  0.3584594577550888,
+                  0.32989996671676636,
+                  0.3079441338777542
+                ],
+                "vlog_median_rgb_distance": 0.010417604747819446,
+                "classic_neg_median_rgb_distance": 0.024170575811956134
+              }
+            }
+          },
+          {
+            "exposure": "+2 EV",
+            "shutter": "1/13",
+            "warp": [
+              [
+                1.0,
+                -6.487680366262794e-07,
+                1.1996833086013794
+              ],
+              [
+                6.487680366262794e-07,
+                1.0,
+                1.5799747705459595
+              ]
+            ],
+            "rois": {
+              "doll_face": {
+                "predicted_vlog_median": [
+                  0.5118032415651133,
+                  0.492283625064018,
+                  0.46514326066981426
+                ],
+                "native_vlog_median": [
+                  0.5130338966846466,
+                  0.48732341825962067,
+                  0.4450819492340088
+                ],
+                "vlog_median_rgb_distance": 0.02070203806609395,
+                "classic_neg_median_rgb_distance": 0.06584521820911976
+              },
+              "doll_upper_arm": {
+                "predicted_vlog_median": [
+                  0.5324507447109725,
+                  0.5167746356753942,
+                  0.5009190368354131
+                ],
+                "native_vlog_median": [
+                  0.5483761727809906,
+                  0.5238732099533081,
+                  0.493139386177063
+                ],
+                "vlog_median_rgb_distance": 0.019092720611750106,
+                "classic_neg_median_rgb_distance": 0.03649759950499923
+              },
+              "doll_forearm": {
+                "predicted_vlog_median": [
+                  0.5950777753842671,
+                  0.5833548170837806,
+                  0.56843359705289
+                ],
+                "native_vlog_median": [
+                  0.6054720878601074,
+                  0.5850539803504944,
+                  0.5639482736587524
+                ],
+                "vlog_median_rgb_distance": 0.011447576756779446,
+                "classic_neg_median_rgb_distance": 0.016876773744451134
+              },
+              "doll_thigh": {
+                "predicted_vlog_median": [
+                  0.595092473037352,
+                  0.5853241664394182,
+                  0.5741086871480089
+                ],
+                "native_vlog_median": [
+                  0.5974019169807434,
+                  0.5846381485462189,
+                  0.5683350563049316
+                ],
+                "vlog_median_rgb_distance": 0.0062561142084835465,
+                "classic_neg_median_rgb_distance": 0.009625501204730672
+              },
+              "doll_lower_leg": {
+                "predicted_vlog_median": [
+                  0.42289359636022206,
+                  0.40497104885683244,
+                  0.3907749529548839
+                ],
+                "native_vlog_median": [
+                  0.43880362808704376,
+                  0.40895557403564453,
+                  0.38559040427207947
+                ],
+                "vlog_median_rgb_distance": 0.017201310865554115,
+                "classic_neg_median_rgb_distance": 0.0804068822423163
+              }
+            }
+          },
+          {
+            "exposure": "+3 EV",
+            "shutter": "1/6",
+            "warp": [
+              [
+                1.0,
+                7.291509973583743e-05,
+                0.6527734398841858
+              ],
+              [
+                -7.291509973583743e-05,
+                1.0,
+                1.8407719135284424
+              ]
+            ],
+            "rois": {
+              "doll_face": {
+                "predicted_vlog_median": [
+                  0.6413520589092749,
+                  0.6136137342932277,
+                  0.5776757251542133
+                ],
+                "native_vlog_median": [
+                  0.6186479926109314,
+                  0.5908133089542389,
+                  0.5477216243743896
+                ],
+                "vlog_median_rgb_distance": 0.04396114393013693,
+                "classic_neg_median_rgb_distance": 0.043426285552616524
+              },
+              "doll_upper_arm": {
+                "predicted_vlog_median": [
+                  0.6217336166580405,
+                  0.606700544912508,
+                  0.5928311324580926
+                ],
+                "native_vlog_median": [
+                  0.630462259054184,
+                  0.6050675511360168,
+                  0.5763081908226013
+                ],
+                "vlog_median_rgb_distance": 0.018758024070878662,
+                "classic_neg_median_rgb_distance": 0.028646303762535113
+              },
+              "doll_forearm": {
+                "predicted_vlog_median": [
+                  0.6839386923775518,
+                  0.6827932429063991,
+                  0.6696390077071811
+                ],
+                "native_vlog_median": [
+                  0.6876735687255859,
+                  0.6679020524024963,
+                  0.6471852660179138
+                ],
+                "vlog_median_rgb_distance": 0.027200503153562584,
+                "classic_neg_median_rgb_distance": 0.02926716017694144
+              },
+              "doll_thigh": {
+                "predicted_vlog_median": [
+                  0.6868760025788597,
+                  0.6864731717624791,
+                  0.6837153834743366
+                ],
+                "native_vlog_median": [
+                  0.6820327043533325,
+                  0.6698345839977264,
+                  0.6543305814266205
+                ],
+                "vlog_median_rgb_distance": 0.034114025442480884,
+                "classic_neg_median_rgb_distance": 0.025333735718659676
+              },
+              "doll_lower_leg": {
+                "predicted_vlog_median": [
+                  0.5047653686029516,
+                  0.48723980764734764,
+                  0.46964112834729593
+                ],
+                "native_vlog_median": [
+                  0.521343857049942,
+                  0.49036261439323425,
+                  0.4652557820081711
+                ],
+                "vlog_median_rgb_distance": 0.017430704623543607,
+                "classic_neg_median_rgb_distance": 0.05450817343704764
+              }
+            }
+          }
+        ],
+        "aggregate": {
+          "vlog_median_rgb_distance": 0.02148620797177765,
+          "classic_neg_median_rgb_distance": 0.04399252864597496
+        }
+      },
+      "hand_skin": {
+        "per_exposure": [
+          {
+            "exposure": "0 EV",
+            "shutter": "1/50",
+            "warp": [
+              [
+                1.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ]
+            ],
+            "rois": {
+              "hand_palm": {
+                "predicted_vlog_median": [
+                  0.3815922404272232,
+                  0.3568246817570874,
+                  0.3350576896960597
+                ],
+                "native_vlog_median": [
+                  0.39821603894233704,
+                  0.36168134212493896,
+                  0.3288734257221222
+                ],
+                "vlog_median_rgb_distance": 0.0183897511646869,
+                "classic_neg_median_rgb_distance": 0.06674754329888101
+              }
+            }
+          },
+          {
+            "exposure": "+1 EV",
+            "shutter": "1/25",
+            "warp": [
+              [
+                1.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ]
+            ],
+            "rois": {
+              "hand_palm": {
+                "predicted_vlog_median": [
+                  0.4609093729186487,
+                  0.43696129986354454,
+                  0.4163642542401361
+                ],
+                "native_vlog_median": [
+                  0.48008307814598083,
+                  0.4414100646972656,
+                  0.4074413478374481
+                ],
+                "vlog_median_rgb_distance": 0.021611125360829958,
+                "classic_neg_median_rgb_distance": 0.08930633118835167
+              }
+            }
+          },
+          {
+            "exposure": "+2 EV",
+            "shutter": "1/13",
+            "warp": [
+              [
+                0.9995124340057373,
+                -0.031222520396113396,
+                89.1187744140625
+              ],
+              [
+                0.031222520396113396,
+                0.9995124340057373,
+                9.100425720214844
+              ]
+            ],
+            "rois": {
+              "hand_palm": {
+                "predicted_vlog_median": [
+                  0.5454484027646314,
+                  0.5202607563579953,
+                  0.4980377445327115
+                ],
+                "native_vlog_median": [
+                  0.5603927373886108,
+                  0.5194017291069031,
+                  0.4836759865283966
+                ],
+                "vlog_median_rgb_distance": 0.020744424748497935,
+                "classic_neg_median_rgb_distance": 0.05217149948111254
+              }
+            }
+          },
+          {
+            "exposure": "+3 EV",
+            "shutter": "1/6",
+            "warp": [
+              [
+                0.9999962449073792,
+                -0.0027494195383042097,
+                2.1216342449188232
+              ],
+              [
+                0.0027494195383042097,
+                0.9999962449073792,
+                -3.985398769378662
+              ]
+            ],
+            "rois": {
+              "hand_palm": {
+                "predicted_vlog_median": [
+                  0.6645202881522216,
+                  0.6218410310751297,
+                  0.5861230455899211
+                ],
+                "native_vlog_median": [
+                  0.6484181880950928,
+                  0.6089029312133789,
+                  0.5726932883262634
+                ],
+                "vlog_median_rgb_distance": 0.02463798762973939,
+                "classic_neg_median_rgb_distance": 0.017528819305121308
+              }
+            }
+          }
+        ],
+        "aggregate": {
+          "vlog_median_rgb_distance": 0.021345822225938546,
+          "classic_neg_median_rgb_distance": 0.05643854831836664
+        }
+      }
+    },
+    "candidate": {
+      "scalar_offsets": [
+        0.009944623719912893,
+        0.01014750556075733,
+        0.009241917834614588,
+        0.01009338376334501
+      ],
+      "chart": {
+        "per_exposure": [
+          {
+            "exposure": "0 EV",
+            "shutter": "1/50",
+            "categories": {
+              "all_colour": {
+                "vlog_mean_rgb": 0.00900856593127748,
+                "classic_neg_mean_rgb": 0.008948838792124257
+              },
+              "skin_R1C1_R1C2": {
+                "vlog_mean_rgb": 0.00802698261894576,
+                "classic_neg_mean_rgb": 0.010432559831340622
+              },
+              "cyan_R1C6_R3C6": {
+                "vlog_mean_rgb": 0.00610432780808619,
+                "classic_neg_mean_rgb": 0.013331249953234866
+              },
+              "neutrals": {
+                "vlog_mean_rgb": 0.022506884934438393,
+                "classic_neg_mean_rgb": 0.017371145706911385
+              }
+            }
+          },
+          {
+            "exposure": "+1 EV",
+            "shutter": "1/25",
+            "categories": {
+              "all_colour": {
+                "vlog_mean_rgb": 0.0012366266442117102,
+                "classic_neg_mean_rgb": 0.002836443310854005
+              },
+              "skin_R1C1_R1C2": {
+                "vlog_mean_rgb": 0.0014156168101928863,
+                "classic_neg_mean_rgb": 0.0026008093132630986
+              },
+              "cyan_R1C6_R3C6": {
+                "vlog_mean_rgb": 0.0025266902520088047,
+                "classic_neg_mean_rgb": 0.008292190272359503
+              },
+              "neutrals": {
+                "vlog_mean_rgb": 0.011616232223549025,
+                "classic_neg_mean_rgb": 0.008020612251292683
+              }
+            }
+          },
+          {
+            "exposure": "+2 EV",
+            "shutter": "1/13",
+            "categories": {
+              "all_colour": {
+                "vlog_mean_rgb": 0.0011478201744293426,
+                "classic_neg_mean_rgb": 0.0033557276478783367
+              },
+              "skin_R1C1_R1C2": {
+                "vlog_mean_rgb": 0.0010269230346171322,
+                "classic_neg_mean_rgb": 0.0025651603129590193
+              },
+              "cyan_R1C6_R3C6": {
+                "vlog_mean_rgb": 0.0024609488051432577,
+                "classic_neg_mean_rgb": 0.0099698722762799
+              },
+              "neutrals": {
+                "vlog_mean_rgb": 0.02163496400664935,
+                "classic_neg_mean_rgb": 0.01790122638469561
+              }
+            }
+          },
+          {
+            "exposure": "+3 EV",
+            "shutter": "1/6",
+            "categories": {
+              "all_colour": {
+                "vlog_mean_rgb": 0.001991336382877681,
+                "classic_neg_mean_rgb": 0.0051600066358085655
+              },
+              "skin_R1C1_R1C2": {
+                "vlog_mean_rgb": 0.002360217078246135,
+                "classic_neg_mean_rgb": 0.0038526522712860507
+              },
+              "cyan_R1C6_R3C6": {
+                "vlog_mean_rgb": 0.005835292177923881,
+                "classic_neg_mean_rgb": 0.01742567524296026
+              },
+              "neutrals": {
+                "vlog_mean_rgb": 0.014900974939427866,
+                "classic_neg_mean_rgb": 0.007938641536191995
+              }
+            }
+          }
+        ],
+        "all_exposures": {
+          "all_colour": {
+            "vlog_mean_rgb": 0.003346087283199054,
+            "classic_neg_mean_rgb": 0.005075254096666291
+          },
+          "skin_R1C1_R1C2": {
+            "vlog_mean_rgb": 0.0032074348855004784,
+            "classic_neg_mean_rgb": 0.004862795432212198
+          },
+          "cyan_R1C6_R3C6": {
+            "vlog_mean_rgb": 0.004231814760790533,
+            "classic_neg_mean_rgb": 0.012254746936208632
+          },
+          "neutrals": {
+            "vlog_mean_rgb": 0.017664764026016157,
+            "classic_neg_mean_rgb": 0.012807906469772918
+          }
+        },
+        "anchor_exposures_plus1_plus2": {
+          "all_colour": {
+            "vlog_mean_rgb": 0.0011922234093205263,
+            "classic_neg_mean_rgb": 0.003096085479366171
+          },
+          "skin_R1C1_R1C2": {
+            "vlog_mean_rgb": 0.0012212699224050092,
+            "classic_neg_mean_rgb": 0.002582984813111059
+          },
+          "cyan_R1C6_R3C6": {
+            "vlog_mean_rgb": 0.0024938195285760315,
+            "classic_neg_mean_rgb": 0.0091310312743197
+          },
+          "neutrals": {
+            "vlog_mean_rgb": 0.01662559811509919,
+            "classic_neg_mean_rgb": 0.012960919317994146
+          }
+        },
+        "held_out_exposures_0_plus3": {
+          "all_colour": {
+            "vlog_mean_rgb": 0.00549995115707758,
+            "classic_neg_mean_rgb": 0.0070544227139664115
+          },
+          "skin_R1C1_R1C2": {
+            "vlog_mean_rgb": 0.005193599848595947,
+            "classic_neg_mean_rgb": 0.0071426060513133365
+          },
+          "cyan_R1C6_R3C6": {
+            "vlog_mean_rgb": 0.005969809993005035,
+            "classic_neg_mean_rgb": 0.015378462598097564
+          },
+          "neutrals": {
+            "vlog_mean_rgb": 0.01870392993693313,
+            "classic_neg_mean_rgb": 0.012654893621551689
+          }
+        }
+      },
+      "scene_skin": {
+        "per_exposure": [
+          {
+            "exposure": "0 EV",
+            "shutter": "1/50",
+            "warp": [
+              [
+                0.9999997019767761,
+                0.0007842070772312582,
+                5.6292290687561035
+              ],
+              [
+                -0.0007842070772312582,
+                0.9999997019767761,
+                1.3362070322036743
+              ]
+            ],
+            "rois": {
+              "doll_face": {
+                "predicted_vlog_median": [
+                  0.3495208962372196,
+                  0.32349332124807867,
+                  0.2846975265169965
+                ],
+                "native_vlog_median": [
+                  0.3598131537437439,
+                  0.3348595052957535,
+                  0.2990095019340515
+                ],
+                "vlog_median_rgb_distance": 0.02097506483242926,
+                "classic_neg_median_rgb_distance": 0.03869451707201738
+              },
+              "doll_upper_arm": {
+                "predicted_vlog_median": [
+                  0.3857268655846985,
+                  0.3652282627821789,
+                  0.33695929430454397
+                ],
+                "native_vlog_median": [
+                  0.38315436244010925,
+                  0.3615570664405823,
+                  0.33229967951774597
+                ],
+                "vlog_median_rgb_distance": 0.006465869235363523,
+                "classic_neg_median_rgb_distance": 0.015805644125670638
+              },
+              "doll_forearm": {
+                "predicted_vlog_median": [
+                  0.4384083785909648,
+                  0.4190791323706617,
+                  0.40038791283711206
+                ],
+                "native_vlog_median": [
+                  0.4378088116645813,
+                  0.41846370697021484,
+                  0.39923983812332153
+                ],
+                "vlog_median_rgb_distance": 0.0014339820330720116,
+                "classic_neg_median_rgb_distance": 0.005142814179695938
+              },
+              "doll_thigh": {
+                "predicted_vlog_median": [
+                  0.4311593550787677,
+                  0.4193034010825053,
+                  0.40595239411986195
+                ],
+                "native_vlog_median": [
+                  0.43061017990112305,
+                  0.4186258018016815,
+                  0.4039699286222458
+                ],
+                "vlog_median_rgb_distance": 0.0021658493969693294,
+                "classic_neg_median_rgb_distance": 0.007259440936445987
+              },
+              "doll_lower_leg": {
+                "predicted_vlog_median": [
+                  0.28143750960495617,
+                  0.2560582103386674,
+                  0.22437535172054307
+                ],
+                "native_vlog_median": [
+                  0.2820112407207489,
+                  0.25612153112888336,
+                  0.23742222785949707
+                ],
+                "vlog_median_rgb_distance": 0.013059638352607992,
+                "classic_neg_median_rgb_distance": 0.01102244174793234
+              }
+            }
+          },
+          {
+            "exposure": "+1 EV",
+            "shutter": "1/25",
+            "warp": [
+              [
+                0.9999999403953552,
+                0.0004091803275514394,
+                1.6526505947113037
+              ],
+              [
+                -0.0004091803275514394,
+                0.9999999403953552,
+                1.2260301113128662
+              ]
+            ],
+            "rois": {
+              "doll_face": {
+                "predicted_vlog_median": [
+                  0.4349271139533179,
+                  0.41257768269085626,
+                  0.3725963748642917
+                ],
+                "native_vlog_median": [
+                  0.42754095792770386,
+                  0.40075764060020447,
+                  0.3609887957572937
+                ],
+                "vlog_median_rgb_distance": 0.018138483635208077,
+                "classic_neg_median_rgb_distance": 0.06023191213267889
+              },
+              "doll_upper_arm": {
+                "predicted_vlog_median": [
+                  0.46363359749888666,
+                  0.4386358201175917,
+                  0.4128334284988633
+                ],
+                "native_vlog_median": [
+                  0.4662751704454422,
+                  0.4427875578403473,
+                  0.41192442178726196
+                ],
+                "vlog_median_rgb_distance": 0.0050041110051898255,
+                "classic_neg_median_rgb_distance": 0.015050658704557442
+              },
+              "doll_forearm": {
+                "predicted_vlog_median": [
+                  0.5194133647788564,
+                  0.4997555756417667,
+                  0.4803484733777302
+                ],
+                "native_vlog_median": [
+                  0.5204561352729797,
+                  0.5008124113082886,
+                  0.4804811477661133
+                ],
+                "vlog_median_rgb_distance": 0.0014905953249557291,
+                "classic_neg_median_rgb_distance": 0.0034311480291399923
+              },
+              "doll_thigh": {
+                "predicted_vlog_median": [
+                  0.512452949747053,
+                  0.5001406662065144,
+                  0.48602879897293816
+                ],
+                "native_vlog_median": [
+                  0.5128872394561768,
+                  0.5006743371486664,
+                  0.4856411814689636
+                ],
+                "vlog_median_rgb_distance": 0.000789721188354208,
+                "classic_neg_median_rgb_distance": 0.0013863325100294899
+              },
+              "doll_lower_leg": {
+                "predicted_vlog_median": [
+                  0.3599061618168219,
+                  0.3288297377343365,
+                  0.30729463668697055
+                ],
+                "native_vlog_median": [
+                  0.3584594577550888,
+                  0.32989996671676636,
+                  0.3079441338777542
+                ],
+                "vlog_median_rgb_distance": 0.001913162125357844,
+                "classic_neg_median_rgb_distance": 0.006131998667507734
+              }
+            }
+          },
+          {
+            "exposure": "+2 EV",
+            "shutter": "1/13",
+            "warp": [
+              [
+                1.0,
+                -6.487680366262794e-07,
+                1.1996833086013794
+              ],
+              [
+                6.487680366262794e-07,
+                1.0,
+                1.5799747705459595
+              ]
+            ],
+            "rois": {
+              "doll_face": {
+                "predicted_vlog_median": [
+                  0.5297183868892492,
+                  0.5016671371003527,
+                  0.4573379467276071
+                ],
+                "native_vlog_median": [
+                  0.5130338966846466,
+                  0.48732341825962067,
+                  0.4450819492340088
+                ],
+                "vlog_median_rgb_distance": 0.025185788812990145,
+                "classic_neg_median_rgb_distance": 0.07216986965170434
+              },
+              "doll_upper_arm": {
+                "predicted_vlog_median": [
+                  0.547973334036331,
+                  0.522343320164215,
+                  0.4951397020953004
+                ],
+                "native_vlog_median": [
+                  0.5483761727809906,
+                  0.5238732099533081,
+                  0.493139386177063
+                ],
+                "vlog_median_rgb_distance": 0.0025503148028673153,
+                "classic_neg_median_rgb_distance": 0.004540660316751473
+              },
+              "doll_forearm": {
+                "predicted_vlog_median": [
+                  0.6050532569925754,
+                  0.5816600653980233,
+                  0.5638793961122921
+                ],
+                "native_vlog_median": [
+                  0.6054720878601074,
+                  0.5850539803504944,
+                  0.5639482736587524
+                ],
+                "vlog_median_rgb_distance": 0.0034203540922850277,
+                "classic_neg_median_rgb_distance": 0.005367678658058112
+              },
+              "doll_thigh": {
+                "predicted_vlog_median": [
+                  0.5985261571712025,
+                  0.5839737629486477,
+                  0.5703917683505515
+                ],
+                "native_vlog_median": [
+                  0.5974019169807434,
+                  0.5846381485462189,
+                  0.5683350563049316
+                ],
+                "vlog_median_rgb_distance": 0.0024362653112297433,
+                "classic_neg_median_rgb_distance": 0.0030866386645723824
+              },
+              "doll_lower_leg": {
+                "predicted_vlog_median": [
+                  0.43883099230731293,
+                  0.40874065468942355,
+                  0.38477740708811325
+                ],
+                "native_vlog_median": [
+                  0.43880362808704376,
+                  0.40895557403564453,
+                  0.38559040427207947
+                ],
+                "vlog_median_rgb_distance": 0.0008413700416986475,
+                "classic_neg_median_rgb_distance": 0.0026420880223873176
+              }
+            }
+          },
+          {
+            "exposure": "+3 EV",
+            "shutter": "1/6",
+            "warp": [
+              [
+                1.0,
+                7.291509973583743e-05,
+                0.6527734398841858
+              ],
+              [
+                -7.291509973583743e-05,
+                1.0,
+                1.8407719135284424
+              ]
+            ],
+            "rois": {
+              "doll_face": {
+                "predicted_vlog_median": [
+                  0.6410130839962505,
+                  0.6103053887454677,
+                  0.5707426932149896
+                ],
+                "native_vlog_median": [
+                  0.6186479926109314,
+                  0.5908133089542389,
+                  0.5477216243743896
+                ],
+                "vlog_median_rgb_distance": 0.037551406069878994,
+                "classic_neg_median_rgb_distance": 0.034885493546015715
+              },
+              "doll_upper_arm": {
+                "predicted_vlog_median": [
+                  0.6335303464471356,
+                  0.6072712738742436,
+                  0.5841628891924181
+                ],
+                "native_vlog_median": [
+                  0.630462259054184,
+                  0.6050675511360168,
+                  0.5763081908226013
+                ],
+                "vlog_median_rgb_distance": 0.00871583849314389,
+                "classic_neg_median_rgb_distance": 0.009134241378243204
+              },
+              "doll_forearm": {
+                "predicted_vlog_median": [
+                  0.686311205133042,
+                  0.6810330486262131,
+                  0.6693590953653
+                ],
+                "native_vlog_median": [
+                  0.6876735687255859,
+                  0.6679020524024963,
+                  0.6471852660179138
+                ],
+                "vlog_median_rgb_distance": 0.025806158263340127,
+                "classic_neg_median_rgb_distance": 0.025277627165657814
+              },
+              "doll_thigh": {
+                "predicted_vlog_median": [
+                  0.6874554210384183,
+                  0.6862107473762482,
+                  0.6834680500038142
+                ],
+                "native_vlog_median": [
+                  0.6820327043533325,
+                  0.6698345839977264,
+                  0.6543305814266205
+                ],
+                "vlog_median_rgb_distance": 0.033861137877125365,
+                "classic_neg_median_rgb_distance": 0.024516123269855285
+              },
+              "doll_lower_leg": {
+                "predicted_vlog_median": [
+                  0.5211610192968181,
+                  0.4909464266808778,
+                  0.46524182932383096
+                ],
+                "native_vlog_median": [
+                  0.521343857049942,
+                  0.49036261439323425,
+                  0.4652557820081711
+                ],
+                "vlog_median_rgb_distance": 0.0006119322744971594,
+                "classic_neg_median_rgb_distance": 0.0025257360372154102
+              }
+            }
+          }
+        ],
+        "aggregate": {
+          "vlog_median_rgb_distance": 0.01062085215842821,
+          "classic_neg_median_rgb_distance": 0.017415153240806842
+        }
+      },
+      "hand_skin": {
+        "per_exposure": [
+          {
+            "exposure": "0 EV",
+            "shutter": "1/50",
+            "warp": [
+              [
+                1.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ]
+            ],
+            "rois": {
+              "hand_palm": {
+                "predicted_vlog_median": [
+                  0.3972610373588077,
+                  0.36084625964878037,
+                  0.32557188895873845
+                ],
+                "native_vlog_median": [
+                  0.39821603894233704,
+                  0.36168134212493896,
+                  0.3288734257221222
+                ],
+                "vlog_median_rgb_distance": 0.0035368822098714443,
+                "classic_neg_median_rgb_distance": 0.007869175390690958
+              }
+            }
+          },
+          {
+            "exposure": "+1 EV",
+            "shutter": "1/25",
+            "warp": [
+              [
+                1.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ]
+            ],
+            "rois": {
+              "hand_palm": {
+                "predicted_vlog_median": [
+                  0.47875547314996447,
+                  0.4384666589801001,
+                  0.4055937205398205
+                ],
+                "native_vlog_median": [
+                  0.48008307814598083,
+                  0.4414100646972656,
+                  0.4074413478374481
+                ],
+                "vlog_median_rgb_distance": 0.003720201455866184,
+                "classic_neg_median_rgb_distance": 0.013370211283952443
+              }
+            }
+          },
+          {
+            "exposure": "+2 EV",
+            "shutter": "1/13",
+            "warp": [
+              [
+                0.9995124340057373,
+                -0.031222520396113396,
+                89.1187744140625
+              ],
+              [
+                0.031222520396113396,
+                0.9995124340057373,
+                9.100425720214844
+              ]
+            ],
+            "rois": {
+              "hand_palm": {
+                "predicted_vlog_median": [
+                  0.5623730433488082,
+                  0.5219968648491983,
+                  0.48762698049281417
+                ],
+                "native_vlog_median": [
+                  0.5603927373886108,
+                  0.5194017291069031,
+                  0.4836759865283966
+                ],
+                "vlog_median_rgb_distance": 0.005125104342722721,
+                "classic_neg_median_rgb_distance": 0.013030561929922468
+              }
+            }
+          },
+          {
+            "exposure": "+3 EV",
+            "shutter": "1/6",
+            "warp": [
+              [
+                0.9999962449073792,
+                -0.0027494195383042097,
+                2.1216342449188232
+              ],
+              [
+                0.0027494195383042097,
+                0.9999962449073792,
+                -3.985398769378662
+              ]
+            ],
+            "rois": {
+              "hand_palm": {
+                "predicted_vlog_median": [
+                  0.648456846818048,
+                  0.6061496666922269,
+                  0.5744909471895435
+                ],
+                "native_vlog_median": [
+                  0.6484181880950928,
+                  0.6089029312133789,
+                  0.5726932883262634
+                ],
+                "vlog_median_rgb_distance": 0.0032883943512030758,
+                "classic_neg_median_rgb_distance": 0.004176556847692411
+              }
+            }
+          }
+        ],
+        "aggregate": {
+          "vlog_median_rgb_distance": 0.003917645589915857,
+          "classic_neg_median_rgb_distance": 0.00961162636306457
+        }
+      }
+    }
+  }
+}

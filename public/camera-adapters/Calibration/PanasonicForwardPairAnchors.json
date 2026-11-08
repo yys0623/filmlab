@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "artifact": "Calibration/PanasonicForwardPairAnchors.npz",
+  "sha256": "950e498b9ddb0a206866b345dc1fbce329432a4337171ac83c8ee12d1f7deed6",
+  "camera": "DC-S1RM2",
+  "firmware": "1.5",
+  "capture": {
+    "lighting": "fixed indoor lighting",
+    "white_balance": "fixed custom white balance",
+    "iso": 800,
+    "aperture": "f/5.6",
+    "chart_exposures": [
+      "0 EV",
+      "+1 EV",
+      "+2 EV",
+      "+3 EV"
+    ],
+    "scene_exposures": [
+      "+1 EV",
+      "+2 EV"
+    ]
+  },
+  "arrays": {
+    "standard": {
+      "shape": [20591, 3],
+      "dtype": "float64",
+      "description": "Panasonic Standard RGB input samples"
+    },
+    "target": {
+      "shape": [20591, 3],
+      "dtype": "float64",
+      "description": "registered native V-Log RGB targets after one scalar neutral-derived code offset per exposure"
+    },
+    "weight": {
+      "shape": [20591],
+      "dtype": "float64",
+      "description": "base sample weights before the release-wide anchor weight scale"
+    }
+  },
+  "chart": {
+    "colour_samples": 72,
+    "sample_weight": 10.0,
+    "patches": "18 chromatic SpyderCHECKR 24 patches at each of four exposures"
+  },
+  "scene": {
+    "samples_per_exposure": [8006, 12513],
+    "sample_weight": 0.2,
+    "selection": "low-gradient registered pixels stratified over a 16^3 Standard RGB grid"
+  },
+  "scalar_code_offsets_removed": [
+    0.00992446416459214,
+    0.010397247624814587,
+    0.009638751346149388,
+    0.010297256242501662
+  ],
+  "total_samples": 20591,
+  "total_base_weight": 4823.799999999999,
+  "held_out_from_fit": "all four hand-scene exposure pairs"
+}

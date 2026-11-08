@@ -1,0 +1,108 @@
+{
+  "schemaVersion": 1,
+  "methodId": "film-lab-fujifilm-official-paper-v3",
+  "model": "GFX ETERNA 55",
+  "packageVersion": "1.10",
+  "sourceLutVersion": "1.00",
+  "sourceUrl": "https://www.fujifilm-x.com/global/support/download/lut/",
+  "downloadUrl": "https://dl.fujifilm-x.com/support/lut/gfx-eterna-55-3d-lut-v110.zip",
+  "sourceSha256": "febfc7050999620651ca0cf162bf8b499970ef270b4da632765b61b958cf7940",
+  "inputDataUrl": "https://dl.fujifilm-x.com/technical-data/F-Log2_DataSheet_E_Ver.1.1.pdf",
+  "whitePaperUrl": "https://dl.fujifilm-x.com/support/lut/GFX_ETERNA_WhitePaper_260206_v101.pdf",
+  "sourceInput": "F-Log2 / F-Gamut (BT.2020 primaries), full range 0–1; not F-Log2C / F-GamutC",
+  "sourceOutput": "BT.709 primaries, gamma 2.2 display interpretation following official whitepaper p13; converted to sRGB for this application",
+  "sourceResolution": 65,
+  "exportResolution": 33,
+  "stdAdapter": "One identical scalar target and inverse neutral-luminance curve per RGB input channel, followed by the serialized exported VLOG cube with tetrahedral interpolation. A spans the reachable native black/white range in linear light; B retains identity through 18% linear gray and rolls highlights to reachable white. B saturates below the native black floor. Renderer output RGB is unchanged; no neutral subtraction, chroma gain, OKLab bounds or new output gamut mapping. Fixed per LUT, not per image and not a measured camera inverse.",
+  "paperBridge": "Fixed per-stock neutral-ramp digital printer calibration -> original spektrafilm paper development + spectral scanner; bounded smooth tone retains stock black, white and middle gray. Film exposure, film development and enlarger stages bypassed. Not a measured printer or FUJIFILM official recipe.",
+  "limitation": "공식 LUT 값을 사용하지만 JPG 입력 변환과 인화지 연결은 Film Lab의 근사입니다. 실제 GFX 촬영색·실물 필름·실제 인화와의 계측 일치를 의미하지 않습니다.",
+  "rights": "Official LUT data © FUJIFILM Corporation, rights retained; no CC relicensing of FUJIFILM data. spektrafilm paper profiles/code retain their original licenses and attribution.",
+  "looks": [
+    {
+      "film": "gfx_classic_chrome",
+      "name": "CLASSIC CHROME",
+      "sourceFile": "FLog2_to_CLASSIC-CHROME_65grid_V.1.00.cube",
+      "sourceArchivePath": "gfx-eterna-55-3d-lut-v110/65Grid/F-Log2/FLog2_to_CLASSIC-CHROME_65grid_V.1.00.cube",
+      "sourceSha256": "43f7fc5f262eaa2525c0de805ad7fa50f5b77d85873840ae48ab2a07a6b36ff9",
+      "numberStart": 201
+    },
+    {
+      "film": "gfx_classic_neg",
+      "name": "CLASSIC Neg.",
+      "sourceFile": "FLog2_to_CLASSIC-Neg._65grid_V.1.00.cube",
+      "sourceArchivePath": "gfx-eterna-55-3d-lut-v110/65Grid/F-Log2/FLog2_to_CLASSIC-Neg._65grid_V.1.00.cube",
+      "sourceSha256": "f890a58d2ae278703aa09e73d6037a32cb925a6d90414292da7675e12b7dd3c9",
+      "numberStart": 210
+    },
+    {
+      "film": "gfx_reala_ace",
+      "name": "REALA ACE",
+      "sourceFile": "FLog2_to_REALA-ACE_65grid_V.1.00.cube",
+      "sourceArchivePath": "gfx-eterna-55-3d-lut-v110/65Grid/F-Log2/FLog2_to_REALA-ACE_65grid_V.1.00.cube",
+      "sourceSha256": "a57a8473d666eda294ca3c32886af7708d7097d185c20240a290e3c2a0cb7c2b",
+      "numberStart": 219
+    },
+    {
+      "film": "gfx_provia",
+      "name": "PROVIA",
+      "sourceFile": "FLog2_to_PROVIA_65grid_V.1.00.cube",
+      "sourceArchivePath": "gfx-eterna-55-3d-lut-v110/65Grid/F-Log2/FLog2_to_PROVIA_65grid_V.1.00.cube",
+      "sourceSha256": "322d1fc83072ebd4ba73287f32b88bf7fc71582ea03da459fa976a3eb6cdc68f",
+      "numberStart": 228
+    },
+    {
+      "film": "gfx_velvia",
+      "name": "Velvia",
+      "sourceFile": "FLog2_to_Velvia_65grid_V.1.00.cube",
+      "sourceArchivePath": "gfx-eterna-55-3d-lut-v110/65Grid/F-Log2/FLog2_to_Velvia_65grid_V.1.00.cube",
+      "sourceSha256": "80a9ac219c30e9d1c230bd157d96ab25c2e6052de3bad7dc650823de65a0ac77",
+      "numberStart": 237
+    },
+    {
+      "film": "gfx_astia",
+      "name": "ASTIA",
+      "sourceFile": "FLog2_to_ASTIA_65grid_V.1.00.cube",
+      "sourceArchivePath": "gfx-eterna-55-3d-lut-v110/65Grid/F-Log2/FLog2_to_ASTIA_65grid_V.1.00.cube",
+      "sourceSha256": "164871904f39c581e5ad51bd69f254cd268b7e3d77bad6a17a54c7b22f5bcc27",
+      "numberStart": 246
+    },
+    {
+      "film": "gfx_pro_neg_std",
+      "name": "PRO Neg. Std",
+      "sourceFile": "FLog2_to_PRO-Neg.Std_65grid_V.1.00.cube",
+      "sourceArchivePath": "gfx-eterna-55-3d-lut-v110/65Grid/F-Log2/FLog2_to_PRO-Neg.Std_65grid_V.1.00.cube",
+      "sourceSha256": "3cf531162720aa31ac09609f3dec5aca7680a4c07887cbc8502468533b434cdc",
+      "numberStart": 255
+    },
+    {
+      "film": "gfx_eterna",
+      "name": "ETERNA",
+      "sourceFile": "FLog2_to_ETERNA_65grid_V.1.00.cube",
+      "sourceArchivePath": "gfx-eterna-55-3d-lut-v110/65Grid/F-Log2/FLog2_to_ETERNA_65grid_V.1.00.cube",
+      "sourceSha256": "5c0a909c021e114adc1d1c9c8d085264db303f235d2a285f8543019062edc944",
+      "numberStart": 264
+    },
+    {
+      "film": "gfx_eterna_bb",
+      "name": "ETERNA BLEACH BYPASS",
+      "sourceFile": "FLog2_to_ETERNA-BB_65grid_V.1.00.cube",
+      "sourceArchivePath": "gfx-eterna-55-3d-lut-v110/65Grid/F-Log2/FLog2_to_ETERNA-BB_65grid_V.1.00.cube",
+      "sourceSha256": "367024b32ca0f263e2122febd1b83a024d2ffc232a1770f8e061432468ffd5a6",
+      "numberStart": 273
+    },
+    {
+      "film": "gfx_acros",
+      "name": "ACROS",
+      "sourceFile": "FLog2_to_ACROS_65grid_V.1.00.cube",
+      "sourceArchivePath": "gfx-eterna-55-3d-lut-v110/65Grid/F-Log2/FLog2_to_ACROS_65grid_V.1.00.cube",
+      "sourceSha256": "1e7b6c1b05924c5bdb9f2e922e962dcb608f2df15f38e628a9aac3a646293da4",
+      "numberStart": 282
+    }
+  ],
+  "stdGeneration": "exported-vlog-single-tone-precurve-v4",
+  "stdMethod": "film-lab-single-tone-precurve-v1",
+  "legacyVlogSource": {
+    "method": "film-lab-fujifilm-official-paper-v3",
+    "meaning": "Historical source-composition identifier retained for unchanged VLOG exports and their QA referenceModel. This is not the current STD rendering method."
+  }
+}

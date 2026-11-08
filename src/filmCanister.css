@@ -1,0 +1,69 @@
+/* Original Film Lab film marks, restored from the pre-redesign interface. */
+.film-canister {
+  width:30px;
+  height:46px;
+  flex-shrink:0;
+  position:relative;
+  display:inline-flex;
+  align-items:flex-end;
+  filter:drop-shadow(1px 3px 2px #0005);
+}
+.film-canister-cap {
+  position:absolute;
+  top:0;
+  left:4px;
+  right:4px;
+  height:6px;
+  background:#9b9e91;
+  border-radius:2px 2px 0 0;
+  border:2px solid #52554a;
+}
+.film-canister-body {
+  display:block;
+  height:41px;
+  width:100%;
+  background:linear-gradient(90deg,#0002,transparent 25%,#fff1 60%,#0003),var(--stock-color);
+  border-top:4px solid #43483d;
+  border-bottom:5px solid #43483d;
+  border-radius:3px;
+  color:#282c23;
+  text-align:center;
+  position:relative;
+}
+.film-canister-body>span {
+  font-size:9px;
+  display:block;
+  line-height:13px;
+  font-weight:700;
+}
+.film-canister-body>b {
+  font:500 10px/13px var(--mono);
+  display:block;
+}
+.film-canister-body>i {
+  display:block;
+  position:absolute;
+  bottom:0;
+  height:3px;
+  background:repeating-linear-gradient(90deg,#404336 0 1px,transparent 1px 2px);
+  width:100%;
+  opacity:.7;
+}
+.film-canister-official {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:2px;
+  width:35px;
+  height:47px;
+  flex-shrink:0;
+  border:1px solid #648d74;
+  border-radius:4px;
+  color:#a2c6ac;
+  background:#284133;
+  font-family:var(--mono);
+}
+.film-canister-official>span { font-size:7px; letter-spacing:1px; }
+.film-canister-official>b { font-size:12px; font-weight:500; }
+.film-canister-official>small { font-size:6px; letter-spacing:1px; }

@@ -1,0 +1,519 @@
+{
+  "schemaVersion": 1,
+  "methodId": "film-lab-reference-interpretation-v1",
+  "version": 1,
+  "researchedAt": "2026-11-03",
+  "title": "실제 필름 사진 참고색",
+  "outputOrigin": "generated_digital_interpretation",
+  "referencesAreRealFilm": true,
+  "outputIsRealFilm": false,
+  "limitation": "실제 필름 스캔의 시각적 경향을 참고한 해석입니다. 실물 필름과의 계측 일치, 특정 현상소·스캐너·인화지 재현은 검증하지 않았습니다.",
+  "selectionPolicy": [
+    "촬영자가 실물 필름과 필름명을 명시한 사진만 색상 참고로 채택",
+    "필름 시뮬레이션·LUT·프리셋 결과 제외",
+    "동일 사진의 디지털 대조군이나 보정본은 필름 원본과 구분",
+    "노출·현상·스캐너·후보정 정보는 확인된 내용만 기록; 미상은 미상 표시",
+    "심한 과다·부족노출, 만료 필름, 뚜렷한 색보정 사례는 기본 색상 목표에서 제외",
+    "참고사진은 외부 원문에서 확인; 앱과 LUT에 사진 복제본을 포함하지 않음"
+  ],
+  "looks": [
+    {
+      "film": "kodak_portra_400",
+      "number": 177,
+      "name": "Portra 400 · 실사 참고색",
+      "description": "정상 노출의 실물 Portra 400 스캔에서 확인한 피부색의 온기와 선명한 유채색을 참고했습니다. 모든 장면을 파스텔로 만들지 않습니다.",
+      "adjustments": [
+        "중간 밝기를 부드럽게 열고 검정·흰색은 유지",
+        "주황과 강한 녹색의 채도를 조금 정리",
+        "푸른 하늘과 빨강의 색상 구분 유지"
+      ],
+      "references": [
+        {
+          "title": "Film Exposures",
+          "url": "https://www.thegingerlab.com/film-exposures",
+          "author": "The Ginger Lab; related 2020 test post credited to Pavel Tereshkovets",
+          "camera": "Contax 645",
+          "exposure": "ISO 400 · 정상 노출 표시본",
+          "development": "관련 테스트 글에서 Richard Photo Lab 명시 · 현상 세부 미상",
+          "scanner": "Frontier · 기종 미상",
+          "post": "스캔 색·밝기·대비 중립 설정 명시. 스캔 이후 별도 보정 여부 미상",
+          "evidence": "실물 필름 노출 브래킷이며 이미지에 PORTRA 400 NORMAL EXPOSURE 표기.",
+          "observation": "피부·머리가 400H 비교본보다 약간 따뜻하고, 녹색과 청록·깊은 암부도 유지됩니다. 포즈와 빛 차이로 수치 비교는 하지 않았습니다.",
+          "role": "주참고 · 조건부 관찰",
+          "sourceRole": "primary-conditional",
+          "referenceType": "actual-film-scan",
+          "imagesInspected": 1,
+          "imageUrls": [
+            "https://images.squarespace-cdn.com/content/v1/565d2570e4b0671c0083c17b/1597654326004-QBV7CNN4HVC1POFE0ZFD/Portra-400-normal-exposure.jpg"
+          ]
+        },
+        {
+          "title": "Color Film Tests",
+          "url": "https://mkaz.com/articles/color-film-tests/",
+          "author": "mkaz",
+          "camera": "Nikon F6 · 주로 50mm f/1.8",
+          "exposure": "자동 노출·멀티 측광·보정 0 · 개별 EI 미상",
+          "development": "The FIND Lab · 세부 미상",
+          "scanner": "미상",
+          "post": "촬영자는 추가 조정·후보정 없음을 명시. 현상소 스캔 설정 미상",
+          "evidence": "Nikon F6로 필름별 롤을 촬영한 글의 Portra 400 갤러리.",
+          "observation": "푸른 하늘·따뜻한 밝은 건물·깊은 그림자가 함께 보입니다. 항상 바랜 파스텔은 아닙니다.",
+          "role": "주참고 · 조건부 관찰",
+          "sourceRole": "primary-conditional",
+          "referenceType": "actual-film-scan",
+          "imagesInspected": 1,
+          "imageUrls": [
+            "https://mkaz.com/articles/color-film-tests/portra-400-1.jpg"
+          ]
+        }
+      ],
+      "parameters": {
+        "tone": {
+          "x": [
+            0,
+            0.15,
+            0.35,
+            0.55,
+            0.75,
+            1
+          ],
+          "y": [
+            0,
+            0.145,
+            0.355,
+            0.57,
+            0.77,
+            1
+          ]
+        },
+        "saturation": 0.985,
+        "hueBands": [
+          {
+            "centerDeg": 50,
+            "widthDeg": 24,
+            "saturation": 0.98,
+            "hueShiftDeg": 0
+          },
+          {
+            "centerDeg": 140,
+            "widthDeg": 25,
+            "saturation": 0.94,
+            "hueShiftDeg": -1
+          },
+          {
+            "centerDeg": 245,
+            "widthDeg": 32,
+            "saturation": 1.045,
+            "hueShiftDeg": -2
+          }
+        ],
+        "shadowTint": [
+          0,
+          0
+        ],
+        "highlightTint": [
+          0,
+          0
+        ]
+      },
+      "parameterOrigin": "Editorial visual interpretation after inspecting attributed real-film scans. Not estimated from matched image pairs or measured stock response.",
+      "manufacturer": {
+        "title": "Kodak E-4050 Portra 400, February 2016",
+        "url": "https://www.kodakprofessional.com/sites/default/files/wysiwyg/pro/resources/e4050_portra_400.pdf",
+        "claim": "Natural skin tones, good colour reproduction and fine grain at ISO 400; designed for scanning. No manufacturer specification of a universal pastel, faded black, teal shadow or fixed RGB hue cast."
+      },
+      "generation": "Modern Portra 400, not 400NC/400VC"
+    },
+    {
+      "film": "kodak_gold_200",
+      "number": 178,
+      "name": "Gold 200 · 실사 참고색",
+      "description": "실물 Gold 200 사진의 힘 있는 대비와 따뜻한 유채색을 참고했습니다. 흰색까지 노랗게 바꾸는 전역 색조는 적용하지 않습니다.",
+      "adjustments": [
+        "중간 암부의 대비를 조금 깊게",
+        "노랑·주황을 강화하고 녹색을 약간 노랑 쪽으로",
+        "파랑과 청록, 무채색의 구분 유지"
+      ],
+      "references": [
+        {
+          "title": "Noritsu vs Frontier: 2026 Film Scanner Review",
+          "url": "https://thedrunkweddingphotographer.com/summerimperfect/noritsu-vs-frontier",
+          "author": "David Cruz",
+          "camera": "Nikon F5 · 50mm 렌즈",
+          "exposure": "박스 감도 · 그림자 기준 측광",
+          "development": "정상 현상 명시 · 약품 세부 미상",
+          "scanner": "Noritsu HS-1800 / Frontier SP-3000",
+          "post": "스캔 이후 편집 없음 명시. 중립을 지향하는 현상소 스캔",
+          "evidence": "같은 Gold 200 네거티브를 두 스캐너로 읽은 비교 사진.",
+          "observation": "따뜻한 석재·중립에 가까운 밝은 하늘·녹색이 공존합니다. 같은 필름에서도 스캔 해석을 구분해야 합니다.",
+          "role": "노출·스캔 차이 확인용",
+          "sourceRole": "process-control",
+          "referenceType": "actual-film-scan",
+          "imagesInspected": 1,
+          "imageUrls": [
+            "https://images.squarespace-cdn.com/content/v1/5e7d4ad2b56fd5047d73a016/1750198909134-Y4Q2LFBEB9SV4PRBAMS2/beverly-hills-city-hall.jpg"
+          ]
+        },
+        {
+          "title": "Color Film Tests",
+          "url": "https://mkaz.com/articles/color-film-tests/",
+          "author": "mkaz",
+          "camera": "Nikon F6 · 주로 50mm f/1.8",
+          "exposure": "자동 노출·멀티 측광·보정 0 · 개별 EI 미상",
+          "development": "The FIND Lab · 세부 미상",
+          "scanner": "미상",
+          "post": "촬영자는 추가 조정·후보정 없음을 명시. 현상소 스캔 설정 미상",
+          "evidence": "Nikon F6 실물 필름 테스트의 Gold 200 갤러리.",
+          "observation": "기차의 깊은 청흑색과 햇빛 받은 크림색이 공존합니다. 화면 전체가 노랗지는 않습니다.",
+          "role": "주참고 · 조건부 관찰",
+          "sourceRole": "primary-conditional",
+          "referenceType": "actual-film-scan",
+          "imagesInspected": 1,
+          "imageUrls": [
+            "https://mkaz.com/articles/color-film-tests/gold-200-1.jpg"
+          ]
+        }
+      ],
+      "parameters": {
+        "tone": {
+          "x": [
+            0,
+            0.15,
+            0.35,
+            0.55,
+            0.75,
+            1
+          ],
+          "y": [
+            0,
+            0.13,
+            0.335,
+            0.555,
+            0.78,
+            1
+          ]
+        },
+        "saturation": 1.025,
+        "hueBands": [
+          {
+            "centerDeg": 80,
+            "widthDeg": 30,
+            "saturation": 1.09,
+            "hueShiftDeg": -2
+          },
+          {
+            "centerDeg": 140,
+            "widthDeg": 27,
+            "saturation": 1.015,
+            "hueShiftDeg": -4
+          },
+          {
+            "centerDeg": 245,
+            "widthDeg": 30,
+            "saturation": 1.02,
+            "hueShiftDeg": -2
+          },
+          {
+            "centerDeg": 35,
+            "widthDeg": 18,
+            "saturation": 0.99,
+            "hueShiftDeg": 0
+          }
+        ],
+        "shadowTint": [
+          0,
+          0
+        ],
+        "highlightTint": [
+          0,
+          0
+        ]
+      },
+      "parameterOrigin": "Editorial visual interpretation after inspecting attributed real-film scans. Not estimated from matched image pairs or measured stock response.",
+      "manufacturer": {
+        "title": "Kodak E-7022 Gold 200, February 2016",
+        "url": "https://business.kodakmoments.com/sites/default/files/files/resources/E7022_Gold_200.pdf",
+        "claim": "Saturated colourful prints, fine grain and sharpness; daylight/electronic-flash use. Stated exposure latitude -2 to +3 stops. No prescribed global golden colour overlay."
+      },
+      "generation": "135 Gold 200; do not assume 120 sample rendering/grain is identical"
+    },
+    {
+      "film": "fujifilm_pro_400h",
+      "number": 179,
+      "name": "Pro 400H · 실사 참고색",
+      "description": "정상 노출의 실물 Pro 400H 인물과 야외 스캔을 참고했습니다. 과다노출 웨딩 사진의 밝기나 민트색을 필름 전체의 고정 특성으로 사용하지 않습니다.",
+      "adjustments": [
+        "중간 밝기를 열고 부드러운 대비 유지",
+        "주황·노랑의 강도를 줄여 피부 주변을 차분하게",
+        "녹색을 조금 차가운 방향으로 이동하되 회색에 녹색을 입히지 않음"
+      ],
+      "references": [
+        {
+          "title": "Film Exposures",
+          "url": "https://www.thegingerlab.com/film-exposures",
+          "author": "The Ginger Lab; related 2020 test post credited to Pavel Tereshkovets",
+          "camera": "Contax 645",
+          "exposure": "ISO 400 · 정상 노출 표시본",
+          "development": "관련 테스트 글에서 Richard Photo Lab 명시 · 현상 세부 미상",
+          "scanner": "Frontier · 기종 미상",
+          "post": "색·밝기·대비 중립 스캔 명시. 스캔 이후 별도 보정 여부 미상",
+          "evidence": "이미지 자체에 FUJI 400H NORMAL EXPOSURE 표기. 현재 섹션 제목의 FUJI 400과 구분 확인.",
+          "observation": "Portra 비교본보다 피부의 노랑이 약간 적고 분홍 드레스와 녹색 배경은 유지됩니다. 피부 전체가 녹색은 아닙니다.",
+          "role": "주참고 · 조건부 관찰",
+          "sourceRole": "primary-conditional",
+          "referenceType": "actual-film-scan",
+          "imagesInspected": 1,
+          "imageUrls": [
+            "https://images.squarespace-cdn.com/content/v1/565d2570e4b0671c0083c17b/1597654278773-4DRJNKWIAMAK9B41K7SI/Fuji-400h-normal-exposure.jpg"
+          ]
+        },
+        {
+          "title": "How to Switch From Fuji 400H to a Different Film",
+          "url": "https://richardphotolab.com/blogs/post/how-switch-fuji-400h-different-film",
+          "author": "Richard Photo Lab; photographer of test unnamed",
+          "camera": "미상",
+          "exposure": "400H +2 EV / Portra 400 정상 노출",
+          "development": "400H 정상 현상 / Portra 400 1스톱 감감 현상",
+          "scanner": "Noritsu · 기종 미상",
+          "post": "현상소가 색 맞춤 목적이 아닌 중립 색·농도 스캔이라고 명시. 별도 후보정 미상",
+          "evidence": "실제 필름 현상 테스트이며 사진에 노출·현상 조건 표시.",
+          "observation": "서로 다른 노출·현상 조합이므로 기본 색 보정값 산출 대상에서 제외하고, 결과가 달라지는 조건 확인에만 사용합니다.",
+          "role": "노출·스캔 차이 확인용",
+          "sourceRole": "process-control",
+          "referenceType": "actual-film-scan",
+          "imagesInspected": 1,
+          "imageUrls": [
+            "https://cdn.shopify.com/s/files/1/0094/5058/6197/files/Fuji-Kodak-Compare-Header.jpg"
+          ]
+        }
+      ],
+      "parameters": {
+        "tone": {
+          "x": [
+            0,
+            0.15,
+            0.35,
+            0.55,
+            0.75,
+            1
+          ],
+          "y": [
+            0,
+            0.155,
+            0.365,
+            0.575,
+            0.765,
+            1
+          ]
+        },
+        "saturation": 0.96,
+        "hueBands": [
+          {
+            "centerDeg": 60,
+            "widthDeg": 26,
+            "saturation": 0.94,
+            "hueShiftDeg": 1
+          },
+          {
+            "centerDeg": 145,
+            "widthDeg": 28,
+            "saturation": 1.02,
+            "hueShiftDeg": 4
+          },
+          {
+            "centerDeg": 245,
+            "widthDeg": 32,
+            "saturation": 1.04,
+            "hueShiftDeg": -1
+          }
+        ],
+        "shadowTint": [
+          0,
+          0
+        ],
+        "highlightTint": [
+          0,
+          0
+        ]
+      },
+      "parameterOrigin": "Editorial visual interpretation after inspecting attributed real-film scans. Not estimated from matched image pairs or measured stock response.",
+      "manufacturer": {
+        "title": "Fujicolor Pro 400H, AF3-176E",
+        "url": "https://www.fujifilm.com.hk/products/professional_films/pdf/pro_400h_datasheet.pdf",
+        "claim": "Neutral greys over an exposure range, continuous skin-tone gradation, clear highlights and controlled shadow saturation. Fourth colour-sensitive layer. This does not specify mint whites or universal low saturation."
+      },
+      "generation": "Actual discontinued Pro 400H, not a Fujifilm digital-camera Pro Neg simulation"
+    },
+    {
+      "film": "fujifilm_c200",
+      "number": 180,
+      "name": "C200 · 실사 참고색",
+      "description": "2022년 이후 FUJIFILM 200과 섞지 않고, 구형 Fujicolor C200으로 촬영했다고 명시된 사진을 참고했습니다. 출처마다 다른 녹색·분홍색 편향은 그대로 복사하지 않습니다.",
+      "adjustments": [
+        "중간 암부를 살짝 정리해 일상 스냅의 대비 유지",
+        "파란 하늘과 자연스러운 녹색을 살림",
+        "빨강의 과한 채도만 조금 줄이고 중립색 유지"
+      ],
+      "references": [
+        {
+          "title": "Film stock review: Comparing Kodak ColorPlus 200 and Fuji Fujicolor C200",
+          "url": "https://emulsive.org/reviews/film-reviews/film-review-kodak-colorplus-200-and-fuji-fujicolor-c200-compared",
+          "author": "Howard Xiaopeng",
+          "camera": "Nikon F3 두 대 · 50mm / 일부 20mm",
+          "exposure": "Sekonic L-358 입사식 측광 · 프레임별 EI 미상",
+          "development": "같은 날 같은 현상소 · 약품 세부 미상",
+          "scanner": "Noritsu HS-1800",
+          "post": "미상 · 무보정 사진으로 단정하지 않음",
+          "evidence": "2018년 실제 필름 롤과 F3 촬영을 설명하며 C200 프레임을 개별 표기.",
+          "observation": "빨간 장미·시원한 그늘 녹색·푸른 하늘·따뜻한 피부가 함께 보입니다. 렌즈 차이와 후보정 미상으로 보조 참고입니다.",
+          "role": "보조 참고 · 후보정 미상",
+          "sourceRole": "supporting-unknown-post",
+          "referenceType": "actual-film-scan",
+          "imagesInspected": 2,
+          "imageUrls": [
+            "https://i1.wp.com/emulsive.org/wp-content/uploads/2018/08/Fujicolor-C200-01-Nikon-F3-Nikkor-AF-50mm-f1-8.jpg?ssl=1",
+            "https://i2.wp.com/emulsive.org/wp-content/uploads/2018/08/Fujicolor-C200-05-Nikon-F3-Nikkor-20mm-f2-8.jpg?ssl=1"
+          ]
+        },
+        {
+          "title": "Film review: Kodak Gold 200 vs Fujicolor C200 comparison",
+          "url": "https://emulsive.org/featured/film-review-kodak-gold-200-vs-fujicolor-c200-comparison-by-dan-marinelli",
+          "author": "Daniel Marinelli (independent photographer from Howard; same publisher)",
+          "camera": "Pentax MX 두 대 · SMC 50mm f/1.7",
+          "exposure": "동일 설정 브래킷 · 관찰한 해변/인물은 EI 200",
+          "development": "미상",
+          "scanner": "미상",
+          "post": "미상 · 무보정 사진으로 단정하지 않음",
+          "evidence": "2019년 Gold와 C200 실물 롤을 두 카메라에 넣어 비교하고 각 사진에 필름 표기.",
+          "observation": "C200의 물·하늘이 비교본보다 약간 청록 쪽이고 피부는 따뜻합니다. 색 차이의 크기는 정량화하지 않았습니다.",
+          "role": "보조 참고 · 후보정 미상",
+          "sourceRole": "supporting-unknown-post",
+          "referenceType": "actual-film-scan",
+          "imagesInspected": 2,
+          "imageUrls": [
+            "https://i0.wp.com/emulsive.org/wp-content/uploads/2019/09/02-Fujicolor-C200-Beach-Metered.jpg?ssl=1",
+            "https://i0.wp.com/emulsive.org/wp-content/uploads/2019/09/06-Fujicolor-C200-Daughter.jpg?ssl=1"
+          ]
+        },
+        {
+          "title": "Fujicolor C200 Review (2018)",
+          "url": "https://carlosgrphoto.com/2018/11/03/fujicolor-c200-review/",
+          "author": "Carlos Garcia",
+          "camera": "Nikon F100 / F90x / FM2",
+          "exposure": "여러 조건 · 글에서 ISO 200/100/400 구분",
+          "development": "미상 · 표의 C-41/CN-16은 필름 처리 규격",
+          "scanner": "미상",
+          "post": "인물 예시에 편집 없음 명시. 풍경 전체에 적용되는지는 미상",
+          "evidence": "2017–2018년 촬영 여행·카메라·C200 롤 사용 설명과 개별 사진 캡션.",
+          "observation": "직접 본 풍경은 녹색과 푸른 그림자가 공존합니다. 촬영자의 노출별 설명은 전역 녹색 편향을 기본값으로 삼지 않을 근거로만 사용했습니다.",
+          "role": "보조 참고 · 일부 후보정 미상",
+          "referenceType": "actual-film-scan",
+          "imagesInspected": 1
+        },
+        {
+          "title": "Fujifilm Fujicolor C200 Film Review (2021)",
+          "url": "https://50mmf2.com/writings/fujifilm-fujicolor-c200-film-review",
+          "author": "50mmF2",
+          "camera": "Pentax MZ-5 / Leica M3",
+          "exposure": "관찰한 인물 2장 EI 200 표기",
+          "development": "Tetenal Colortec C-41 · 자가 현상",
+          "scanner": "Reflecta ProScan 10T",
+          "post": "별도 후보정 미상. 저자도 분홍 편향의 원인이 현상/필름 중 무엇인지 불확실하다고 명시",
+          "evidence": "실제 C200 두 롤의 촬영·현상 과정과 사진별 필름/장비 캡션.",
+          "observation": "인물에서 분홍 편향과 선명한 청록이 보입니다. 기본 색상 목표에서 제외하고 현상·스캔 편차의 사례로만 사용합니다.",
+          "role": "편차 확인용 · 기본 색상 목표에서 제외",
+          "referenceType": "actual-film-scan",
+          "imagesInspected": 2
+        }
+      ],
+      "parameters": {
+        "tone": {
+          "x": [
+            0,
+            0.15,
+            0.35,
+            0.55,
+            0.75,
+            1
+          ],
+          "y": [
+            0,
+            0.14,
+            0.345,
+            0.555,
+            0.765,
+            1
+          ]
+        },
+        "saturation": 1.0,
+        "hueBands": [
+          {
+            "centerDeg": 28,
+            "widthDeg": 22,
+            "saturation": 0.98,
+            "hueShiftDeg": 1
+          },
+          {
+            "centerDeg": 140,
+            "widthDeg": 28,
+            "saturation": 1.025,
+            "hueShiftDeg": -1
+          },
+          {
+            "centerDeg": 245,
+            "widthDeg": 32,
+            "saturation": 1.06,
+            "hueShiftDeg": -2
+          }
+        ],
+        "shadowTint": [
+          0,
+          0
+        ],
+        "highlightTint": [
+          0,
+          0
+        ]
+      },
+      "parameterOrigin": "Editorial visual interpretation after inspecting attributed real-film scans. Not estimated from matched image pairs or measured stock response.",
+      "manufacturer": {
+        "title": "Fujicolor C200 AF3-0249E (17.05-BX)",
+        "url": "https://asset.fujifilm.com/master/emea/files/2020-10/98c3d5087c253f51c132a5d46059f131/films_c200_datasheet_01.pdf",
+        "claim": "Daylight ISO 200, natural smooth skin tones, fine grain and sharpness. Specifies print-time colour balancing; fluorescent green cast is a lighting issue corrected in printing, not a required daylight style."
+      },
+      "generation": "Historical Fujicolor C200 documented before 2022; official AF3-0249E, 17.05-BX, C74+, edge generation CA24"
+    }
+  ],
+  "excluded": [
+    {
+      "url": "https://www.cavinelizabeth.com/news/fuji-400h-vs-portra-400-vs-portra-800/",
+      "reason": "Actual film, but author explicitly edited overall colours/exposure to be cohesive in Lightroom; exclude colour calibration. Outdoor captures also 20-40 minutes apart."
+    },
+    {
+      "url": "https://jacquelinebenet.com/comparison-of-neutral-film-stocks-portra-400-vs-fuji-400h/",
+      "reason": "Custom scan profile and explicitly Lightroom-adjusted comparison; current article also mixes digital emulation/course imagery. Exclude from primary colour-reference set."
+    },
+    {
+      "url": "https://thegrainarchive.com/compare/fujifilm-pro-400h-vs-kodak-portra-400/",
+      "reason": "Comparison pictures explicitly begin from one digital RAW and apply presets; not real film examples."
+    },
+    {
+      "url": "https://lumenaryvision.com/collections/film-stock-library",
+      "reason": "Film profile/preset output examples; real film derivation claims do not make showcased digital output a real film capture."
+    },
+    {
+      "url": "https://www.reddit.com/r/fujifilm/comments/1k8frn0/portra_400_simulation_vs_film/",
+      "reason": "Mixed simulation/film presentation. Real-film half exists but unnecessary ambiguity; excluded from selected references."
+    },
+    {
+      "url": "https://filmphotograph.com/color-landscapes-with-lomo-lc-a-sep-2019",
+      "reason": "Authentic C200/LC-A/EI200/C41/Plustek7400+VueScan metadata, but actual image gallery is membership-gated; no unseen image observations."
+    }
+  ],
+  "c200GenerationSeparation": {
+    "historicalDocument": "AF3-0249E (17.05-BX): FUJICOLOR C200, production C74+, generation CA24",
+    "newDocument": "AF3-0261E, 09 FEB 2022: FUJIFILM 200, edge FUJI 200",
+    "newDocumentUrl": "https://asset.fujifilm.com/www/us/files/2022-02/f4606a5c43dacb389a1d9eb35e0b18db/fujifilm-200-speed-film_data-sheet.pdf",
+    "rule": "Keep references separate by exact stock/generation. Do not infer emulsions are identical from name or assert Kodak rebrand as manufacturer-confirmed fact. Official new sheet says processing/printing are similar to C200; this is not identity proof."
+  }
+}

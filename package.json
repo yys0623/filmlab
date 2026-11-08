@@ -1,0 +1,28 @@
+{
+  "name": "film-lab",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/run-web.mjs dev",
+    "build": "node scripts/run-web.mjs build",
+    "preview": "node scripts/run-web.mjs preview",
+    "verify:assets": "node scripts/run-web.mjs verify:assets",
+    "test": "node scripts/run-web.mjs test",
+    "build:cloudflare": "node scripts/run-web.mjs build:cloudflare",
+    "preview:cloudflare": "node scripts/run-web.mjs preview:cloudflare",
+    "deploy:cloudflare": "node scripts/run-web.mjs deploy:cloudflare",
+    "cloudflare:login": "node scripts/run-web.mjs cloudflare:login"
+  },
+  "dependencies": {
+    "react": "19.2.0",
+    "react-dom": "19.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "19.2.2",
+    "@types/react-dom": "19.2.2",
+    "typescript": "5.9.3",
+    "vite": "7.3.7",
+    "wrangler": "4.156.2"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "comparisonOnly": true,
+  "notAccuracyGroundTruth": true,
+  "bCommit": "e51ba9a23458ff5c316f630b860eb0201139d126",
+  "bSha256": "7f1f997cb4bcf5c427e8e6ccc81acfedd3f14dae0b1e8e3f8672a8231daefa7e",
+  "bLicense": "Apache-2.0; research-only local input, not shipped",
+  "adapterDifference": {
+    "mean": 0.05615378984262337,
+    "p95": 0.16836035359097098,
+    "p99": 0.27673209509140534,
+    "max": 0.41102025710398793,
+    "samples": 20000,
+    "metric": "max absolute RGB channel error",
+    "space": "encoded Panasonic V-Log 0–1"
+  },
+  "sameLookDifference": {
+    "mean": 0.09978206843771027,
+    "p95": 0.24284940694405927,
+    "p99": 0.30681073884208726,
+    "max": 0.38074007429110657,
+    "samples": 20000,
+    "metric": "max absolute RGB channel error",
+    "space": "encoded sRGB 0–1"
+  },
+  "selected": "analytic-srgb-vgamut-vlog-v1",
+  "reason": "Explicit, reproducible public colorimetric model. S1II model-fitted adapter differs; no controlled S1II capture ground truth here to rank fidelity."
+}
