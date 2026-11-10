@@ -1,5 +1,12 @@
 // Korean source strings are stable message keys; data and filenames are not translated.
 export const english: Readonly<Record<string, string>> = {
+  "현상 선택": "Choose a method",
+  "A를 현재 룩으로 교체": "Replace look A",
+  "필름 컬렉션": "Film collection",
+  "저장": "Save",
+  "사진 저장": "Save photo",
+  "룩 조정": "Adjust look",
+  "사진은 기기에서 처리됩니다.": "Photos are processed on your device.",
   "룩 A/B 비교": "Compare looks A/B",
   "룩 A {0}%, 룩 B {1}%": "Look A {0}%, look B {1}%",
   "B · 현재 룩": "B · Current look",

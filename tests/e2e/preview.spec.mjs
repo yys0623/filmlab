@@ -6,6 +6,47 @@ test.beforeEach(async ({ page }) => {
   await expect(page.locator('.preview .result-image img')).toBeVisible({ timeout: 45000 })
 })
 
+test('development controls expand without moving their trigger or the paper selector', async ({ page }) => {
+  for (const width of [1440, 1024, 800, 390]) {
+    await page.setViewportSize({ width, height: 900 })
+    await page.evaluate(() => window.scrollTo(0, 0))
+    const trigger = page.locator('.development-trigger')
+    const paper = page.locator('.paper-picker select')
+    const before = [await trigger.boundingBox(), await paper.boundingBox()]
+    const process = await page.locator('.process-switch').boundingBox()
+    expect(process.height).toBeCloseTo(before[1].height, 0)
+    expect(before[0].height).toBeCloseTo(before[1].height, 0)
+    expect(process.y).toBeCloseTo(before[1].y, 0)
+    if (width > 900) expect(before[0].y).toBeCloseTo(before[1].y, 0)
+
+    await trigger.click()
+    await expect(trigger).toHaveAttribute('aria-expanded', 'true')
+    await expect(page.locator('#development-controls')).toBeVisible()
+    const after = [await trigger.boundingBox(), await paper.boundingBox()]
+    for (let index = 0; index < before.length; index++) {
+      for (const dimension of ['x', 'y', 'width', 'height']) {
+        expect(Math.abs(before[index][dimension] - after[index][dimension])).toBeLessThan(1)
+      }
+    }
+    await trigger.focus()
+    await page.keyboard.press('Enter')
+    await expect(trigger).toHaveAttribute('aria-expanded', 'false')
+  }
+})
+
+test('digital scan keeps the paper choice for the next print', async ({ page }) => {
+  const paper = page.locator('.paper-picker select')
+  await paper.selectOption({ index: 2 })
+  const selectedPaper = await paper.inputValue()
+
+  await page.getByRole('radio', { name: 'Digital scan' }).check({ force: true })
+  await expect(page.locator('.direct-scan-note')).toBeVisible()
+  await expect(paper).toHaveCount(0)
+
+  await page.getByRole('radio', { name: 'Print', exact: true }).check({ force: true })
+  await expect(paper).toHaveValue(selectedPaper)
+})
+
 test('retries a failed print timing fetch', async ({ page }) => {
   let requests = 0
   await page.route('**/print-timing/*.bin', async route => {
