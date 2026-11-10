@@ -81,8 +81,8 @@ function initialTheme(): Theme {
   try {
     const saved = window.localStorage.getItem(THEME_STORAGE_KEY)
     if (saved === 'light' || saved === 'dark') return saved
-  } catch { /* Use the system preference when storage is unavailable. */ }
-  return window.matchMedia?.('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+  } catch { /* Use the product default when storage is unavailable. */ }
+  return 'dark'
 }
 function viewFromHash(): View {
   if (window.location.hash === '#gallery/recommended') return 'gallery/recommended'
