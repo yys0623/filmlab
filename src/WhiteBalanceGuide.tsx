@@ -55,7 +55,7 @@ export function WhiteBalanceGuide({ locale, t }: { locale: Locale; t: Translate 
             <div className="usage-step-title"><span>3</span><h3 id={`${titleId}-finish`}>{t("확정하거나 초기화")}</h3></div>
             <p>{t("셔터 버튼을 반쯤 누르면 확정됩니다. 조정값을 되돌리려면 이 화면에서 DISP.를 누르세요.")}</p>
           </section>
-          <div className="usage-recommendation"><strong>{t("sosang 촬영 팁")}</strong><p>{t("LUT를 적용한 화면을 보면서 작은 폭으로 조정해 보세요. 같은 장면에서 필름을 비교할 때는 WB와 조정값을 동일하게 유지하면 차이를 보기 쉽습니다.")}</p></div>
+          <div className="usage-recommendation"><strong>{t("darkroom 촬영 팁")}</strong><p>{t("LUT를 적용한 화면을 보면서 작은 폭으로 조정해 보세요. 같은 장면에서 필름을 비교할 때는 WB와 조정값을 동일하게 유지하면 차이를 보기 쉽습니다.")}</p></div>
           <a className="usage-source" href={manuals[locale]} target="_blank" rel="noreferrer">{t("이미지·조작 방법 출처: Panasonic S1II 공식 설명서 ↗")}</a>
           <p className="usage-attribution">{t("메뉴 이미지는 Panasonic 공식 설명서에서 가져왔습니다. 화면 저작권은 Panasonic에 있으며, 이 안내는 S1II 기준입니다.")}</p>
         </div>

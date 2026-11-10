@@ -111,7 +111,7 @@ export function useLocale() {
   useEffect(() => {
     if (!ready) return
     document.documentElement.lang = locale
-    document.title = locale === 'ko' ? 'sosang — LUT 스튜디오' : 'sosang — LUT Studio'
+    document.title = locale === 'ko' ? 'darkroom — LUT 스튜디오' : 'darkroom — LUT Studio'
     document.querySelector('meta[name="description"]')?.setAttribute('content', locale === 'ko'
       ? '필름과 인화지를 조합하고, 내 사진으로 비교하고, V-Log·Standard용 LUT를 다운로드하세요.'
       : 'Combine film looks and print materials, compare them on your photos, and download V-Log or Standard LUTs.')

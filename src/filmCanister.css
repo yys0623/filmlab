@@ -1,69 +1,7 @@
-/* Original Film Lab film marks, restored from the pre-redesign interface. */
-.film-canister {
-  width:30px;
-  height:46px;
-  flex-shrink:0;
-  position:relative;
-  display:inline-flex;
-  align-items:flex-end;
-  filter:drop-shadow(1px 3px 2px #0005);
-}
-.film-canister-cap {
-  position:absolute;
-  top:0;
-  left:4px;
-  right:4px;
-  height:6px;
-  background:#9b9e91;
-  border-radius:2px 2px 0 0;
-  border:2px solid #52554a;
-}
-.film-canister-body {
-  display:block;
-  height:41px;
-  width:100%;
-  background:linear-gradient(90deg,#0002,transparent 25%,#fff1 60%,#0003),var(--stock-color);
-  border-top:4px solid #43483d;
-  border-bottom:5px solid #43483d;
-  border-radius:3px;
-  color:#282c23;
-  text-align:center;
-  position:relative;
-}
-.film-canister-body>span {
-  font-size:9px;
-  display:block;
-  line-height:13px;
-  font-weight:700;
-}
-.film-canister-body>b {
-  font:500 10px/13px var(--mono);
-  display:block;
-}
-.film-canister-body>i {
-  display:block;
-  position:absolute;
-  bottom:0;
-  height:3px;
-  background:repeating-linear-gradient(90deg,#404336 0 1px,transparent 1px 2px);
-  width:100%;
-  opacity:.7;
-}
-.film-canister-official {
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:2px;
-  width:35px;
-  height:47px;
-  flex-shrink:0;
-  border:1px solid #648d74;
-  border-radius:4px;
-  color:#a2c6ac;
-  background:#284133;
-  font-family:var(--mono);
-}
-.film-canister-official>span { font-size:7px; letter-spacing:1px; }
-.film-canister-official>b { font-size:12px; font-weight:500; }
-.film-canister-official>small { font-size:6px; letter-spacing:1px; }
+.film-roll,.film-simulation{width:40px;height:56px;flex:0 0 40px;display:flex;position:relative;isolation:isolate}.film-roll{margin-right:10px}
+.film-roll{align-items:flex-end;filter:drop-shadow(1px 3px 3px #0008)}.film-roll::after{content:"";position:absolute;z-index:3;left:3px;right:3px;bottom:0;height:6px;border-radius:1px 1px 4px 4px;background:linear-gradient(#20211f,#050505);box-shadow:inset 0 1px #777}
+.film-cap{position:absolute;z-index:3;top:0;left:8px;right:8px;height:9px;border:2px solid #090a09;border-bottom:0;border-radius:5px 5px 0 0;background:linear-gradient(90deg,#151615,#4d504b 48%,#151615);box-shadow:inset 0 1px #979992}
+.film-leader{position:absolute;z-index:0;top:15px;right:-13px;width:18px;height:28px;border-radius:2px 0 0 2px;background:linear-gradient(100deg,#2f1d18,var(--leader));clip-path:polygon(0 0,100% 0,100% 28%,82% 28%,82% 45%,100% 45%,100% 58%,82% 58%,82% 75%,100% 75%,100% 100%,0 100%)}
+.film-label{position:relative;z-index:2;display:flex;flex-direction:column;width:34px;height:45px;margin:0 3px 3px;padding:5px 3px 6px;overflow:hidden;border:1px solid #ffffff66;border-radius:2px;background:linear-gradient(var(--label-top) 0 44%,var(--label-bottom) 44%);color:var(--ink);box-shadow:inset 2px 0 #fff2,inset -2px 0 #0003;text-align:center}.film-label>span{font:800 4px/1 var(--mono);letter-spacing:.25px}.film-label b{display:flex;flex-direction:column;margin:auto 0 1px;font:800 8px/.9 Manrope,sans-serif;letter-spacing:-.55px}.film-label i{font:700 4px/1 var(--mono);letter-spacing:.2px}.film-roll.cine{width:46px;flex-basis:46px}.film-roll.cine .film-leader{display:none}.film-roll.cine .film-cap{left:10px;right:10px}.film-roll.cine .film-label{width:40px;margin-left:3px;background:radial-gradient(circle at 50% 50%,#272824 0 20%,#d7b83d 21% 24%,#252622 25% 100%);border-radius:50%;padding:13px 4px 9px;color:#f3dc76}.film-roll.cine .film-label>span{font-size:4px}.film-roll.cine .film-label b{margin:auto 0 1px;font-size:7px;line-height:.95}.film-roll.cine .film-label i{font-size:4px}
+.film-simulation{flex-direction:column;justify-content:center;gap:2px;padding:5px 4px;border:1px solid #76af88;border-radius:5px;background:linear-gradient(135deg,#123927,#1f5740);box-shadow:0 3px 8px #0007;color:#d9f3a5;font-family:var(--mono);text-align:center}.film-simulation>span{font-size:5px;letter-spacing:.3px}.film-simulation>b{font:700 7px/.95 var(--mono);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.film-simulation>small{font-size:4px;letter-spacing:.35px}
+@media(max-width:650px){.film-roll,.film-simulation{width:38px;height:53px;flex-basis:38px}.film-roll{margin-right:8px}.film-roll.cine{width:44px;flex-basis:44px}.film-label{width:32px}.film-roll.cine .film-label{width:38px}}

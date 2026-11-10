@@ -40,6 +40,8 @@ const paths: Record<string, React.ReactNode> = {
   camera: <><path d="M3 7h4l2-3h6l2 3h4v14H3z"/><circle cx="12" cy="13" r="4"/></>,
   film: <><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 3v18M16 3v18M4 8h4m8 0h4M4 16h4m8 0h4"/></>,
   external: <><path d="M14 3h7v7m0-7L10 14"/><path d="M10 4H4v16h16v-6"/></>,
+  sun: <><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></>,
+  moon: <path d="M20.5 15.3A8.5 8.5 0 0 1 8.7 3.5 8.5 8.5 0 1 0 20.5 15.3Z"/>,
 }
 function Icon({ name, size = 18 }: { name: string; size?: number }) { return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{paths[name]}</svg> }
 const shortName = (name: string) => name.replace(/^(Kodak|Fujifilm) (Professional )?/i, '')
@@ -73,6 +75,15 @@ function castDirection(hue: number) {
 }
 
 type View = 'studio' | 'gallery' | 'gallery/recommended'
+type Theme = 'light' | 'dark'
+const THEME_STORAGE_KEY = 'darkroom-theme'
+function initialTheme(): Theme {
+  try {
+    const saved = window.localStorage.getItem(THEME_STORAGE_KEY)
+    if (saved === 'light' || saved === 'dark') return saved
+  } catch { /* Use the system preference when storage is unavailable. */ }
+  return window.matchMedia?.('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+}
 function viewFromHash(): View {
   if (window.location.hash === '#gallery/recommended') return 'gallery/recommended'
   return window.location.hash === '#gallery' ? 'gallery' : 'studio'
@@ -80,6 +91,7 @@ function viewFromHash(): View {
 
 function App() {
   const { locale, ready: localeReady, setLocale, t, message } = useLocale()
+  const [theme, setTheme] = useState<Theme>(initialTheme)
   const [catalog, setCatalog] = useState<Catalog | null>(null)
   const [view, setView] = useState<View>(viewFromHash)
   const [loadError, setLoadError] = useState('')
@@ -133,6 +145,10 @@ function App() {
   // published, verified LUT files are used, anywhere else a cube is baked.
   const [methodInfo, setMethodInfo] = useState(false)
   const [developmentOpen, setDevelopmentOpen] = useState(false)
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme
+    try { window.localStorage.setItem(THEME_STORAGE_KEY, theme) } catch { /* Theme still applies for this visit. */ }
+  }, [theme])
   useEffect(() => { if (!methodInfo) return; const close = (e: KeyboardEvent) => { if (e.key === 'Escape') setMethodInfo(false) }; const outside = (e: PointerEvent) => { if (!(e.target as Element)?.closest?.('.film-cast-switch')) setMethodInfo(false) }; window.addEventListener('keydown', close); window.addEventListener('pointerdown', outside); return () => { window.removeEventListener('keydown', close); window.removeEventListener('pointerdown', outside) } }, [methodInfo])
   // Portra 400 is the blend reference: its film-cast variant equals the neutral look.
   const castLocked = !castCombo || baseCombo?.film === catalog?.filmCast?.referenceFilm
@@ -319,8 +335,8 @@ function App() {
     finally { setDownloading(false) }
   }
 
-  if (!localeReady) return <main className="initial-state" aria-busy="true"><h1>sosang<span className="brand-period">.</span></h1><p role="status">…</p></main>
-  if (!catalog) return <main className="initial-state"><h1>sosang<span className="brand-period">.</span></h1><p role="status">{message(loadError) || t("필름 실험실을 준비하고 있습니다.")}</p>{loadError && <button onClick={() => setAttempt(n => n + 1)}>{t("다시 불러오기")}</button>}</main>
+  if (!localeReady) return <main className="initial-state" aria-busy="true"><h1>darkroom</h1><p role="status">…</p></main>
+  if (!catalog) return <main className="initial-state"><h1>darkroom</h1><p role="status">{message(loadError) || t("필름 실험실을 준비하고 있습니다.")}</p>{loadError && <button onClick={() => setAttempt(n => n + 1)}>{t("다시 불러오기")}</button>}</main>
   const film = selectedFilm!
   const paper = selectedPaper!
   const isSlide = film.type === 'positive'
@@ -330,7 +346,7 @@ function App() {
   const castActive = castSelected
   const castLabel = t("추천 현상 방법")
   const timingLabel = timing.active ? `M ${formatShift(timing.total.m)} · Y ${formatShift(timing.total.y)} CC` : ''
-  const processLabel0 = isSupplied ? t("후지 필름 시뮬레이션 · 인화지 없음") : isSlide ? t("인화지 없음 · 슬라이드 직접 스캔") : isNegativeDigital ? t("sosang 디지털 변환 · 실험") : onCastPreset ? `${paperLabel(paper)} · ${castLabel}` : paperLabel(paper)
+  const processLabel0 = isSupplied ? t("후지 필름 시뮬레이션 · 인화지 없음") : isSlide ? t("인화지 없음 · 슬라이드 직접 스캔") : isNegativeDigital ? t("darkroom 디지털 변환 · 실험") : onCastPreset ? `${paperLabel(paper)} · ${castLabel}` : paperLabel(paper)
   const processLabel = timingLabel ? `${processLabel0} · ${timingLabel}` : processLabel0
   const referenceLabel = isNegativeDigital ? t("디지털 변환 기준") : t("직접 엔진")
   const sample = activePhoto?.sample || builtinSample!
@@ -361,7 +377,7 @@ function App() {
   }
 
   return <>
-    <header className="topbar"><div className="topbar-left"><a className="brand-link" href="#studio" onClick={event => { event.preventDefault(); navigate('studio') }} aria-label={t("sosang 홈")}><span className="brand-word">sosang<span className="brand-period">.</span></span></a><nav className="site-nav" aria-label={t("주요 메뉴")}><a href="#studio" aria-current={view === 'studio' ? 'page' : undefined} onClick={event => { event.preventDefault(); navigate('studio') }}>{t("스튜디오")}</a><a href="#gallery" aria-current={view !== 'studio' ? 'page' : undefined} onClick={event => { event.preventDefault(); navigate('gallery') }}>{t("갤러리")}</a></nav></div><div className="topbar-right"><div className="locale-switch" role="group" aria-label={t("언어 선택")}><button type="button" aria-label={t("한국어로 전환")} aria-pressed={locale === 'ko'} className={locale === 'ko' ? 'active' : ''} onClick={() => setLocale('ko')}>KO</button><button type="button" aria-label={t("영어로 전환")} aria-pressed={locale === 'en'} className={locale === 'en' ? 'active' : ''} onClick={() => setLocale('en')}>EN</button></div><button className="about-button" aria-label={t("제작 정보")} onClick={() => dialog.current?.showModal()}><Icon name="info" size={17}/><span>{t("제작 정보")}</span></button></div></header>
+    <header className="topbar"><div className="topbar-left"><a className="brand-link" href="#studio" onClick={event => { event.preventDefault(); navigate('studio') }} aria-label={t("darkroom 홈")}><span className="brand-word">darkroom</span></a><nav className="site-nav" aria-label={t("주요 메뉴")}><a href="#studio" aria-current={view === 'studio' ? 'page' : undefined} onClick={event => { event.preventDefault(); navigate('studio') }}>{t("스튜디오")}</a><a href="#gallery" aria-current={view !== 'studio' ? 'page' : undefined} onClick={event => { event.preventDefault(); navigate('gallery') }}>{t("갤러리")}</a></nav></div><div className="topbar-right"><button className="theme-toggle" type="button" aria-label={theme === 'light' ? t("다크 모드로 전환") : t("라이트 모드로 전환")} title={theme === 'light' ? t("다크 모드로 전환") : t("라이트 모드로 전환")} onClick={() => setTheme(current => current === 'light' ? 'dark' : 'light')}><Icon name={theme === 'light' ? 'moon' : 'sun'} size={16}/></button><div className="locale-switch" role="group" aria-label={t("언어 선택")}><button type="button" aria-label={t("한국어로 전환")} aria-pressed={locale === 'ko'} className={locale === 'ko' ? 'active' : ''} onClick={() => setLocale('ko')}>KO</button><button type="button" aria-label={t("영어로 전환")} aria-pressed={locale === 'en'} className={locale === 'en' ? 'active' : ''} onClick={() => setLocale('en')}>EN</button></div><button className="about-button" aria-label={t("제작 정보")} onClick={() => dialog.current?.showModal()}><Icon name="info" size={17}/><span>{t("제작 정보")}</span></button></div></header>
     <main className={view !== 'studio' ? 'gallery-main' : undefined}>
       {view !== 'studio' ? <FilmGallery catalog={catalog} t={t} collection={view === 'gallery/recommended' ? 'recommended' : 'examples'} onSelectCollection={next => navigate(next === 'recommended' ? 'gallery/recommended' : 'gallery', false)} onUseLook={useGalleryLook}/> : <>
       <h1 className="sr-only">{t("스튜디오")}</h1>
@@ -375,14 +391,14 @@ function App() {
         </aside>
 
         <section className="preview-panel" ref={previewPanel} tabIndex={-1} aria-label={t("룩 미리보기")}>
-          <div className="preview-heading"><div><span className="eyebrow">{isSupplied ? t("FUJIFILM 시뮬레이션") : film.brand.toUpperCase()}</span><div className="film-title-row"><h2>{shortName(film.name)}</h2><WhiteBalanceGuide locale={locale} t={t}/></div><p className="selected-paper">{isDigital ? (isSupplied ? t("STD LUT · 인화지 없음") : isSlide ? t("슬라이드 직접 스캔") : t("디지털 스캔 · 실험")) : `+ ${paperLabel(paper, true)}`}</p>{onCastPreset && <p className="film-cast-badge">{castLabel}</p>}{timing.active && <p className="film-cast-badge">{t("인화 필터 조정 · {0}", [timingLabel])}</p>}</div><div className="preview-actions"><button className="upload-button" title={t("JPG · PNG · WebP / 최대 30 MB · 기기 안에서 처리")} disabled={upload.loading} onClick={() => fileInput.current?.click()}><Icon name="upload" size={16}/><span>{upload.loading ? t("읽는 중…") : t("사진 업로드")}</span></button><button className="upload-button bulk-trigger" disabled={!!batchProgress || !!photoDownloading || !batchSource || exportCameraId === UNSUPPORTED_L10 || activeCombo?.status !== 'ready'} onClick={() => batchInput.current?.click()}><Icon name="upload" size={16}/><span>{t("벌크 업로드")}</span></button><button className="save-trigger" onClick={() => saveDialog.current?.showModal()}><Icon name="download" size={16}/>{t("저장")}</button></div></div>
+          <div className="preview-heading"><div><span className="eyebrow">{isSupplied ? t("FUJIFILM 시뮬레이션") : film.brand.toUpperCase()}</span><div className="film-title-row"><h2>{shortName(film.name)}</h2><WhiteBalanceGuide locale={locale} t={t}/></div><p className="selected-paper">{isDigital ? (isSupplied ? t("STD LUT · 인화지 없음") : isSlide ? t("슬라이드 직접 스캔") : t("디지털 스캔 · 실험")) : `+ ${paperLabel(paper, true)}`}</p>{onCastPreset && <p className="film-cast-badge">{castLabel}</p>}{timing.active && <p className="film-cast-badge">{t("인화 필터 조정 · {0}", [timingLabel])}</p>}</div><div className="preview-actions"><button className="upload-button" title={t("JPG · PNG · WebP / 최대 30 MB · 기기 안에서 처리")} disabled={upload.loading} onClick={() => fileInput.current?.click()}><Icon name="upload" size={16}/><span>{upload.loading ? t("읽는 중…") : t("사진 업로드")}</span></button><button className="upload-button bulk-trigger" disabled={!!batchProgress || !!photoDownloading || !batchSource || exportCameraId === UNSUPPORTED_L10 || activeCombo?.status !== 'ready'} onClick={() => batchInput.current?.click()}><Icon name="upload" size={16}/><span>{t("벌크 업로드")}</span></button>{activePhoto && <button className="upload-button photo-download-trigger" disabled={photoDownloading || !!batchProgress || !photoLook.path || !!blockedReason || !!processingError || activeCombo?.status !== 'ready'} onClick={() => void downloadPhoto()}><Icon name="download" size={16}/><span>{photoDownloading ? t("원본 크기로 처리 중…") : t("사진 다운로드")}</span></button>}<button className="save-trigger" onClick={() => saveDialog.current?.showModal()}><Icon name="download" size={16}/>{t("LUT 다운로드")}</button></div></div>
 
 <section className={`inline-recipe ${isDigital ? 'scan-recipe' : ''} ${isSupplied ? 'supplied-recipe' : ''}`} aria-label={t("룩 조정")}>
             {!isSupplied && <fieldset className="process-switch"><legend className="sr-only">{t("처리 방식 선택")}</legend>
               <label className={`process-option ${!isDigital ? 'selected' : ''}`}><input type="radio" name="process-mode" value="negative_print" aria-label={t("인화지 인화")} disabled={isSlide} checked={!isDigital} onChange={() => { setNegativeMode('negative_print'); setNotice('') }}/><span>{t("인화지 인화")}</span></label>
               <label className={`process-option ${isDigital ? 'selected' : ''}`}><input type="radio" name="process-mode" value="digital_scan" aria-label={t("디지털 스캔")} checked={isDigital} onChange={() => { if (!isSlide) setNegativeMode('negative_digital'); setNotice('') }}/><span>{t("디지털 스캔")}</span></label>
             </fieldset>}
-            {isDigital ? <div className={`direct-scan-note ${isNegativeDigital ? 'experimental-scan' : ''}`} role="status"><Icon name={isSupplied ? 'camera' : 'film'} size={22}/><strong>{processLabel}</strong><p>{isSupplied ? t("제공된 STD LUT를 그대로 적용합니다.") : isSlide ? t("슬라이드는 현상한 필름 자체를 스캔합니다. 인화지 프로파일은 적용하지 않습니다.") : t("인화지 없이 네거티브를 양화로 바꾸는 sosang의 실험 모드입니다.")}</p></div> : null}
+            {isDigital ? <div className={`direct-scan-note ${isNegativeDigital ? 'experimental-scan' : ''}`} role="status"><Icon name={isSupplied ? 'camera' : 'film'} size={22}/><strong>{processLabel}</strong><p>{isSupplied ? t("제공된 STD LUT를 그대로 적용합니다.") : isSlide ? t("슬라이드는 현상한 필름 자체를 스캔합니다. 인화지 프로파일은 적용하지 않습니다.") : t("인화지 없이 네거티브를 양화로 바꾸는 darkroom의 실험 모드입니다.")}</p></div> : null}
             {!isSupplied && !isDigital && <label className="paper-picker"><span>{t("인화지 · 프린트 필름")}</span><select value={paper.id} disabled={isDigital} aria-label={t("인화지·프린트 필름")} onChange={event => { setPaperId(event.target.value); setNotice('') }}>{catalog.papers.map(p => <option key={p.id} value={p.id}>{paperLabel(p, true)}{p.id === film.recommendedPrint ? ` · ${t("권장 조합")}` : ''}</option>)}</select></label>}
 
             {!isDigital && !isSupplied && <><button type="button" className="development-trigger" aria-expanded={developmentOpen} aria-controls="development-controls" onClick={() => { setDevelopmentOpen(open => !open); setMethodInfo(false) }}><span className="development-copy"><span>{t("현상 방법")}</span><small>{castActive ? castLabel : t("중립 현상 방법")}</small></span><Icon name="chevron" size={14}/></button><div id="development-controls" className="development-content" hidden={!developmentOpen}><fieldset className="film-cast-switch"><legend className="section-description method-legend"><span>{t("현상 선택")}</span><button type="button" className="method-info-button" aria-label={t("현상 방법 설명")} aria-expanded={methodInfo} onClick={() => setMethodInfo(v => !v)}><Icon name="info" size={15}/></button></legend>{methodInfo && <div className="method-info-layer" role="dialog" aria-label={t("현상 방법 설명")}><button type="button" className="method-info-close" aria-label={t("닫기")} onClick={() => setMethodInfo(false)}>×</button><h4>{t("중립 현상 방법")}</h4><p>{t("18% 회색이 R·G·B 값이 같은 회색으로 나오도록 필름·인화지마다 인화 필터를 맞춘 그레이 밸런스 버전입니다. 그래서 같은 인화지에서는 필름 간 색 차이가 작아집니다.")}</p><h4>{t("추천 현상 방법")}</h4><p><>{t("현상소가 모든 필름을 같은 기준 필터(Portra 400)로 인화한 것처럼, 필름이 원래 가진 색 기운을 조금 남긴 버전입니다. 18% 회색에 남는 색의 세기는 필름마다 비슷하게 맞췄고, 색의 방향은 대부분 필름 데이터가 정합니다.")}{castCombo?.filmCast && <> {castIsReference ? t("Portra 400은 기준 필름이라 중립 현상과 색이 같습니다.") : castCombo.filmCast.directionPolicy === 'editorial-hue' ? t("이 필름은 필름 데이터대로면 알려진 색과 다른 쪽으로 남아서, 알려진 느낌에 맞춰 {0} 쪽으로 방향을 정했습니다.", [t(castDirection(castCombo.filmCast.grayHue))]) : t("이 조합은 {0} 쪽으로 남습니다.", [t(castDirection(castCombo.filmCast.grayHue))])}</>}</></p><h4>{t("슬라이더 원리")}</h4><p>{t("슬라이더 값은 중립 현상 방법 기준의 인화 필터 이동량(Kodak CC)으로, spektrafilm GUI의 Print M·Y filter shift와 같습니다. 그 필터를 더 넣으면(+) 그 색이 빠집니다. ±{0} CC 안에서 미리 계산한 9개 지점을 보간합니다.", [timing.span])}</p></div>}
@@ -432,12 +448,12 @@ function App() {
 
 
       </div>
-      <button className="mobile-save" onClick={() => saveDialog.current?.showModal()}><Icon name="download" size={17}/>{t("저장")}</button>
-      <footer className="page-footer"><span>sosang</span><p>{isSupplied ? t("후지 필름 시뮬레이션 · 제공된 STD LUT") : <>spektrafilm / Andrea Volpato · V-Log Alchemy / shenmintao</>}</p><button onClick={() => dialog.current?.showModal()}>{t("출처/라이선스")} <Icon name="external" size={12}/></button></footer>
+      <button className="mobile-save" onClick={() => saveDialog.current?.showModal()}><Icon name="download" size={17}/>{t("LUT 다운로드")}</button>
+      <footer className="page-footer"><span>darkroom</span><p>{isSupplied ? t("후지 필름 시뮬레이션 · 제공된 STD LUT") : <>spektrafilm / Andrea Volpato · V-Log Alchemy / shenmintao</>}</p><button onClick={() => dialog.current?.showModal()}>{t("출처/라이선스")} <Icon name="external" size={12}/></button></footer>
       </>}
     </main>
 
-    <dialog ref={saveDialog} className="details-dialog save-dialog" aria-label={t("저장")} onClick={e => { if (e.target === saveDialog.current) saveDialog.current?.close() }}><div className="dialog-inner"><div className="dialog-heading"><h2>{t("저장")}</h2><button className="icon-button" onClick={() => saveDialog.current?.close()} aria-label={t("닫기")}><Icon name="close"/></button></div><div className="save-photo-section"><h3>{t("사진 저장")}</h3>{activePhoto ? <button className="upload-button" disabled={photoDownloading || !!batchProgress || !photoLook.path || !!blockedReason || !!processingError || activeCombo?.status !== 'ready'} onClick={() => void downloadPhoto()}><Icon name="download" size={16}/><span>{photoDownloading ? t("원본 크기로 처리 중…") : t("원본 크기 사진 다운로드")}</span></button> : <button className="upload-button" onClick={() => { saveDialog.current?.close(); fileInput.current?.click() }}><Icon name="upload" size={16}/>{t("사진 업로드")}</button>}<p>{t("사진은 기기에서 처리됩니다.")}</p><p className="save-status" role="status" aria-live="polite">{message(photoNotice)}</p></div><details className="save-lut" open><summary>{t("LUT 내보내기")} <Icon name="chevron" size={16}/></summary>          <div className="export-section"><div className="section-label"><span>{t("LUT 내보내기")}</span><Icon name="download" size={16}/></div><div className="export-spec"><span>{t("출력")} <b>sRGB</b></span><span>{t("격자")} <b>33 × 33 × 33</b></span></div>
+    <dialog ref={saveDialog} className="details-dialog save-dialog" aria-label={t("LUT 다운로드")} onClick={e => { if (e.target === saveDialog.current) saveDialog.current?.close() }}><div className="dialog-inner"><div className="dialog-heading"><h2>{t("LUT 다운로드")}</h2><button className="icon-button" onClick={() => saveDialog.current?.close()} aria-label={t("닫기")}><Icon name="close"/></button></div><section className="save-lut" aria-label={t("LUT 내보내기")}><div className="export-section"><div className="section-label"><span>{t("LUT 내보내기")}</span><Icon name="download" size={16}/></div><div className="export-spec"><span>{t("출력")} <b>sRGB</b></span><span>{t("격자")} <b>33 × 33 × 33</b></span></div>
             <div className="export-camera-control"><label className="output-label" htmlFor="export-camera">{t("카메라 선택")}</label><select id="export-camera" value={exportCameraId} disabled={format === 'vlog' || isSupplied} onChange={event => chooseCamera(event.target.value)}>{catalog.cameraAdapters?.models.filter(model => !isSupplied || model.id === exportCameraId).map(model => <option key={model.id} value={model.id}>{model.name}{model.cameraUse === 'post-only' ? ' · ' + t("편집용") : ''}</option>)}</select></div>
             {isSupplied && <p className="reference-export-note">{t("이 후지 LUT는 S1II Standard용 파일입니다.")}</p>}
             {!isSupplied && camera?.cameraUse === 'post-only' && format !== 'vlog' && <p className="reference-export-note">{t("이 모델의 STD LUT는 편집 프로그램용입니다. 카메라 내 LUT 적용 지원을 뜻하지 않습니다.")}</p>}
@@ -447,9 +463,9 @@ function App() {
             <div className="download-meta">{selectedAsset ? <><span>{formatName}</span><span>{sizeLabel(selectedAsset.bytes)}</span></> : <span>{combo.status === 'unsupported' ? t("이 조합은 지원하지 않습니다.") : t("생성된 파일이 없습니다.")}</span>}</div>
             <p className="download-notice" role="status" aria-live="polite">{message(notice)}</p>
             <div className="camera-notice"><button onClick={() => dialog.current?.showModal()}><Icon name="info" size={16}/><span>{t("출처/라이선스")}</span></button></div>
-          </div></details><div className="save-bulk"><h3>{t("벌크 업로드")}</h3><div className="bulk-action">{<><button className="upload-button" disabled={!!batchProgress || !!photoDownloading || !batchSource || exportCameraId === UNSUPPORTED_L10 || activeCombo?.status !== 'ready'} onClick={() => batchInput.current?.click()}><Icon name="upload" size={16}/><span>{batchProgress ? t("일괄 변환 중 {0}/{1}", [batchProgress.done, batchProgress.total]) : t("벌크 업로드")}</span></button><input ref={batchInput} className="file-input" type="file" accept={PHOTO_ACCEPT} multiple onChange={e => { const files = Array.from(e.currentTarget.files || []); e.currentTarget.value = ''; void downloadBatch(files) }}/></>}</div><p className="save-status" role="status" aria-live="polite">{batchProgress ? t("일괄 변환 중 {0}/{1}", [batchProgress.done, batchProgress.total]) : batchNotice}</p>{batchTiming.error && <div role="alert"><p>{t("일괄 변환용 인화 필터를 불러오지 못했습니다.")} {message(batchTiming.error)}</p><button className="retry-button" onClick={batchTiming.retry}>{t("다시 시도")}</button></div>}</div></div></dialog>
+          </div></section><div className="save-bulk"><h3>{t("벌크 업로드")}</h3><div className="bulk-action">{<><button className="upload-button" disabled={!!batchProgress || !!photoDownloading || !batchSource || exportCameraId === UNSUPPORTED_L10 || activeCombo?.status !== 'ready'} onClick={() => batchInput.current?.click()}><Icon name="upload" size={16}/><span>{batchProgress ? t("일괄 변환 중 {0}/{1}", [batchProgress.done, batchProgress.total]) : t("벌크 업로드")}</span></button><input ref={batchInput} className="file-input" type="file" accept={PHOTO_ACCEPT} multiple onChange={e => { const files = Array.from(e.currentTarget.files || []); e.currentTarget.value = ''; void downloadBatch(files) }}/></>}</div><p className="save-status" role="status" aria-live="polite">{batchProgress ? t("일괄 변환 중 {0}/{1}", [batchProgress.done, batchProgress.total]) : batchNotice}</p>{batchTiming.error && <div role="alert"><p>{t("일괄 변환용 인화 필터를 불러오지 못했습니다.")} {message(batchTiming.error)}</p><button className="retry-button" onClick={batchTiming.retry}>{t("다시 시도")}</button></div>}</div></div></dialog>
     <dialog ref={dialog} className="details-dialog" onClick={e => { if (e.target === dialog.current) dialog.current?.close() }}>
-      <div className="dialog-inner"><div className="dialog-heading"><div><span className="eyebrow">sosang</span><h2>{t("출처/라이선스")}</h2></div><button className="icon-button" onClick={() => dialog.current?.close()} aria-label={t("상세 정보 닫기")}><Icon name="close"/></button></div>
+      <div className="dialog-inner"><div className="dialog-heading"><div><span className="eyebrow">darkroom</span><h2>{t("출처/라이선스")}</h2></div><button className="icon-button" onClick={() => dialog.current?.close()} aria-label={t("상세 정보 닫기")}><Icon name="close"/></button></div>
       <p className="detail-intro">{film.name} · {processLabel}</p>
       {isSupplied ? <>
         <h3>{t("후지 필름 시뮬레이션 · 제공된 STD LUT")}</h3><p>{t("ALL_FUJI_LUT 폴더에서 제공된 S1II Standard용 LUT입니다. RGB 데이터는 변경하지 않고 카메라 포토스타일과 기본 입력 범위 헤더만 명시했습니다.")}</p>
@@ -464,7 +480,7 @@ function App() {
         <div className="detail-links"><a href="https://github.com/andreavolpato/spektrafilm" target="_blank" rel="noreferrer">spektrafilm ↗</a><a href={catalog.cameraAdapters?.sourceUrl} target="_blank" rel="noreferrer">V-Log Alchemy ↗</a><a href="/licenses/SPEKTRAFILM_LICENSE.txt" target="_blank" rel="noreferrer">{t("spektrafilm 라이선스 ↗")}</a><a href="/camera-adapters/V-Log-Alchemy-LICENSE.txt" target="_blank" rel="noreferrer">{t("카메라 변환 라이선스 ↗")}</a>{combo.files && <><a href={combo.files.qa.path} target="_blank" rel="noreferrer">{t("S1II 기본 QA 보고서 ↗")}</a><a href={combo.files.provenance.path} target="_blank" rel="noreferrer">{t("S1II 기본 생성 설정 · 해시 ↗")}</a></>}</div>
       </>}
       <h3>{t("사진과 미리보기")}</h3><p>{t("샘플과 갤러리 사진의 권리는 촬영자에게 있습니다. 샘플 미리보기는 S1II STD 기준이며, 갤러리는 촬영 당시 LUT가 적용된 JPG입니다.")}</p><p>{t("업로드 사진에는 내보내기에서 선택한 카메라의 STD LUT를 적용합니다. 사진은 브라우저 안에서 처리하며 서버에 저장하지 않습니다.")}</p>
-      {catalog.sourceCode && <div className="detail-links"><a href={catalog.sourceCode.path} download>{t("sosang 소스 코드 · GPLv3 ↓")}</a></div>}
+      {catalog.sourceCode && <div className="detail-links"><a href={catalog.sourceCode.path} download>{t("darkroom 소스 코드 · GPLv3 ↓")}</a></div>}
       </div>
     </dialog>
   </>

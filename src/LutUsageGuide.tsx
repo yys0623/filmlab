@@ -35,7 +35,7 @@ export function LutUsageGuide({ locale, t }: { locale: Locale; t: Translate }) {
         <header className="usage-heading"><div><span className="eyebrow">LUMIX S1II · DC-S1M2</span><h2 id={titleId}>{t("LUT 등록과 촬영")}</h2></div><button className="usage-close" type="button" aria-label={t("사용방법 닫기")} onClick={() => dialog.current?.close()}><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></header>
         <div className="usage-content">
           <p className="usage-lead">{t("카드로 옮기고, 카메라에 등록하고, 원하는 색으로 촬영하세요.")}</p>
-          <section className="usage-section" aria-labelledby={`${titleId}-file`}><div className="usage-step-title"><span>1</span><h3 id={`${titleId}-file`}>{t("sosang에서 파일 준비")}</h3></div>
+          <section className="usage-section" aria-labelledby={`${titleId}-file`}><div className="usage-step-title"><span>1</span><h3 id={`${titleId}-file`}>{t("darkroom에서 파일 준비")}</h3></div>
             <p>{t("LUT 내보내기에서 LUMIX S1II와 STD (.cube)를 선택해 다운로드하세요. ZIP을 받았다면 압축을 풀고 STD 파일을 사용하세요.")}</p>
             <div className="usage-file"><code>C200CA.cube</code><span>{t("카드 복사용 파일명 예시")}</span></div>
             <p>{t("파일은 필름명 + 인화지 약자로 저장됩니다. C200CA는 C200 + Crystal Archive Type II (CA)입니다. Portra400EP처럼 필름 이름은 유지합니다.")}</p>
@@ -52,7 +52,7 @@ export function LutUsageGuide({ locale, t }: { locale: Locale; t: Translate }) {
           <section className="usage-section" aria-labelledby={`${titleId}-shoot`}><div className="usage-step-title"><span>3</span><h3 id={`${titleId}-shoot`}>{t("등록한 LUT로 촬영")}</h3></div>
             <p>{t("P/A/S/M 모드에서 사진 메뉴 → 이미지 품질 → 사진 스타일 → 실시간 LUT를 선택하세요.")}</p>
             <p>{t("LUT 항목에서 AF 모드 버튼을 누르고 등록한 파일을 고른 뒤 MENU/SET으로 확정하세요.")}</p>
-            <div className="usage-recommendation"><strong>{t("sosang 권장 설정")}</strong><p>{t("STD 파일의 기본 사진 스타일은 표준입니다. 사이트 룩의 원래 강도로 보려면 LUT 불투명도를 100%로 두세요.")}</p></div>
+            <div className="usage-recommendation"><strong>{t("darkroom 권장 설정")}</strong><p>{t("STD 파일의 기본 사진 스타일은 표준입니다. 사이트 룩의 원래 강도로 보려면 LUT 불투명도를 100%로 두세요.")}</p></div>
             <p>{t("색이 적용된 JPG를 남기려면 JPEG 또는 RAW+JPEG로 촬영하세요. RAW 데이터 자체에는 LUT가 적용되지 않습니다.")}</p>
             <figure className="usage-realtime"><img src={`/manual/s1ii/${locale}-realtime-lut.png`} width="394" height="264" alt={t("S1II 설명서의 Fn 실시간 LUT 선택 화면")} loading="lazy" decoding="async"/><figcaption>{t("실시간 LUT를 지정한 Fn 버튼으로도 불러올 수 있습니다. 이미지는 Fn 버튼으로 연 선택 화면입니다.")} <a href={`${manuals[locale]}0078.html`} target="_blank" rel="noreferrer">{t("Fn 사용 안내 ↗")}</a></figcaption></figure>
             <a className="usage-source" href={`${manuals[locale]}0076.html`} target="_blank" rel="noreferrer">{t("사진 스타일·실시간 LUT 공식 안내 ↗")}</a>
