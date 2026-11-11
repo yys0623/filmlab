@@ -3,11 +3,10 @@ import { createRoot } from 'react-dom/client'
 import type { Asset, Catalog, Combination, NegativeProcessMode, Sample } from './types'
 import { fetchVerifiedAsset } from './assets'
 import { paperLabel } from './lutNames'
-import { renameZipEntries } from './downloadZip'
 import { PHOTO_ACCEPT, usePhotoLook, usePhotoUpload, exportOriginalPhoto, useSamplePhoto, type LookSource } from './usePhoto'
 import { CAMERA_STORAGE_KEY, DEFAULT_CAMERA, UNSUPPORTED_L10, cameraForSample, sampleForCamera, downloadFilename, findLook, findFilmCast, processModeFor, selectStdAsset, selectDownloadAsset, selectStdQa, suppliedCombination, previewCameraFor } from './lookSelection'
 import { runtimeMessage, sampleText, useLocale, type Locale, type Translate } from './i18n'
-import { FilmGallery, type GalleryPhoto } from './FilmGallery'
+import type { GalleryPhoto } from './FilmGallery'
 import { FilmCanister } from './FilmCanister'
 import { LutUsageGuide } from './LutUsageGuide'
 import { WhiteBalanceGuide } from './WhiteBalanceGuide'
@@ -15,6 +14,9 @@ import { usePrintTiming } from './usePrintTiming'
 import { filmCastShift, formatShift, sameShift, shiftCode } from './printTiming'
 import { checkWorker, monitorWorker, WorkerFailure } from './workerStatus'
 import './style.css'
+
+// Gallery is only needed after navigation, so keep the Studio startup path small.
+const FilmGallery = React.lazy(() => import('./FilmGallery').then(module => ({ default: module.FilmGallery })))
 
 function runPhotoExportWorker<T>(worker: Worker, message: object, transfer: Transferable[] = []): Promise<T> {
   return new Promise((resolve, reject) => {
@@ -323,7 +325,7 @@ function App() {
     setDownloading(true); setNotice('')
     try {
       const verified = await fetchVerifiedAsset(asset)
-      const buffer = format === 'zip' && combo.files ? renameZipEntries(verified, {
+      const buffer = format === 'zip' && combo.files ? (await import('./downloadZip')).renameZipEntries(verified, {
         [selectStdAsset(combo, exportCameraId)!.name]: downloadFilename(film, combo.paper ? paper : undefined, combo.processMode, 'std', exportCameraId, !!combo.castBaseId),
         [combo.files.vlog.name]: downloadFilename(film, combo.paper ? paper : undefined, combo.processMode, 'vlog', exportCameraId, !!combo.castBaseId),
       }) : verified
@@ -379,7 +381,7 @@ function App() {
   return <>
     <header className="topbar"><div className="topbar-left"><a className="brand-link" href="#studio" onClick={event => { event.preventDefault(); navigate('studio') }} aria-label={t("darkroom 홈")}><span className="brand-word">darkroom</span></a><nav className="site-nav" aria-label={t("주요 메뉴")}><a href="#studio" aria-current={view === 'studio' ? 'page' : undefined} onClick={event => { event.preventDefault(); navigate('studio') }}>{t("스튜디오")}</a><a href="#gallery" aria-current={view !== 'studio' ? 'page' : undefined} onClick={event => { event.preventDefault(); navigate('gallery') }}>{t("갤러리")}</a></nav></div><div className="topbar-right"><button className="theme-toggle" type="button" aria-label={theme === 'light' ? t("다크 모드로 전환") : t("라이트 모드로 전환")} title={theme === 'light' ? t("다크 모드로 전환") : t("라이트 모드로 전환")} onClick={() => setTheme(current => current === 'light' ? 'dark' : 'light')}><Icon name={theme === 'light' ? 'moon' : 'sun'} size={16}/></button><div className="locale-switch" role="group" aria-label={t("언어 선택")}><button type="button" aria-label={t("한국어로 전환")} aria-pressed={locale === 'ko'} className={locale === 'ko' ? 'active' : ''} onClick={() => setLocale('ko')}>KO</button><button type="button" aria-label={t("영어로 전환")} aria-pressed={locale === 'en'} className={locale === 'en' ? 'active' : ''} onClick={() => setLocale('en')}>EN</button></div><button className="about-button" aria-label={t("제작 정보")} onClick={() => dialog.current?.showModal()}><Icon name="info" size={17}/><span>{t("제작 정보")}</span></button></div></header>
     <main className={view !== 'studio' ? 'gallery-main' : undefined}>
-      {view !== 'studio' ? <FilmGallery catalog={catalog} t={t} collection={view === 'gallery/recommended' ? 'recommended' : 'examples'} onSelectCollection={next => navigate(next === 'recommended' ? 'gallery/recommended' : 'gallery', false)} onUseLook={useGalleryLook}/> : <>
+      {view !== 'studio' ? <React.Suspense fallback={<div className="gallery-state" role="status" aria-busy="true">…</div>}><FilmGallery catalog={catalog} t={t} collection={view === 'gallery/recommended' ? 'recommended' : 'examples'} onSelectCollection={next => navigate(next === 'recommended' ? 'gallery/recommended' : 'gallery', false)} onUseLook={useGalleryLook}/></React.Suspense> : <>
       <h1 className="sr-only">{t("스튜디오")}</h1>
       <div className="workspace">
         <aside id="film-library" className="film-library" ref={filmLibrary} tabIndex={-1} aria-label={t("필름 선택")}>
@@ -391,7 +393,7 @@ function App() {
         </aside>
 
         <section className="preview-panel" ref={previewPanel} tabIndex={-1} aria-label={t("룩 미리보기")}>
-          <div className="preview-heading"><div><span className="eyebrow">{isSupplied ? t("FUJIFILM 시뮬레이션") : film.brand.toUpperCase()}</span><div className="film-title-row"><h2>{shortName(film.name)}</h2><WhiteBalanceGuide locale={locale} t={t}/></div><p className="selected-paper">{isDigital ? (isSupplied ? t("STD LUT · 인화지 없음") : isSlide ? t("슬라이드 직접 스캔") : t("디지털 스캔 · 실험")) : `+ ${paperLabel(paper, true)}`}</p>{onCastPreset && <p className="film-cast-badge">{castLabel}</p>}{timing.active && <p className="film-cast-badge">{t("인화 필터 조정 · {0}", [timingLabel])}</p>}</div><div className="preview-actions"><button className="upload-button" title={t("JPG · PNG · WebP / 최대 30 MB · 기기 안에서 처리")} disabled={upload.loading} onClick={() => fileInput.current?.click()}><Icon name="upload" size={16}/><span>{upload.loading ? t("읽는 중…") : t("사진 업로드")}</span></button><button className="upload-button bulk-trigger" disabled={!!batchProgress || !!photoDownloading || !batchSource || exportCameraId === UNSUPPORTED_L10 || activeCombo?.status !== 'ready'} onClick={() => batchInput.current?.click()}><Icon name="upload" size={16}/><span>{t("벌크 업로드")}</span></button>{activePhoto && <button className="upload-button photo-download-trigger" disabled={photoDownloading || !!batchProgress || !photoLook.path || !!blockedReason || !!processingError || activeCombo?.status !== 'ready'} onClick={() => void downloadPhoto()}><Icon name="download" size={16}/><span>{photoDownloading ? t("원본 크기로 처리 중…") : t("사진 다운로드")}</span></button>}<button className="save-trigger" onClick={() => saveDialog.current?.showModal()}><Icon name="download" size={16}/>{t("LUT 다운로드")}</button></div></div>
+            <div className="preview-heading"><div><span className="eyebrow">{isSupplied ? t("FUJIFILM 시뮬레이션") : film.brand.toUpperCase()}</span><div className="film-title-row"><h2>{shortName(film.name)}</h2><WhiteBalanceGuide locale={locale} t={t}/></div><p className="selected-paper">{isDigital ? (isSupplied ? t("STD LUT · 인화지 없음") : isSlide ? t("슬라이드 직접 스캔") : t("디지털 스캔 · 실험")) : `+ ${paperLabel(paper, true)}`}</p>{onCastPreset && <p className="film-cast-badge">{castLabel}</p>}{timing.active && <p className="film-cast-badge">{t("인화 필터 조정 · {0}", [timingLabel])}</p>}</div><div className="preview-actions"><button className="upload-button" title={t("JPG · PNG · WebP / 최대 30 MB · 기기 안에서 처리")} disabled={upload.loading} onClick={() => fileInput.current?.click()}><Icon name="upload" size={16}/><span>{upload.loading ? t("읽는 중…") : t("사진 업로드")}</span></button><button className="upload-button bulk-trigger" disabled={!!batchProgress || !!photoDownloading || !batchSource || exportCameraId === UNSUPPORTED_L10 || activeCombo?.status !== 'ready'} onClick={() => batchInput.current?.click()}><Icon name="upload" size={16}/><span>{t("벌크 업로드")}</span></button>{activePhoto && <button className="upload-button photo-download-trigger" disabled={photoDownloading || !!batchProgress || !photoLook.path || !!blockedReason || !!processingError || activeCombo?.status !== 'ready'} onClick={() => void downloadPhoto()}><Icon name="download" size={16}/><span>{photoDownloading ? t("원본 크기로 처리 중…") : t("사진 다운로드")}</span></button>}<button className="save-trigger" onClick={() => saveDialog.current?.showModal()}><Icon name="download" size={16}/>{t("LUT 다운로드")}</button></div></div>
 
 <section className={`inline-recipe ${isDigital ? 'scan-recipe' : ''} ${isSupplied ? 'supplied-recipe' : ''}`} aria-label={t("룩 조정")}>
             {!isSupplied && <fieldset className="process-switch"><legend className="sr-only">{t("처리 방식 선택")}</legend>
