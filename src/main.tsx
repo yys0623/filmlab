@@ -127,6 +127,7 @@ function App() {
   const fileInput = useRef<HTMLInputElement>(null)
   const filmLibrary = useRef<HTMLElement>(null)
   const previewPanel = useRef<HTMLElement>(null)
+  const photoStage = useRef<HTMLDivElement>(null)
   const [dragging, setDragging] = useState(false)
   const photoDragDepth = useRef(0)
   const upload = usePhotoUpload(() => { setSampleId('@upload'); setMode('compare') })
@@ -376,6 +377,9 @@ function App() {
   function selectFilm(id: string) {
     setFilmId(id); setNotice('')
     if (suppliedLooks.some(look => look.stock.id === id)) setFormat('std')
+    // On a phone, selecting a film is immediately followed by evaluating it.
+    // Bring the result into view without changing the desktop browsing rhythm.
+    if (window.matchMedia('(max-width: 650px)').matches) window.requestAnimationFrame(() => photoStage.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }))
   }
 
   return <>
@@ -422,7 +426,7 @@ function App() {
             {pinnedLook && <><button type="button" aria-pressed={compareLooks} onClick={() => { setCompareLooks(value => !value); setMode('compare') }}>{compareLooks ? t("A/B 비교 중") : t("A/B 비교 보기")}</button><button type="button" onClick={() => { setPinnedLook(null); setCompareLooks(false) }}>{t("A 지우기")}</button></>}
             <p>{pinnedLook ? t("A는 고정된 룩, B는 현재 선택한 룩입니다.") : t("현재 룩을 A로 고정한 뒤 다른 룩을 선택해 비교하세요.")}</p>
           </div><div className="view-switch"><button title={t("원본 보기")} aria-label={t("원본 보기")} aria-pressed={mode === 'original'} className={mode === 'original' ? 'active' : ''} onClick={() => { setMode('original'); setCompareLooks(false) }}>{t("원본")}</button><button title={t("비교 보기")} aria-label={t("비교 보기")} aria-pressed={mode === 'compare'} className={mode === 'compare' ? 'active' : ''} onClick={() => setMode('compare')}><Icon name="compare" size={16}/>{t("비교")}</button><button title={t("적용 결과만 보기")} aria-label={t("적용 결과만 보기")} aria-pressed={mode === 'look'} className={mode === 'look' ? 'active' : ''} onClick={() => { setMode('look'); setCompareLooks(false) }}>{t("적용")}</button></div></div>
-          <div className={`photo-stage ${dragging ? 'is-dragging' : ''}`}
+          <div ref={photoStage} className={`photo-stage ${dragging ? 'is-dragging' : ''}`}
             onDragEnter={event => { if (!event.dataTransfer.types.includes('Files')) return; event.preventDefault(); photoDragDepth.current++; setDragging(true) }}
             onDragOver={event => { if (event.dataTransfer.types.includes('Files')) { event.preventDefault(); event.dataTransfer.dropEffect = 'copy' } }}
             onDragLeave={() => { photoDragDepth.current = Math.max(0, photoDragDepth.current - 1); if (!photoDragDepth.current) setDragging(false) }}
